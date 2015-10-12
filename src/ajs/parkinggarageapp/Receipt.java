@@ -50,13 +50,13 @@ public class Receipt {
     }
     
     
-//    public static void main(String[] args) {
-//        GarageNameStrategy garage = new BestValueParkingGarage();
-//        OutputStrategy output = new ConsoleOutput();
-//        ParkingAccessTicket t1 = new ParkingAccessTicket(8.55, output, garage);
-//        Receipt receipt = new Receipt(new MinMaxFeeCalculator(t1.getHours()), t1);
-//        receipt.output();
-//        
-//    }
+    public static void main(String[] args) {
+        GarageNameStrategy garage = new GarageName("Best Vaue Parking Garage");
+        OutputStrategy output = new ConsoleOutput();
+        ParkingAccessTicket t1 = new ParkingAccessTicket(8.55, output, garage);
+        Receipt receipt = new Receipt(new MinMaxFeeCalculator(t1.getHours()), t1);
+        receipt.output();
+        
+    }
 
 }

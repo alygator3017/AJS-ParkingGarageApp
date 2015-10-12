@@ -113,9 +113,9 @@ public class ParkingAccessTicket {
         this.garageName = garageName;
     }
     
-    public static void main(String[] args) {
-        ParkingAccessTicket t1 = new ParkingAccessTicket(8, new ConsoleOutput(), new BestValueParkingGarage());
-        
-        t1.printTicket();
-    }
+//    public static void main(String[] args) {
+//        ParkingAccessTicket t1 = new ParkingAccessTicket(8, new ConsoleOutput(), new GarageName("Best Value Parking Garage"));
+//        
+//        t1.printTicket();
+//    }
 }
