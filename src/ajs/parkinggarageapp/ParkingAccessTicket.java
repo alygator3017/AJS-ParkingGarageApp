@@ -18,7 +18,9 @@ public class ParkingAccessTicket {
     private final SimpleDateFormat date = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm aaa");
     private String ticketDate;
     private OutputStrategy output;
-    private static int carID = 0;
+    private FeeCalculatorStrategy fee;
+    private static int carIDCounter = 0;
+    private int carID;
     //faking hour data for the moment
     private double hours;
     private String garageName;
@@ -36,6 +38,7 @@ public class ParkingAccessTicket {
      * @param hours 
      * @param output 
      * @param garageName 
+     * @param feeCalculator 
      */
 //    public ParkingAccessTicket(double hours, OutputStrategy output, String garageName) {
 //        setHours(hours);
@@ -43,19 +46,20 @@ public class ParkingAccessTicket {
 //        //fix later
 //        setGarageName(garageName);
 //    }
-    public ParkingAccessTicket(double hours, OutputStrategy output, GarageNameStrategy garageName) {
-        setHours(hours);
+    public ParkingAccessTicket(OutputStrategy output, GarageNameStrategy garageName, FeeCalculatorStrategy feeCalculator) {
+        setHours(feeCalculator.getHours());
         newTicket();
         setOutput(output);
         //fix later
         setGarageName(garageName.getName());
+        setFeeCalculatorStrategy(feeCalculator);
     }
     
     public final void newTicket(){
-        carID++;
+        carIDCounter++;
         currentDateTime = new Date();
         setTicketDate(currentDateTime);
-//        setOutput(output);
+        carID = carIDCounter;
     }
 
     public final void printTicket(){
@@ -112,10 +116,12 @@ public class ParkingAccessTicket {
     private void setGarageName(String garageName) {
         this.garageName = garageName;
     }
+
+    private void setFeeCalculatorStrategy(FeeCalculatorStrategy feeCalculator) {
+        fee = feeCalculator;
+    }
     
-//    public static void main(String[] args) {
-//        ParkingAccessTicket t1 = new ParkingAccessTicket(8, new ConsoleOutput(), new GarageName("Best Value Parking Garage"));
-//        
-//        t1.printTicket();
-//    }
+    public FeeCalculatorStrategy getFeeCalculatorStrategy(){
+        return fee;
+    }
 }

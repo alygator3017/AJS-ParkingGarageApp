@@ -6,35 +6,27 @@ import java.text.NumberFormat;
  *
  * @author Alyson
  */
-public class Receipt {
+public class Receipt implements TerminalOutputTypeStrategy {
     private static final String DASHED = "======================================";
     //CREATE GETTER AND SETTER
     private ParkingAccessTicket ticket;
-    private FeeCalculatorStrategy fee;
 
-    public Receipt(FeeCalculatorStrategy fee, ParkingAccessTicket ticket) {
+    public Receipt(ParkingAccessTicket ticket) {
         //USE GETTER AND SETTER AFTER CREATED
         setTicket(ticket);
-        setFee(fee);
         
-    }
-    
-    public final FeeCalculatorStrategy getFee() {
-        return fee;
-    }
-
-    private void setFee(FeeCalculatorStrategy fee) {
-        this.fee = fee;
     }
     
     private void setTicket(ParkingAccessTicket ticket) {
         this.ticket = ticket;
     }
     
+    @Override
     public final ParkingAccessTicket getTicket(){
         return ticket;
     }
     
+    @Override
     public final void output(){
         NumberFormat curr = NumberFormat.getCurrencyInstance();
         NumberFormat h = NumberFormat.getNumberInstance();
@@ -43,20 +35,10 @@ public class Receipt {
         receiptData.append(DASHED).append(newLine);
         receiptData.append(ticket.getGarageName()).append(newLine);
         receiptData.append("Car ID: ").append(ticket.getCarID()).append(newLine);
-        receiptData.append("Total Hours Billed: ").append(h.format(fee.getHours())).append(newLine);
-        receiptData.append("Total Fee: ").append(curr.format(fee.totalFee())).append(newLine);
+        receiptData.append("Total Hours Billed: ").append(h.format(ticket.getFeeCalculatorStrategy().getHours())).append(newLine);
+        receiptData.append("Total Fee: ").append(curr.format(ticket.getFeeCalculatorStrategy().totalFee())).append(newLine);
         String data = receiptData.toString();
         ticket.getOutput().outputData(data);
-    }
-    
-    
-    public static void main(String[] args) {
-        GarageNameStrategy garage = new GarageName("Best Vaue Parking Garage");
-        OutputStrategy output = new ConsoleOutput();
-        ParkingAccessTicket t1 = new ParkingAccessTicket(8.55, output, garage);
-        Receipt receipt = new Receipt(new MinMaxFeeCalculator(t1.getHours()), t1);
-        receipt.output();
-        
     }
 
 }
