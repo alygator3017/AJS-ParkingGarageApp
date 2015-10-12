@@ -11,4 +11,5 @@ package ajs.parkinggarageapp;
  */
 public interface GarageNameStrategy {
     public abstract String getName();
+    public abstract void setName(String garageName);
 }
