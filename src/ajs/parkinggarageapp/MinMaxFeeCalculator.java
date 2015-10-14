@@ -10,13 +10,14 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
     
     public MinMaxFeeCalculator(double hours) {
         setHours(hours);
+        totalFee();
     }
     
-    private double minFee(){
+    private void minFee(){
         double minFee = 2.00;
-        return fee += minFee;
+        fee += minFee;
     }
-    private double addFee(){
+    private void addFee(){
         double maxFee = 10.00;
         for(int i = 3; i < getHours(); i++){
             if(fee < maxFee){
@@ -30,16 +31,20 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
             }
             
         }
-        return fee;
     }
-    @Override
-    public final double totalFee(){
+    
+    private void totalFee(){  
         if(getHours() < 3){
             minFee();
         }else{
             minFee();
             addFee();
         }
+    }
+    
+    @Override
+    public final double getTotalFee(){
+        
         return fee;
     }
     @Override
@@ -54,5 +59,10 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
     public double getHours() {
         return hours;
     }
+    
+//     public static void main(String[] args) {
+//        FeeCalculatorStrategy minMax = new MinMaxFeeCalculator(8);
+//        System.out.println(minMax.getTotalFee());
+//    }
     
 }

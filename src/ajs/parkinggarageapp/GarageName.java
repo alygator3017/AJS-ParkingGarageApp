@@ -24,4 +24,8 @@ public class GarageName implements GarageNameStrategy
         this.garageName = garageName;
     }
     
+//    public static void main(String[] args) {
+//        GarageNameStrategy name = new GarageName("herbie's parking");
+//        System.out.println(name.getName());
+//    }
 }

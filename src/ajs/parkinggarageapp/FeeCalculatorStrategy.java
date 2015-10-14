@@ -10,6 +10,6 @@ public interface FeeCalculatorStrategy {
     
     public abstract double getHours();
 
-    public abstract double totalFee();
+    public abstract double getTotalFee();
     
 }

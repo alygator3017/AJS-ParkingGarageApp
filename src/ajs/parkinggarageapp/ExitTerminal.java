@@ -7,20 +7,21 @@ package ajs.parkinggarageapp;
  */
 public class ExitTerminal implements ParkingTicketTerminalStrategy{
 
-    private TerminalOutputTypeStrategy output;
-    private ParkingAccessTicket ticketInfo;
+    
+    private ParkingAccessTicketData ticketInfo;
+    private final TerminalOutputTypeStrategy outputReceipt = new Receipt(ticketInfo);
+    private final TerminalOutputTypeStrategy outputDisplay = new ExitTerminalDisplayReceipt(ticketInfo);
     
 
     
     @Override
     public final void outputData() {   
-        output = new Receipt(ticketInfo);
-        output.output();
+        outputReceipt.output();
         
     }
     
     @Override
-    public void ticketTransaction(ParkingAccessTicket ticket){
+    public void ticketTransaction(ParkingAccessTicketData ticket){
         ticketInfo = ticket;
         displayTransaction();
         outputData();
@@ -28,20 +29,19 @@ public class ExitTerminal implements ParkingTicketTerminalStrategy{
     }
     
     public void displayTransaction(){
-        output = new ExitTerminalDisplayReceipt(ticketInfo);
-        output.output();
+        outputDisplay.output();
     }
     
     
     public static void main(String[] args) {
         GarageNameStrategy name = new GarageName("Best Value Parking Garage");
-//        ParkingAccessTicket ticket1 = new ParkingAccessTicket(new ConsoleOutput(), name, new MinMaxFeeCalculator(8));
-//        ParkingAccessTicket ticket2 = new ParkingAccessTicket(new ConsoleOutput(), name, new MinNoMaxFeeCalculator(2));
+//        ParkingAccessTicketData ticket1 = new ParkingAccessTicketData(new ConsoleOutput(), name, new MinMaxFeeCalculator(8));
+//        ParkingAccessTicketData ticket2 = new ParkingAccessTicketData(new ConsoleOutput(), name, new MinNoMaxFeeCalculator(2));
         ParkingTicketTerminalStrategy dispenser = new TicketDispenserTerminal();
         ParkingTicketTerminalStrategy exit = new ExitTerminal();
         OutputStrategy output = new ConsoleOutput();
-        ParkingAccessTicket ticket1 = new ParkingAccessTicket(output, name, new MinMaxFeeCalculator(8));
-        ParkingAccessTicket ticket2 = new ParkingAccessTicket(output, name, new MinNoMaxFeeCalculator(2));
+        ParkingAccessTicketData ticket1 = new ParkingAccessTicketData(output, name, new MinMaxFeeCalculator(8));
+        ParkingAccessTicketData ticket2 = new ParkingAccessTicketData(output, name, new MinNoMaxFeeCalculator(2));
         
         dispenser.ticketTransaction(ticket1);
         dispenser.outputData();

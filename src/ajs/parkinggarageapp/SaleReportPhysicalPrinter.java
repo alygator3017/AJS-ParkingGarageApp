@@ -5,7 +5,7 @@ package ajs.parkinggarageapp;
  *
  * @author Alyson
  */
-public class OwnerTerminal implements ParkingTicketTerminalStrategy {
+public class SaleReportPhysicalPrinter implements ParkingTicketTerminalStrategy {
 
     @Override
     public void outputData() {
@@ -13,7 +13,7 @@ public class OwnerTerminal implements ParkingTicketTerminalStrategy {
     }
 
     @Override
-    public void ticketTransaction(ParkingAccessTicket ticket) {
+    public void ticketTransaction(ParkingAccessTicketData ticket) {
         
     }
     

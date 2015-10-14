@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ajs.parkinggarageapp;
 
 import java.text.SimpleDateFormat;
@@ -12,12 +7,11 @@ import java.util.Date;
  *
  * @author Alyson
  */
-public class ParkingAccessTicket {
+public class ParkingAccessTicketData {
     
     private Date currentDateTime;
     private final SimpleDateFormat date = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm aaa");
     private String ticketDate;
-    private OutputStrategy output;
     private FeeCalculatorStrategy fee;
     private static int carIDCounter = 0;
     private int carID;
@@ -29,27 +23,24 @@ public class ParkingAccessTicket {
      * this would be the constructor with non-fake data
      * @param output
      */
-//    public ParkingAccessTicket(OutputStrategy output){ 
+//    public ParkingAccessTicketData(OutputStrategy output){ 
 //       newTicket();
 //    }
 
     /**
      * needed in order to fake data
-     * @param hours 
-     * @param output 
      * @param garageName 
      * @param feeCalculator 
      */
-//    public ParkingAccessTicket(double hours, OutputStrategy output, String garageName) {
+//    public ParkingAccessTicketData(double hours, OutputStrategy output, String garageName) {
 //        setHours(hours);
 //        newTicket();
 //        //fix later
 //        setGarageName(garageName);
 //    }
-    public ParkingAccessTicket(OutputStrategy output, GarageNameStrategy garageName, FeeCalculatorStrategy feeCalculator) {
+    public ParkingAccessTicketData(GarageNameStrategy garageName, FeeCalculatorStrategy feeCalculator) {
         setHours(feeCalculator.getHours());
         newTicket();
-        setOutput(output);
         //fix later
         setGarageName(garageName.getName());
         setFeeCalculatorStrategy(feeCalculator);
@@ -62,14 +53,13 @@ public class ParkingAccessTicket {
         carID = carIDCounter;
     }
 
-    public final void printTicket(){
+    public final String ticketData(){
         final String newLine = "\n";
         StringBuilder ticketData = new StringBuilder(getGarageName() + "\n");
         ticketData.append("Car ID: ").append(getCarID()).append(newLine);
         ticketData.append(getTicketDate()).append(newLine);
         String data = ticketData.toString();
-        output.outputData(data);
-        
+        return data;
     }
     /**
      * wouldn't need for non-fake data
@@ -95,15 +85,6 @@ public class ParkingAccessTicket {
         this.ticketDate = date.format(currentDateTime);
     }
 
-    
-    public final OutputStrategy getOutput() {
-        return output;
-    }
-
-    public final void setOutput(OutputStrategy output) {
-        this.output = output;
-    }
-
     public final int getCarID() {
         return carID;
     }
@@ -123,5 +104,10 @@ public class ParkingAccessTicket {
     
     public FeeCalculatorStrategy getFeeCalculatorStrategy(){
         return fee;
+    }
+    
+    public static void main(String[] args) {
+        ParkingAccessTicketData ticket1 = new ParkingAccessTicketData(new GarageName("herbie parking"), new MinNoMaxFeeCalculator(8));
+        System.out.println(ticket1.ticketData());
     }
 }
