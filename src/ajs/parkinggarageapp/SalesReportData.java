@@ -1,6 +1,9 @@
 package ajs.parkinggarageapp;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  *
@@ -8,14 +11,18 @@ import java.text.NumberFormat;
  */
 public class SalesReportData{
     private static final String DASHED = "======================================";
+    private Date currentDateTime;
+    private final SimpleDateFormat date = new SimpleDateFormat("EEE, MMM d, yyyy");
 
     private String salesReportData(String garageName, double hours, double fee, int cars){
+        currentDateTime = new Date();
         NumberFormat curr = NumberFormat.getCurrencyInstance();
         NumberFormat h = NumberFormat.getNumberInstance();
         final String newLine = "\n";
         StringBuilder receiptData = new StringBuilder();
         receiptData.append(garageName).append(newLine);
         receiptData.append(DASHED).append(newLine);
+        receiptData.append(date.format(currentDateTime)).append(newLine);
         receiptData.append("Daily Garage Totals").append(newLine);
         receiptData.append(DASHED).append(newLine);
         receiptData.append("TotalCars: ").append(cars).append(newLine);

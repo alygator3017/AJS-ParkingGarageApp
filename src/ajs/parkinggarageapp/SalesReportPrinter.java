@@ -11,24 +11,35 @@ public class SalesReportPrinter implements ParkingTicketTerminalStrategy {
     //send ticket data (hours and total fee) to sales report
     //send data to exit terminal to be printed
     private static final int CARS = 0;
-    private SalesReport newDailySalesReport;
-
-    public SalesReportPrinter(String garageName) { 
-        startNewDay(garageName);
-    }
+    private SalesReport salesReport;
+    private ParkingAccessTicket ticket;
     
     
-    public final void startNewDay(String garageName){
-        this.newDailySalesReport = new SalesReport(garageName);
+    public final void startNewDay(OutputStrategy output, String garageName){
+        this.salesReport = new SalesReport(output, garageName);
     }
 
     @Override
     public void ticketTransaction(ParkingAccessTicket ticket) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.ticket = ticket;
+        salesReport.newCar(ticket);
+        salesReport.output();
     }
+ 
     
-    public void startDay(){
-        
+    public static void main(String[] args) {
+        GarageNameStrategy name = new GarageName("Herbies");
+        OutputStrategy output = new ConsoleOutput();
+        SalesReportPrinter sr = new SalesReportPrinter();
+        sr.startNewDay(output, name.getName());        
+        ParkingAccessTicket ticket1 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));
+        ParkingAccessTicket ticket2 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));
+        ParkingAccessTicket ticket3 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));
+        ParkingAccessTicket ticket4 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));
+       sr.ticketTransaction(ticket1);
+       sr.ticketTransaction(ticket2);
+       sr.ticketTransaction(ticket3);
+       sr.ticketTransaction(ticket4);
+       sr.startNewDay(output, name.getName());
     }
-    
 }

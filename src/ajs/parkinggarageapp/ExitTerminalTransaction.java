@@ -4,13 +4,13 @@ package ajs.parkinggarageapp;
  *
  * @author Alyson
  */
-public class ExitTerminal implements ParkingTicketTerminalStrategy {
+public class ExitTerminalTransaction implements ParkingTicketTerminalStrategy {
 
     private ParkingAccessTicket ticketInfo;
     private final OutputStrategy receiptOutput;
     private final OutputStrategy displayOutput;
 
-    public ExitTerminal(OutputStrategy receiptOutput, OutputStrategy displayOutput) {
+    public ExitTerminalTransaction(OutputStrategy receiptOutput, OutputStrategy displayOutput) {
         this.receiptOutput = receiptOutput;
         this.displayOutput = displayOutput;
     }
@@ -50,7 +50,7 @@ public class ExitTerminal implements ParkingTicketTerminalStrategy {
 //        ParkingAccessTicket ticket2 = new ParkingAccessTicket("Herbies", new MinMaxFeeCalculator(2));
 //        dispenser.ticketTransaction(ticket2);
    
-        ParkingTicketTerminalStrategy exit = new ExitTerminal(consoleOutput, jOptionPaneOutput);
+        ParkingTicketTerminalStrategy exit = new ExitTerminalTransaction(consoleOutput, jOptionPaneOutput);
         exit.ticketTransaction(ticket1);
         
        

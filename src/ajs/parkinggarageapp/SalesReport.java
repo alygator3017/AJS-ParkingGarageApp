@@ -17,12 +17,14 @@ public class SalesReport implements TerminalOutputTypeStrategy{
     private double totalDailyFee;
     private int totalDailyCars = 0;
     private ParkingAccessTicket ticket;
+    private final OutputStrategy output;
 
-    public SalesReport(String garageName) {
+    public SalesReport(OutputStrategy output, String garageName) {
         this.totalDailyCars = START_OF_DAY_CARS;
         this.totalDailyFee = 0;
         this.totalDailyHours = 0;
         this.garageName = garageName;
+        this.output = output;
     }
     
     public void newCar(ParkingAccessTicket ticket){
@@ -43,11 +45,26 @@ public class SalesReport implements TerminalOutputTypeStrategy{
     @Override
     public void output() {
         SalesReportData data = new SalesReportData();
-        data.getSalesReportData(garageName, totalDailyHours, totalDailyFee, totalDailyCars);
-        
+        output.outputData(data.getSalesReportData(garageName, totalDailyHours, totalDailyFee, totalDailyCars));
     }
 
      
-    
+    public static void main(String[] args) {
+        GarageNameStrategy name = new GarageName("Herbies");
+        OutputStrategy output = new ConsoleOutput();
+        ParkingAccessTicket ticket1 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));
+        ParkingAccessTicket ticket2 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));
+        ParkingAccessTicket ticket3 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));
+        ParkingAccessTicket ticket4 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));
+        SalesReport report = new SalesReport(output, name.getName());
+        report.newCar(ticket1);
+        report.output();
+        report.newCar(ticket2);
+        report.output();
+        report.newCar(ticket3);
+        report.output();
+        report.newCar(ticket4);
+        report.output();
+    }
     
 }

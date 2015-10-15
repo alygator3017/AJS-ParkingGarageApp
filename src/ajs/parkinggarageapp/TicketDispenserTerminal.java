@@ -30,10 +30,10 @@ public class TicketDispenserTerminal implements ParkingTicketTerminalStrategy {
         return ticket;
     }    
     
-    public static void main(String[] args) {
-        OutputStrategy consoleOutput = new ConsoleOutput();
-        ParkingTicketTerminalStrategy dispenser = new TicketDispenserTerminal(consoleOutput);
-        ParkingAccessTicket ticket1 = new ParkingAccessTicket("Herbies", new MinNoMaxFeeCalculator(8));
-        dispenser.ticketTransaction(ticket1);
-    }
+//    public static void main(String[] args) {
+//        OutputStrategy consoleOutput = new ConsoleOutput();
+//        ParkingTicketTerminalStrategy dispenser = new TicketDispenserTerminal(consoleOutput);
+//        ParkingAccessTicket ticket1 = new ParkingAccessTicket("Herbies", new MinNoMaxFeeCalculator(8));
+//        dispenser.ticketTransaction(ticket1);
+//    }
 }
