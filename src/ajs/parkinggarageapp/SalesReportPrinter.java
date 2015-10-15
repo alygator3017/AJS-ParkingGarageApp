@@ -4,7 +4,7 @@ package ajs.parkinggarageapp;
  *
  * @author Alyson
  */
-public class SaleReportPrinter implements ParkingTicketTerminalStrategy {
+public class SalesReportPrinter implements ParkingTicketTerminalStrategy {
 
     //start new day
     //get ticket from exit terminal
@@ -13,7 +13,7 @@ public class SaleReportPrinter implements ParkingTicketTerminalStrategy {
     private static final int CARS = 0;
     private SalesReport newDailySalesReport;
 
-    public SaleReportPrinter(String garageName) { 
+    public SalesReportPrinter(String garageName) { 
         startNewDay(garageName);
     }
     
