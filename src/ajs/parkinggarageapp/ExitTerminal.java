@@ -1,57 +1,62 @@
-
 package ajs.parkinggarageapp;
 
 /**
  *
  * @author Alyson
  */
-public class ExitTerminal implements ParkingTicketTerminalStrategy{
+public class ExitTerminal implements ParkingTicketTerminalStrategy {
 
+    private ParkingAccessTicket ticketInfo;
+    private final OutputStrategy receiptOutput;
+    private final OutputStrategy displayOutput;
+
+    public ExitTerminal(OutputStrategy receiptOutput, OutputStrategy displayOutput) {
+        this.receiptOutput = receiptOutput;
+        this.displayOutput = displayOutput;
+    }
     
-    private ParkingAccessTicketData ticketInfo;
-    private final TerminalOutputTypeStrategy outputReceipt = new Receipt(ticketInfo);
-    private final TerminalOutputTypeStrategy outputDisplay = new ExitTerminalDisplayReceipt(ticketInfo);
     
 
-    
     @Override
-    public final void outputData() {   
+    public void ticketTransaction(ParkingAccessTicket ticket) {
+        this.ticketInfo = ticket;
+        TerminalOutputTypeStrategy outputFeeDisplay = new ExitTerminalDisplayTicketInfoAndFeeTotal(displayOutput, ticketInfo);
+        TerminalOutputTypeStrategy outputReceipt = new Receipt(receiptOutput, ticketInfo);
+        TerminalOutputTypeStrategy outputReceiptDisplay = new ExitTerminalDisplayReceipt(displayOutput,ticketInfo);
+        displayFeeDue(outputFeeDisplay);
+        outputReceipt(outputReceipt);
+        displayReceipt(outputReceiptDisplay);
+
+    }
+
+    private void displayFeeDue(TerminalOutputTypeStrategy display) {
+        display.output();
+    }
+
+    private void outputReceipt(TerminalOutputTypeStrategy outputReceipt) {
         outputReceipt.output();
-        
     }
-    
-    @Override
-    public void ticketTransaction(ParkingAccessTicketData ticket){
-        ticketInfo = ticket;
-        displayTransaction();
-        outputData();
-        
+
+    private void displayReceipt(TerminalOutputTypeStrategy display) {
+        display.output();
     }
-    
-    public void displayTransaction(){
-        outputDisplay.output();
-    }
-    
-    
     public static void main(String[] args) {
-        GarageNameStrategy name = new GarageName("Best Value Parking Garage");
-//        ParkingAccessTicketData ticket1 = new ParkingAccessTicketData(new ConsoleOutput(), name, new MinMaxFeeCalculator(8));
-//        ParkingAccessTicketData ticket2 = new ParkingAccessTicketData(new ConsoleOutput(), name, new MinNoMaxFeeCalculator(2));
-        ParkingTicketTerminalStrategy dispenser = new TicketDispenserTerminal();
-        ParkingTicketTerminalStrategy exit = new ExitTerminal();
-        OutputStrategy output = new ConsoleOutput();
-        ParkingAccessTicketData ticket1 = new ParkingAccessTicketData(output, name, new MinMaxFeeCalculator(8));
-        ParkingAccessTicketData ticket2 = new ParkingAccessTicketData(output, name, new MinNoMaxFeeCalculator(2));
-        
-        dispenser.ticketTransaction(ticket1);
-        dispenser.outputData();
-        dispenser.ticketTransaction(ticket2);
-        dispenser.outputData();
-        
+//        GarageNameStrategy name = new GarageName("Best Value Parking Garage");
+        OutputStrategy consoleOutput = new ConsoleOutput();
+        OutputStrategy jOptionPaneOutput = new JOptionPaneOutput();
+//        ParkingTicketTerminalStrategy dispenser = new TicketDispenserTerminal(consoleOutput);
+        ParkingAccessTicket ticket1 = new ParkingAccessTicket("Herbies", new MinNoMaxFeeCalculator(8));
+//        dispenser.ticketTransaction(ticket1);
+//        ParkingAccessTicket ticket2 = new ParkingAccessTicket("Herbies", new MinMaxFeeCalculator(2));
+//        dispenser.ticketTransaction(ticket2);
+   
+        ParkingTicketTerminalStrategy exit = new ExitTerminal(consoleOutput, jOptionPaneOutput);
         exit.ticketTransaction(ticket1);
         
-        exit.ticketTransaction(ticket2);
+       
         
         
     }
+
+    
 }

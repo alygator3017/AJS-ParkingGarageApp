@@ -13,39 +13,49 @@ import java.text.NumberFormat;
  */
 public class ExitTerminalDisplayReceipt implements TerminalOutputTypeStrategy {
 
-    private ParkingAccessTicketData ticket;
-    
-    private final OutputStrategy display = new JOptionPaneOutput();
+    private static final String DASHED = "======================================";
+    private ParkingAccessTicket ticket;
+    private final OutputStrategy output;
 
-    public ExitTerminalDisplayReceipt(ParkingAccessTicketData ticket) {
+    public ExitTerminalDisplayReceipt(OutputStrategy output, ParkingAccessTicket ticket) {
         setTicket(ticket);
+        this.output = output;
     }
-    
-    
-    
+
     @Override
-    public final ParkingAccessTicketData getTicket() {
+    public final ParkingAccessTicket getTicket() {
         return ticket;
     }
 
-    @Override
-    public final void output() {
+    private String getDisplayReceipt() {
         NumberFormat curr = NumberFormat.getCurrencyInstance();
         NumberFormat h = NumberFormat.getNumberInstance();
         final String newLine = "\n";
         StringBuilder receiptData = new StringBuilder();
-        receiptData.append("Terminal Display").append(newLine);
+        receiptData.append("Receipt").append(newLine);
+        receiptData.append(DASHED).append(newLine);
         receiptData.append(newLine);
-        receiptData.append(ticket.getGarageName()).append(newLine);
-        receiptData.append("Car ID: ").append(ticket.getCarID()).append(newLine);
-        receiptData.append("Total Hours Billed: ").append(h.format(ticket.getFeeCalculatorStrategy().getHours())).append(newLine);
-        receiptData.append("Total Fee Due: ").append(curr.format(ticket.getFeeCalculatorStrategy().getTotalFee())).append(newLine);
+        receiptData.append(ticket.getTicket().getGarageName()).append(newLine);
+        receiptData.append("Car ID: ").append(ticket.getTicket().getCarID()).append(newLine);
+        receiptData.append("Total Hours Billed: ").append(h.format(ticket.getTicket().getFeeCalculatorStrategy().getHours())).append(newLine);
+        receiptData.append("Total Fee: ").append(curr.format(ticket.getTicket().getFeeCalculatorStrategy().getTotalFee())).append(newLine);
+        receiptData.append("Thank you for coming to ").append(ticket.getTicket().getGarageName()).append(newLine);
         String data = receiptData.toString();
-        display.outputData(data);
+        return data;
     }
-    
-    private void setTicket(ParkingAccessTicketData ticket) {
+
+    @Override
+    public final void output() {
+        output.outputData(getDisplayReceipt());
+    }
+
+    private void setTicket(ParkingAccessTicket ticket) {
         this.ticket = ticket;
     }
-    
+
+    public static void main(String[] args) {
+        TerminalOutputTypeStrategy stuff = new ExitTerminalDisplayReceipt(new JOptionPaneOutput(), new ParkingAccessTicket("herbie", new MinNoMaxFeeCalculator(8)));
+        stuff.output();
+    }
+
 }

@@ -11,6 +11,6 @@ package ajs.parkinggarageapp;
  */
 public interface ParkingTicketTerminalStrategy {
 
-    public abstract void ticketTransaction();
+    public abstract void ticketTransaction(ParkingAccessTicket ticket);
     
 }

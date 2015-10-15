@@ -7,7 +7,7 @@ import java.util.Date;
  *
  * @author Alyson
  */
-public class ParkingAccessTicketData {
+public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy {
     
     private Date currentDateTime;
     private final SimpleDateFormat date = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm aaa");
@@ -46,6 +46,7 @@ public class ParkingAccessTicketData {
         setFeeCalculatorStrategy(feeCalculator);
     }
     
+    @Override
     public final void newTicket(){
         carIDCounter++;
         currentDateTime = new Date();
@@ -53,18 +54,21 @@ public class ParkingAccessTicketData {
         carID = carIDCounter;
     }
 
+    @Override
     public final String ticketData(){
         final String newLine = "\n";
         StringBuilder ticketData = new StringBuilder(getGarageName() + "\n");
         ticketData.append("Car ID: ").append(getCarID()).append(newLine);
-        ticketData.append(getTicketDate()).append(newLine);
+        ticketData.append("Entered garage on: ").append(getTicketDate()).append(newLine);
         String data = ticketData.toString();
         return data;
     }
+    
     /**
      * wouldn't need for non-fake data
      * @return 
      */
+    @Override
     public final double getHours() {
         return hours;
     }
@@ -77,6 +81,7 @@ public class ParkingAccessTicketData {
         this.hours = hours;
     }
 
+    @Override
     public final String getTicketDate(){
         return ticketDate;
     }
@@ -85,11 +90,13 @@ public class ParkingAccessTicketData {
         this.ticketDate = date.format(currentDateTime);
     }
 
+    @Override
     public final int getCarID() {
         return carID;
     }
 
     //FIX LATER
+    @Override
     public String getGarageName() {
         return garageName;
     }
@@ -102,12 +109,14 @@ public class ParkingAccessTicketData {
         fee = feeCalculator;
     }
     
+    @Override
     public FeeCalculatorStrategy getFeeCalculatorStrategy(){
         return fee;
     }
-    
     public static void main(String[] args) {
         ParkingAccessTicketData ticket1 = new ParkingAccessTicketData(new GarageName("herbie parking"), new MinNoMaxFeeCalculator(8));
         System.out.println(ticket1.ticketData());
     }
+
+    
 }

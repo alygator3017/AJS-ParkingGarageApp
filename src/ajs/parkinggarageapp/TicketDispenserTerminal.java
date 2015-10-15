@@ -7,28 +7,33 @@ package ajs.parkinggarageapp;
  */
 public class TicketDispenserTerminal implements ParkingTicketTerminalStrategy {
     
-    private ParkingAccessTicketData ticket;
-    private OutputStrategy output;
-    private final TerminalOutputTypeStrategy ticketOutput = new TicketOutput(output, ticket);
+    private ParkingAccessTicket ticket;
+    private final OutputStrategy output;
+    
 
-    public TicketDispenserTerminal(OutputStrategy output, ParkingAccessTicketData ticket) {
-        this.ticket = ticket;
+    public TicketDispenserTerminal(OutputStrategy output) {
+        
         this.output = output;
     }
        
     
     //start
     @Override
-    public final void ticketTransaction(){
+    public final void ticketTransaction(ParkingAccessTicket ticket){
+        
+        TerminalOutputTypeStrategy ticketOutput = new TicketOutput(output, ticket);
+        this.ticket = ticket;
         ticketOutput.output();
     }
 
-    public final ParkingAccessTicketData getTicket() {
+    public final ParkingAccessTicket getTicket() {
         return ticket;
     }    
     
     public static void main(String[] args) {
-        ParkingTicketTerminalStrategy dispenser = new TicketDispenserTerminal(new ConsoleOutput(), new ParkingAccessTicketData(new GarageName("herbies"), new MinNoMaxFeeCalculator(8)));
-        dispenser.ticketTransaction();
+        OutputStrategy consoleOutput = new ConsoleOutput();
+        ParkingTicketTerminalStrategy dispenser = new TicketDispenserTerminal(consoleOutput);
+        ParkingAccessTicket ticket1 = new ParkingAccessTicket("Herbies", new MinNoMaxFeeCalculator(8));
+        dispenser.ticketTransaction(ticket1);
     }
 }

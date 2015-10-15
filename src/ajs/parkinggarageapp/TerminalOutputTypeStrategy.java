@@ -11,7 +11,7 @@ package ajs.parkinggarageapp;
  */
 public interface TerminalOutputTypeStrategy {
 
-    public abstract ParkingAccessTicketData getTicket();
+    public abstract ParkingAccessTicket getTicket();
 
     public abstract void output();
     
