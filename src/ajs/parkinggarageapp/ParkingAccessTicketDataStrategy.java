@@ -13,7 +13,7 @@ public interface ParkingAccessTicketDataStrategy{
 
     int getCarID();
 
-    FeeCalculatorStrategy getFeeCalculatorStrategy();
+    FeeCalculator getFeeCalculator();
 
     //FIX LATER
     String getGarageName();

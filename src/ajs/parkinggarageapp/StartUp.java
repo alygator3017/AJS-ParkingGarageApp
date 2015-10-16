@@ -10,7 +10,7 @@ public class StartUp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GarageNameStrategy g = new GarageName("Herbies");
+        GarageNameStrategy g = new CustomGarageName("Herbies");
         String garageName = g.getName();
         
         ParkingTerminal pt = new ParkingTerminal(new ConsoleOutput(), new ConsoleOutput(), new JOptionPaneOutput(), new ConsoleOutput(), g);

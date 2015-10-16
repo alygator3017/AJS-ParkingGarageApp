@@ -28,7 +28,7 @@ public class SalesReportPrinter implements ParkingTicketTerminalStrategy {
  
     
     public static void main(String[] args) {
-        GarageNameStrategy name = new GarageName("Herbies");
+        GarageNameStrategy name = new CustomGarageName("Herbies");
         OutputStrategy output = new ConsoleOutput();
         SalesReportPrinter sr = new SalesReportPrinter();
         sr.startNewDay(output, name.getName());        

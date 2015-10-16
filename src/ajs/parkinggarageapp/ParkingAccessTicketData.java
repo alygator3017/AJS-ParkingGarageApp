@@ -12,7 +12,7 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
     private Date currentDateTime;
     private final SimpleDateFormat date = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm aaa");
     private String ticketDate;
-    private FeeCalculatorStrategy fee;
+    private FeeCalculator fee;
     private static int carIDCounter = 0;
     private int carID;
     //faking hour data for the moment
@@ -38,12 +38,12 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
 //        //fix later
 //        setGarageName(garageName);
 //    }
-    public ParkingAccessTicketData(GarageNameStrategy garageName, FeeCalculatorStrategy feeCalculator) {
+    public ParkingAccessTicketData(GarageNameStrategy garageName, FeeCalculator feeCalculator) {
         setHours(feeCalculator.getHours());
         newTicket();
         //fix later
         setGarageName(garageName.getName());
-        setFeeCalculatorStrategy(feeCalculator);
+        setFeeCalculator(feeCalculator);
     }
     
     @Override
@@ -105,16 +105,16 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
         this.garageName = garageName;
     }
 
-    private void setFeeCalculatorStrategy(FeeCalculatorStrategy feeCalculator) {
+    private void setFeeCalculator(FeeCalculator feeCalculator) {
         fee = feeCalculator;
     }
     
     @Override
-    public FeeCalculatorStrategy getFeeCalculatorStrategy(){
+    public FeeCalculator getFeeCalculator(){
         return fee;
     }
     public static void main(String[] args) {
-        ParkingAccessTicketData ticket1 = new ParkingAccessTicketData(new GarageName("herbie parking"), new MinNoMaxFeeCalculator(8));
+        ParkingAccessTicketData ticket1 = new ParkingAccessTicketData(new CustomGarageName("herbie parking"), new FeeCalculator("Min No MAX", 8));
         System.out.println(ticket1.ticketData());
     }
 

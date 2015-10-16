@@ -50,7 +50,7 @@ public class SalesReport implements TerminalOutputTypeStrategy{
 
      
     public static void main(String[] args) {
-        GarageNameStrategy name = new GarageName("Herbies");
+        GarageNameStrategy name = new CustomGarageName("Herbies");
         OutputStrategy output = new ConsoleOutput();
         ParkingAccessTicket ticket1 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));
         ParkingAccessTicket ticket2 = new ParkingAccessTicket(name.getName(), new MinNoMaxFeeCalculator(8));

@@ -1,31 +1,16 @@
-
 package ajs.parkinggarageapp;
 
 /**
  *
  * @author Alyson
  */
-public class GarageName implements GarageNameStrategy
-{
-    private String garageName;
-
-    public GarageName(String garageName) {
-        setName(garageName);
-    }
+public class GarageName {
+    private final GarageNameStrategy name;
     
-
-    @Override
-    public final String getName() {
-        return garageName;
+    public GarageName(String name){
+        this.name = new CustomGarageName(name);
     }
-
-    @Override
-    public final void setName(String garageName) {        
-        this.garageName = garageName;
+    public String getName(){
+        return name.getName();
     }
-    
-//    public static void main(String[] args) {
-//        GarageNameStrategy name = new GarageName("herbie's parking");
-//        System.out.println(name.getName());
-//    }
 }
