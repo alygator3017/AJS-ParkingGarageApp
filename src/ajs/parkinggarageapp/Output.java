@@ -6,14 +6,15 @@ package ajs.parkinggarageapp;
  */
 public class Output {
 
-    private final OutputStrategy output;
+    private final OutputStrategy outputType;
     
     public Output(OutputStrategy output){
-        this.output = output;
+        this.outputType = output;
     }
     
     public void outputData(String data){
-        output.outputData(data);
+        
+        outputType.outputData(data);
     }
     
 }

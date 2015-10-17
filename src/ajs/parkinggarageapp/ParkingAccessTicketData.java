@@ -53,16 +53,6 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
         setTicketDate(currentDateTime);
         carID = carIDCounter;
     }
-
-    @Override
-    public final String ticketData(){
-        final String newLine = "\n";
-        StringBuilder ticketData = new StringBuilder(getGarageName() + "\n");
-        ticketData.append("Car ID: ").append(getCarID()).append(newLine);
-        ticketData.append("Entered garage on: ").append(getTicketDate()).append(newLine);
-        String data = ticketData.toString();
-        return data;
-    }
     
     /**
      * wouldn't need for non-fake data
@@ -112,10 +102,6 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
     @Override
     public FeeCalculator getFeeCalculator(){
         return fee;
-    }
-    public static void main(String[] args) {
-        ParkingAccessTicketData ticket1 = new ParkingAccessTicketData(new CustomGarageName("herbie parking"), new FeeCalculator("Min No MAX", 8));
-        System.out.println(ticket1.ticketData());
     }
 
     

@@ -9,8 +9,10 @@ package ajs.parkinggarageapp;
  *
  * @author Alyson
  */
-public interface ParkingTicketTerminalStrategy {
+public interface SalesReportStrategy {
 
-    public abstract void ticketTransaction(String garageName, int carID, double hours, double fee, String date);
+    public abstract void newCar(double hours, double fee);
+
+    public abstract String output();
     
 }

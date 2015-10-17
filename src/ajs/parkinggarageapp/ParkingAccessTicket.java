@@ -23,6 +23,9 @@ public class ParkingAccessTicket {
         return newTicket.getHours();
     }
     
+    public int getCarID(){
+        return newTicket.getCarID();
+    }
     /**
      * Gets the original date that the car printed the ticket.
      * THIS IS ONLY FOR FUTURE USE (not used in this project since
@@ -32,15 +35,7 @@ public class ParkingAccessTicket {
     public String getDateOfAccess(){
         return newTicket.getTicketDate();
     }
-    
-    public String getTicketData(){
-        return newTicket.ticketData();
-    }
-    
-    
-    
-    public static void main(String[] args) {
-        ParkingAccessTicket test = new ParkingAccessTicket("Herbies", new FeeCalculator("Min No Max", 8));
-         System.out.println(test.getTicketData());
+    public double getFee(){
+        return newTicket.getFeeCalculator().getFee();
     }
 }

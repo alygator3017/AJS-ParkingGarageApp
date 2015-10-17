@@ -6,34 +6,26 @@ package ajs.parkinggarageapp;
  * @author Alyson
  */
 public class TicketDispenserTerminal implements ParkingTicketTerminalStrategy {
+    private final Output ticketOutput;
     
-    private ParkingAccessTicket ticket;
-    private final OutputStrategy output;
-    
-
-    public TicketDispenserTerminal(OutputStrategy output) {
+    public TicketDispenserTerminal(Output ticketOutput){
+        this.ticketOutput = ticketOutput;
+    }
+    public void newTicket(String garageName, int carID, double hours, double fee, String date) {
+        ticketTransaction(garageName, carID, hours, fee, date);
         
-        this.output = output;
     }
        
-    
-    //start
     @Override
-    public final void ticketTransaction(ParkingAccessTicket ticket){
-        
-        TerminalOutputTypeStrategy ticketOutput = new TicketOutput(output, ticket);
-        this.ticket = ticket;
-        ticketOutput.output();
-    }
+    public final void ticketTransaction(String garageName, int carID, double hours, double fee, String date) {
+        TerminalOutputTypeStrategy dataOutput = new TicketDataOutput(garageName, carID, date);
+        dataOutput.output(ticketOutput);
+    }   
 
-    public final ParkingAccessTicket getTicket() {
-        return ticket;
-    }    
-    
 //    public static void main(String[] args) {
-//        OutputStrategy consoleOutput = new ConsoleOutput();
-//        ParkingTicketTerminalStrategy dispenser = new TicketDispenserTerminal(consoleOutput);
-//        ParkingAccessTicket ticket1 = new ParkingAccessTicket("Herbies", new MinNoMaxFeeCalculator(8));
-//        dispenser.ticketTransaction(ticket1);
+//        ParkingAccessTicket car1 = new ParkingAccessTicket("Herbies", new FeeCalculator(new MinNoMaxFeeCalculator(8)));
+//        ParkingTicketTerminalStrategy ticket1 = new TicketDispenserTerminal(car1, new Output(new ConsoleOutput()));
+//        ParkingAccessTicket car2 = new ParkingAccessTicket("Herbies", new FeeCalculator(new MinNoMaxFeeCalculator(8)));
+//        ParkingTicketTerminalStrategy ticket2 = new TicketDispenserTerminal(car2, new Output(new ConsoleOutput()));
 //    }
 }

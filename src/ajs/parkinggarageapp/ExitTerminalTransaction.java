@@ -6,57 +6,58 @@ package ajs.parkinggarageapp;
  */
 public class ExitTerminalTransaction implements ParkingTicketTerminalStrategy {
 
-    private ParkingAccessTicket ticketInfo;
-    private final OutputStrategy receiptOutput;
-    private final OutputStrategy displayOutput;
+    private final Output salesReportOutput;
+    private final Output receiptOutput;
+    private final Output displayOutput;
+    private final SalesReportOutputTypeStrategy outputSalesReport;
 
-    public ExitTerminalTransaction(OutputStrategy receiptOutput, OutputStrategy displayOutput) {
-        this.receiptOutput = receiptOutput;
+    public ExitTerminalTransaction(Output displayOutput, Output receiptOutput, Output salesReport, String garageName) {
         this.displayOutput = displayOutput;
-    }
-    
-    
+        this.receiptOutput = receiptOutput;
+        this.salesReportOutput = salesReport;
+        this.outputSalesReport = new SalesReport(garageName);
+    } 
 
     @Override
-    public void ticketTransaction(ParkingAccessTicket ticket) {
-        this.ticketInfo = ticket;
-        TerminalOutputTypeStrategy outputFeeDisplay = new ExitTerminalDisplayTicketInfoAndFeeTotal(displayOutput, ticketInfo);
-        TerminalOutputTypeStrategy outputReceipt = new Receipt(receiptOutput, ticketInfo);
-        TerminalOutputTypeStrategy outputReceiptDisplay = new ExitTerminalDisplayReceipt(displayOutput,ticketInfo);
+    public final void ticketTransaction(String garageName, int carID, double hours, double fee, String date) {
+        TerminalOutputTypeStrategy outputFeeDisplay = new ExitTerminalDisplayTicketInfoAndFeeTotal(garageName, carID, hours, fee);
+        TerminalOutputTypeStrategy outputReceipt = new Receipt(garageName, carID, hours, fee);
+        TerminalOutputTypeStrategy outputReceiptDisplay = new ExitTerminalDisplayReceipt(garageName, carID, hours, fee);
         displayFeeDue(outputFeeDisplay);
         outputReceipt(outputReceipt);
         displayReceipt(outputReceiptDisplay);
-
+        outputSalesReport(outputSalesReport, hours, fee);
     }
 
     private void displayFeeDue(TerminalOutputTypeStrategy display) {
-        display.output();
+        display.output(displayOutput);
     }
 
     private void outputReceipt(TerminalOutputTypeStrategy outputReceipt) {
-        outputReceipt.output();
+        outputReceipt.output(receiptOutput);
     }
 
     private void displayReceipt(TerminalOutputTypeStrategy display) {
-        display.output();
-    }
-    public static void main(String[] args) {
-//        GarageNameStrategy name = new GarageName("Best Value Parking Garage");
-        OutputStrategy consoleOutput = new ConsoleOutput();
-        OutputStrategy jOptionPaneOutput = new JOptionPaneOutput();
-//        ParkingTicketTerminalStrategy dispenser = new TicketDispenserTerminal(consoleOutput);
-        ParkingAccessTicket ticket1 = new ParkingAccessTicket("Herbies", new MinNoMaxFeeCalculator(8));
-//        dispenser.ticketTransaction(ticket1);
-//        ParkingAccessTicket ticket2 = new ParkingAccessTicket("Herbies", new MinMaxFeeCalculator(2));
-//        dispenser.ticketTransaction(ticket2);
-   
-        ParkingTicketTerminalStrategy exit = new ExitTerminalTransaction(consoleOutput, jOptionPaneOutput);
-        exit.ticketTransaction(ticket1);
-        
-       
-        
-        
+        display.output(displayOutput);
     }
 
-    
+    private void outputSalesReport(SalesReportOutputTypeStrategy sr, double hours, double fee) {
+        sr.addToSalesReport(hours, fee);
+        sr.output(salesReportOutput);
+    }
+
+//    public static void main(String[] args) {
+//        Output consoleOutput = new Output(new ConsoleOutput());
+//        Output jOptionPaneOutput = new Output(new JOptionPaneOutput());
+//        GarageName name = new GarageName("Hebies");
+//
+//        ParkingAccessTicket car1 = new ParkingAccessTicket(name.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
+//        ParkingAccessTicket car2 = new ParkingAccessTicket(name.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
+//        ParkingAccessTicket car3 = new ParkingAccessTicket(name.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
+//
+//        ExitTerminalTransaction exit = new ExitTerminalTransaction(jOptionPaneOutput, consoleOutput, consoleOutput, name.getName());
+//        exit.ticketTransaction(car1.getGarageName(), car1.getCarID(), car1.getHours(), car1.getFee(), car1.getDateOfAccess());
+//        exit.ticketTransaction(car2.getGarageName(), car2.getCarID(), car2.getHours(), car2.getFee(), car2.getDateOfAccess());
+//    }
+
 }

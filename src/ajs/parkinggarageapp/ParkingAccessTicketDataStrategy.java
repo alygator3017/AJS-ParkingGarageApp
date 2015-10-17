@@ -27,7 +27,5 @@ public interface ParkingAccessTicketDataStrategy{
     String getTicketDate();
 
     void newTicket();
-
-    String ticketData();
     
 }
