@@ -7,10 +7,10 @@ package ajs.parkinggarageapp;
 public class GarageName {
     private final GarageNameStrategy name;
     
-    public GarageName(String name){
+    public GarageName(String name) {
         this.name = new CustomGarageName(name);
     }
-    public String getName(){
+    public final String getName(){
         return name.getName();
     }
 }

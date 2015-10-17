@@ -6,7 +6,7 @@ package ajs.parkinggarageapp;
  */
 public interface FeeCalculatorStrategy {
 
-    public abstract void setHours(double hours);
+    public abstract void setHours(double hours) throws IllegalArgumentException;
     
     public abstract double getHours();
 

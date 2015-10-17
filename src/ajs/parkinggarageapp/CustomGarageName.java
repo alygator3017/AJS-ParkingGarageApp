@@ -1,18 +1,20 @@
-
 package ajs.parkinggarageapp;
 
 /**
  *
  * @author Alyson
  */
-public class CustomGarageName implements GarageNameStrategy
-{
+public class CustomGarageName implements GarageNameStrategy {
+
     private String garageName;
 
     public CustomGarageName(String garageName) {
-        setName(garageName);
+        try {
+            setName(garageName);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
     }
-    
 
     @Override
     public final String getName() {
@@ -20,12 +22,10 @@ public class CustomGarageName implements GarageNameStrategy
     }
 
     @Override
-    public final void setName(String garageName) {        
+    public final void setName(String garageName) throws IllegalArgumentException {
+        if (garageName == null || garageName.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         this.garageName = garageName;
     }
-    
-//    public static void main(String[] args) {
-//        GarageNameStrategy name = new CustomGarageName("herbie's parking");
-//        System.out.println(name.getName());
-//    }
 }

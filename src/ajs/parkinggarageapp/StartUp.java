@@ -13,28 +13,75 @@ public class StartUp {
         Output console = new Output(new ConsoleOutput());
         Output jOp = new Output(new JOptionPaneOutput());
         GarageName garageName = new GarageName("Best Value Parking Garage");
-        
+
         ParkingAccessTicket car1 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
         ParkingAccessTicket car2 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinMaxFeeCalculator(8)));
         ParkingAccessTicket car3 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(2)));
         ParkingAccessTicket car4 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinMaxFeeCalculator(1)));
-        
+
         ParkingTerminal pt = new ParkingTerminal(console, console, jOp, console, garageName);
-        pt.newParkingTicket(car1);
-        pt.newParkingTicket(car2);
-        pt.exitParkingGarage(car2);
-        pt.newParkingTicket(car3);
-        pt.exitParkingGarage(car1);
-        pt.newParkingTicket(car4);
-        pt.exitParkingGarage(car3);
-        pt.exitParkingGarage(car4);
-        
+        try {
+            pt.newParkingTicket(car1);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.newParkingTicket(car2);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.exitParkingGarage(car2);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.newParkingTicket(car3);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.exitParkingGarage(car1);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.newParkingTicket(car4);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.exitParkingGarage(car3);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.exitParkingGarage(car4);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
         pt.startNewDay();
-        
-        pt.newParkingTicket(car1);
-        pt.newParkingTicket(car2);
-        pt.exitParkingGarage(car1);
-        pt.exitParkingGarage(car2);
+
+        try {
+            pt.newParkingTicket(car1);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.newParkingTicket(car2);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.exitParkingGarage(car1);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        try {
+            pt.exitParkingGarage(car2);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
     }
-    
+
 }

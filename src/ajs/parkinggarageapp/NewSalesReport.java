@@ -4,13 +4,8 @@ package ajs.parkinggarageapp;
  *
  * @author Alyson
  */
-public class NewSalesReport implements SalesReportStrategy{
+public class NewSalesReport implements SalesReportStrategy {
 
-    //get new ticket hours and fee
-    //add to totalDailyHours and totalDailyFee property
-    //add how many cars (car id?)
-    //put data into sales report data string
-    //output data string
     private static final int START_OF_DAY_CARS = 0;
     private final String garageName;
     private double totalDailyHours;
@@ -24,39 +19,37 @@ public class NewSalesReport implements SalesReportStrategy{
         this.totalDailyHours = 0;
         this.garageName = garageName;
     }
-    
+
     @Override
-    public void newCar(double hours, double fee){
+    public final void newCar(double hours, double fee) throws IllegalArgumentException {
+        if (hours <= 0 || hours > 24 || fee < 1.50) {
+            throw new IllegalArgumentException();
+        }
         this.data = new SalesReportData();
-        addTotalsToSalesReport(hours, fee);
+        try {
+            addTotalsToSalesReport(hours, fee);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
     }
 
-    private void addTotalsToSalesReport(double hours, double fee) {
+    private void addTotalsToSalesReport(double hours, double fee) throws IllegalArgumentException {
+        if (hours <= 0 || hours > 24 || fee < 1.50) {
+            throw new IllegalArgumentException();
+        }
         this.totalDailyHours += hours;
         this.totalDailyFee += fee;
         totalDailyCars++;
     }
 
     @Override
-    public String output() {
-        return data.getSalesReportData(garageName, totalDailyHours, totalDailyFee, totalDailyCars);
+    public final String output() {
+        String dataString = null;
+        try {
+            dataString = data.getSalesReportData(garageName, totalDailyHours, totalDailyFee, totalDailyCars);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        return dataString;
     }
 }
-
-//    public static void main(String[] args) {
-//        String garageName = "herbies";
-//        OutputStrategy output = new ConsoleOutput();
-//        ParkingAccessTicket ticket1 = new ParkingAccessTicket(garageName, new FeeCalculator("Min No Max", 8));
-//        ParkingAccessTicket ticket2 = new ParkingAccessTicket(garageName, new FeeCalculator("Min No Max", 8));
-//        ParkingAccessTicket ticket3 = new ParkingAccessTicket(garageName, new FeeCalculator("Min No Max", 8));
-//        ParkingAccessTicket ticket4 = new ParkingAccessTicket(garageName, new FeeCalculator("Min No Max", 8));
-//        NewSalesReport report = new NewSalesReport(output, ticket1.getGarageName());
-//        report.newCar(ticket1);
-//        report.output();
-//        report.newCar(ticket2);
-//        report.output();
-//        report.newCar(ticket3);
-//        report.output();
-//        report.newCar(ticket4);
-//        report.output();
-//    }

@@ -1,41 +1,53 @@
 package ajs.parkinggarageapp;
 
+import java.util.Objects;
+
 /**
  *
  * @author Alyson
  */
 public class SalesReportPrinter {
 
-    //start new day
-    //get ticket from exit terminal
-    //send ticket data (hours and total fee) to sales report
-    //send data to exit terminal to be printed
     private SalesReportOutputTypeStrategy salesReport;
     private final String garageName;
     private final Output output;
-    
-    public SalesReportPrinter(Output output, String garageName){
+
+    public SalesReportPrinter(Output output, String garageName) throws IllegalArgumentException {
+        if(output == null || garageName == null || garageName.isEmpty()){
+            throw new IllegalArgumentException();
+        }
         this.garageName = garageName;
         this.output = output;
     }
-    
-    public final void startNewDay(){
-        this.salesReport = new SalesReport(garageName);
+
+    public final void startNewDay() {
+        try {
+            this.salesReport = new SalesReport(garageName);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
     }
 
-    public void printReport(double hours, double fee) {
-        salesReport.addToSalesReport(hours, fee);
-        salesReport.output(output);
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.output);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SalesReportPrinter other = (SalesReportPrinter) obj;
+        if (!Objects.equals(this.output, other.output)) {
+            return false;
+        }
+        return true;
     }
     
-//    public static void main(String[] args) {
-//        SalesReportPrinter sr = new SalesReportPrinter(new Output(new ConsoleOutput()), "Herbies");
-//        sr.startNewDay();
-//        sr.printReport(8, 24);
-//        sr.printReport(8, 24);
-//        sr.printReport(8, 24);
-//        sr.printReport(8, 24);
-//        sr.startNewDay();
-//        sr.printReport(8, 24);
-//    }
 }

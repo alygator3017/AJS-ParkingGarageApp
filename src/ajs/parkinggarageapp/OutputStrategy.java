@@ -7,6 +7,6 @@ package ajs.parkinggarageapp;
  */
 public interface OutputStrategy {
 
-    public abstract void outputData(String data);
+    public abstract void outputData(String data) throws IllegalArgumentException;
     
 }

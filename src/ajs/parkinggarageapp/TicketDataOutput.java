@@ -1,33 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ajs.parkinggarageapp;
-
-import ajs.parkinggarageapp.Output;
-import ajs.parkinggarageapp.TerminalOutputTypeStrategy;
 
 /**
  *
  * @author Alyson
  */
 public class TicketDataOutput implements TerminalOutputTypeStrategy {
-    private static final String DASHED = "======================================";
-    private final String ticketData;
 
-    public TicketDataOutput(String garageName, int carID, String Date) {
-        this.ticketData = ticketData(garageName, carID, Date);
+    private static final String DASHED = "======================================";
+    private String ticketData;
+
+    public TicketDataOutput(String garageName, int carID, String date) {
+        ticketData = "";
+        try {
+            ticketData = ticketData(garageName, carID, date);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
     }
 
     @Override
-    public void output(Output output) {
-        output.outputData(ticketData);
+    public final void output(Output output) throws IllegalArgumentException {
+        if (output == null) {
+            throw new IllegalArgumentException();
+        }
+        try {
+            output.outputData(ticketData);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
     }
 
-    public final String ticketData(String garageName, int carID, String date){
+    public final String ticketData(String garageName, int carID, String date) throws IllegalArgumentException {
+        if (garageName == null || garageName.isEmpty() || carID <= 0 || date == null || date.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         final String newLine = "\n";
-        StringBuilder sbData = new StringBuilder(DASHED);
+        StringBuilder sbData = new StringBuilder(DASHED).append(newLine);
         sbData.append(garageName).append("\n").append(newLine);
         sbData.append("Car ID: ").append(carID).append(newLine);
         sbData.append("Entered garage on: ").append(date).append(newLine);
@@ -36,5 +44,4 @@ public class TicketDataOutput implements TerminalOutputTypeStrategy {
         return data;
     }
 
-    
 }

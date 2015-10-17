@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ajs.parkinggarageapp;
 
 /**
@@ -11,21 +6,20 @@ package ajs.parkinggarageapp;
  */
 public interface ParkingAccessTicketDataStrategy{
 
-    int getCarID();
+    public abstract int getCarID();
 
-    FeeCalculator getFeeCalculator();
+    public abstract FeeCalculator getFeeCalculator();
 
-    //FIX LATER
-    String getGarageName();
+    public abstract String getGarageName();
 
     /**
      * wouldn't need for non-fake data
      * @return
      */
-    double getHours();
+    public abstract double getHours();
 
-    String getTicketDate();
+    public abstract String getTicketDate();
 
-    void newTicket();
+    public abstract void newTicket();
     
 }

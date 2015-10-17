@@ -13,7 +13,10 @@ public class Receipt implements TerminalOutputTypeStrategy {
     private final int carID;
     private final String garageName;
 
-    public Receipt(String garageName, int carID, double hours, double fee) {
+    public Receipt(String garageName, int carID, double hours, double fee) throws IllegalArgumentException {
+        if(garageName == null || garageName.isEmpty() || carID <= 0 || hours <= 0 || hours > 24 || fee < 1.50){
+            throw new IllegalArgumentException();
+        }
         this.garageName = garageName;
         this.carID = carID;
         this.hours = hours;
@@ -36,8 +39,16 @@ public class Receipt implements TerminalOutputTypeStrategy {
     }
 
     @Override
-    public void output(Output output) {
+    public void output(Output output) throws IllegalArgumentException {
+        if(output == null){
+            throw new IllegalArgumentException();
+        }
+        try{
         output.outputData(getReceiptData());
+        }catch(IllegalArgumentException e){
+            System.out.println(e);
+        }
     }
 
+    
 }
