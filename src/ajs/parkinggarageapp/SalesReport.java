@@ -6,7 +6,7 @@ import java.util.Objects;
  *
  * @author Alyson
  */
-public class SalesReport implements SalesReportOutputTypeStrategy {
+public class SalesReport implements SalesReportOutputStrategy {
 
     private final SalesReportStrategy salesReport;
 

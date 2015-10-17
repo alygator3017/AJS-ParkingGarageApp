@@ -4,7 +4,7 @@ package ajs.parkinggarageapp;
  *
  * @author Alyson
  */
-public class TicketDataOutput implements TerminalOutputTypeStrategy {
+public class TicketDataOutput implements TerminalOutputStrategy {
 
     private static final String DASHED = "======================================";
     private String ticketData;

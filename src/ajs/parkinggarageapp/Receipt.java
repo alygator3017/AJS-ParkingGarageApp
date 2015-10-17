@@ -6,7 +6,7 @@ import java.text.NumberFormat;
  *
  * @author Alyson
  */
-public class Receipt implements TerminalOutputTypeStrategy {
+public class Receipt implements TerminalOutputStrategy {
     private static final String DASHED = "======================================";    
     private final double fee;
     private final double hours;

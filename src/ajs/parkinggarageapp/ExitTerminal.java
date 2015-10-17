@@ -12,7 +12,7 @@ public class ExitTerminal implements ParkingTicketTerminalStrategy {
     private final Output receiptOutput;
 ////    only to be uncommented if using one of the display classes for a terminal display
 //    private final Output displayOutput;
-    private final SalesReportOutputTypeStrategy outputSalesReport;
+    private final SalesReportOutputStrategy outputSalesReport;
 
     public ExitTerminal(Output displayOutput, Output receiptOutput, Output salesReport, String garageName) { 
 ////      only to be uncommented if using one of the display classes for a terminal display
@@ -28,7 +28,7 @@ public class ExitTerminal implements ParkingTicketTerminalStrategy {
         if (carID < 0 || hours <= 0 || hours > 24 || fee < 1.50 || date == null || date.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        TerminalOutputTypeStrategy outputReceipt = new Receipt(garageName, carID, hours, fee);
+        TerminalOutputStrategy outputReceipt = new Receipt(garageName, carID, hours, fee);
         try {
             outputReceipt(outputReceipt);
         } catch (IllegalArgumentException e) {
@@ -50,13 +50,13 @@ public class ExitTerminal implements ParkingTicketTerminalStrategy {
      *
      * @param display
      */
-//    private void displayFeeDue(TerminalOutputTypeStrategy display) throws IllegalArgumentException{
+//    private void displayFeeDue(TerminalOutputStrategy display) throws IllegalArgumentException{
 //        if(display == null){
 //          throw new IllegalArgumentException();
 //        }
 //        display.output(displayOutput);
 //    }
-    private void outputReceipt(TerminalOutputTypeStrategy outputReceipt) throws IllegalArgumentException {
+    private void outputReceipt(TerminalOutputStrategy outputReceipt) throws IllegalArgumentException {
         if (outputReceipt == null) {
             throw new IllegalArgumentException();
         }
@@ -76,13 +76,13 @@ public class ExitTerminal implements ParkingTicketTerminalStrategy {
      *
      * @param display
      */
-//    private void displayReceipt(TerminalOutputTypeStrategy display) {
+//    private void displayReceipt(TerminalOutputStrategy display) {
 //        if(display == null){
 //          throw new IllegalArgumentException();
 //        }
 //        display.output(displayOutput);
 //    }
-    private void outputSalesReport(SalesReportOutputTypeStrategy sr, double hours, double fee) throws IllegalArgumentException {
+    private void outputSalesReport(SalesReportOutputStrategy sr, double hours, double fee) throws IllegalArgumentException {
         if (sr == null || hours <= 0 || hours > 24 || fee < 1.50) {
             throw new IllegalArgumentException();
         }

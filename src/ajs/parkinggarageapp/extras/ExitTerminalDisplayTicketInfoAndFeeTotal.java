@@ -1,14 +1,14 @@
 package ajs.parkinggarageapp.extras;
 
 import ajs.parkinggarageapp.Output;
-import ajs.parkinggarageapp.TerminalOutputTypeStrategy;
+import ajs.parkinggarageapp.TerminalOutputStrategy;
 import java.text.NumberFormat;
 
 /**
  *
  * @author Alyson
  */
-class ExitTerminalDisplayTicketInfoAndFeeTotal implements TerminalOutputTypeStrategy {
+class ExitTerminalDisplayTicketInfoAndFeeTotal implements TerminalOutputStrategy {
 
     private static final String DASHED = "======================================";
     private final double fee;

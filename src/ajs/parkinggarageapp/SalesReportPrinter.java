@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class SalesReportPrinter {
 
-    private SalesReportOutputTypeStrategy salesReport;
+    private SalesReportOutputStrategy salesReport;
     private final String garageName;
     private final Output output;
 
@@ -21,11 +21,7 @@ public class SalesReportPrinter {
     }
 
     public final void startNewDay() {
-        try {
-            this.salesReport = new SalesReport(garageName);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
+        this.salesReport = new SalesReport(garageName);
     }
 
     @Override
@@ -44,10 +40,7 @@ public class SalesReportPrinter {
             return false;
         }
         final SalesReportPrinter other = (SalesReportPrinter) obj;
-        if (!Objects.equals(this.output, other.output)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.output, other.output);
     }
     
 }

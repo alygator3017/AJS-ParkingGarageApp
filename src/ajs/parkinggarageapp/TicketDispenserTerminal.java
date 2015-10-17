@@ -27,7 +27,7 @@ public class TicketDispenserTerminal implements ParkingTicketTerminalStrategy {
         if (garageName == null || garageName.isEmpty() || carID <= 0 || hours <= 0 || hours > 24 || fee < 1.50 || date == null || date.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        TerminalOutputTypeStrategy dataOutput = new TicketDataOutput(garageName, carID, date);
+        TerminalOutputStrategy dataOutput = new TicketDataOutput(garageName, carID, date);
         try {
             dataOutput.output(ticketOutput);
         } catch (IllegalArgumentException e) {
