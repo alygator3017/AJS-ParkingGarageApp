@@ -8,16 +8,16 @@ import java.util.Objects;
  */
 public class ParkingTerminal {
 
-    private ParkingTicketTerminalStrategy exit;
+    private ParkingTerminalStrategy exit;
     private final Output printerOutput;
     private final String garageName;
-    private final ParkingTicketTerminalStrategy enter;
+    private final ParkingTerminalStrategy enter;
     private final Output receiptOutput;
     private final Output displayOutput;
 
     public ParkingTerminal(Output ticketOutput, Output receiptOutput, Output displayOutput, Output printerOutput, GarageName garageName) {
         this.exit = new ExitTerminal(displayOutput, receiptOutput, printerOutput, garageName.getName());
-        this.enter = new TicketDispenserTerminal(ticketOutput);
+        this.enter = new DispenserTerminal(ticketOutput);
         this.printerOutput = printerOutput;
         this.displayOutput = displayOutput;
         this.receiptOutput = receiptOutput;

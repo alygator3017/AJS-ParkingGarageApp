@@ -6,11 +6,11 @@ import java.util.Objects;
  *
  * @author Alyson
  */
-public class TicketDispenserTerminal implements ParkingTicketTerminalStrategy {
+public class DispenserTerminal implements ParkingTerminalStrategy {
 
     private final Output ticketOutput;
 
-    public TicketDispenserTerminal(Output ticketOutput) {
+    public DispenserTerminal(Output ticketOutput) {
         this.ticketOutput = ticketOutput;
     }
 
@@ -50,7 +50,7 @@ public class TicketDispenserTerminal implements ParkingTicketTerminalStrategy {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final TicketDispenserTerminal other = (TicketDispenserTerminal) obj;
+        final DispenserTerminal other = (DispenserTerminal) obj;
         if (!Objects.equals(this.ticketOutput, other.ticketOutput)) {
             return false;
         }

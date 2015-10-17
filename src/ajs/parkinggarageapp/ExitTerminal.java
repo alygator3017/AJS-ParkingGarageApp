@@ -6,7 +6,7 @@ import java.util.Objects;
  *
  * @author Alyson
  */
-public class ExitTerminal implements ParkingTicketTerminalStrategy {
+public class ExitTerminal implements ParkingTerminalStrategy {
 
     private final Output salesReportOutput;
     private final Output receiptOutput;
