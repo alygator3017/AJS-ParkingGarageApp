@@ -15,7 +15,7 @@ class ExitTerminalDisplayTicketInfoAndFeeTotal implements TerminalOutputTypeStra
     private final double hours;
     private final int carID;
     private final String garageName;
-    
+
     public ExitTerminalDisplayTicketInfoAndFeeTotal(String garageName, int carID, double hours, double fee) {
         this.garageName = garageName;
         this.carID = carID;
@@ -23,7 +23,7 @@ class ExitTerminalDisplayTicketInfoAndFeeTotal implements TerminalOutputTypeStra
         this.fee = fee;
     }
 
-    private String getDisplayData(){
+    private String getDisplayData() {
         NumberFormat curr = NumberFormat.getCurrencyInstance();
         NumberFormat h = NumberFormat.getNumberInstance();
         final String newLine = "\n";
@@ -37,9 +37,16 @@ class ExitTerminalDisplayTicketInfoAndFeeTotal implements TerminalOutputTypeStra
         String data = receiptData.toString();
         return data;
     }
-    
+
     @Override
-    public void output(Output output) {
-        output.outputData(getDisplayData());
+    public void output(Output output) throws ajs.parkinggarageapp.IllegalArgumentException {
+        if (output == null) {
+            throw new IllegalArgumentException();
+        }
+        try {
+            output.outputData(getDisplayData());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ajs.parkinggarageapp.extras;
 
 import ajs.parkinggarageapp.Output;
@@ -21,7 +16,10 @@ public class ExitTerminalDisplayReceipt implements TerminalOutputTypeStrategy {
     private final int carID;
     private final String garageName;
 
-    public ExitTerminalDisplayReceipt(String garageName, int carID, double hours, double fee) {
+    public ExitTerminalDisplayReceipt(String garageName, int carID, double hours, double fee) throws IllegalArgumentException {
+        if (garageName == null || garageName.isEmpty() || carID <= 0 || hours <= 0 || hours > 24 || fee < 1.50) {
+            throw new IllegalArgumentException();
+        }
         this.garageName = garageName;
         this.carID = carID;
         this.hours = hours;
@@ -44,10 +42,17 @@ public class ExitTerminalDisplayReceipt implements TerminalOutputTypeStrategy {
         String data = receiptData.toString();
         return data;
     }
-    
+
     @Override
-    public void output(Output output) {
-        output.outputData(getDisplayReceipt());
+    public void output(Output output) throws IllegalArgumentException, ajs.parkinggarageapp.IllegalArgumentException {
+        if (output == null) {
+            throw new IllegalArgumentException();
+        }
+        try {
+            output.outputData(getDisplayReceipt());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
     }
 
 }
