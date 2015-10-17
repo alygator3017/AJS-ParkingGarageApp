@@ -36,33 +36,5 @@ public class ParkingTerminal {
         exit.ticketTransaction(ticket.getGarageName(), ticket.getCarID(), ticket.getHours(), ticket.getFee(), ticket.getDateOfAccess());
     }
     
-    public static void main(String[] args) {
-        Output console = new Output(new ConsoleOutput());
-        Output jOp = new Output(new JOptionPaneOutput());
-        GarageName garageName = new GarageName("Herbies");
-        
-        ParkingAccessTicket car1 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
-        ParkingAccessTicket car2 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
-        ParkingAccessTicket car3 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
-        ParkingAccessTicket car4 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
-        
-        ParkingTerminal pt = new ParkingTerminal(console, console, jOp, console, garageName);
-        pt.newParkingTicket(car1);
-        pt.newParkingTicket(car2);
-        pt.exitParkingGarage(car2);
-        pt.newParkingTicket(car3);
-        pt.exitParkingGarage(car1);
-        pt.newParkingTicket(car4);
-        pt.exitParkingGarage(car3);
-        pt.exitParkingGarage(car4);
-        
-        pt.startNewDay();
-        
-        pt.newParkingTicket(car1);
-        pt.newParkingTicket(car2);
-        pt.exitParkingGarage(car1);
-        pt.exitParkingGarage(car2);
-        
-    }
     
 }
