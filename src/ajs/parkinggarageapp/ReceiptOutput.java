@@ -6,14 +6,14 @@ import java.text.NumberFormat;
  *
  * @author Alyson
  */
-public class Receipt implements TerminalOutputStrategy {
+public class ReceiptOutput implements TerminalOutputStrategy {
     private static final String DASHED = "======================================";    
     private final double fee;
     private final double hours;
     private final int carID;
     private final String garageName;
 
-    public Receipt(String garageName, int carID, double hours, double fee) throws IllegalArgumentException {
+    public ReceiptOutput(String garageName, int carID, double hours, double fee) throws IllegalArgumentException {
         if(garageName == null || garageName.isEmpty() || carID <= 0 || hours <= 0 || hours > 24 || fee < 1.50){
             throw new IllegalArgumentException();
         }

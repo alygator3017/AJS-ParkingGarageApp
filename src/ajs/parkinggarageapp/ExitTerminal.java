@@ -28,7 +28,7 @@ public class ExitTerminal implements ParkingTicketTerminalStrategy {
         if (carID < 0 || hours <= 0 || hours > 24 || fee < 1.50 || date == null || date.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        TerminalOutputStrategy outputReceipt = new Receipt(garageName, carID, hours, fee);
+        TerminalOutputStrategy outputReceipt = new ReceiptOutput(garageName, carID, hours, fee);
         try {
             outputReceipt(outputReceipt);
         } catch (IllegalArgumentException e) {
