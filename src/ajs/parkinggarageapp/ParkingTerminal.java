@@ -15,7 +15,7 @@ public class ParkingTerminal {
     private final Output receiptOutput;
     private final Output displayOutput;
 
-    public ParkingTerminal(Output ticketOutput, Output receiptOutput, Output displayOutput, Output printerOutput, GarageName garageName) {
+    public ParkingTerminal(Output ticketOutput, Output receiptOutput, Output displayOutput, Output printerOutput, CustomGarageName garageName) {
         this.exit = new ExitTerminal(displayOutput, receiptOutput, printerOutput, garageName.getName());
         this.enter = new DispenserTerminal(ticketOutput);
         this.printerOutput = printerOutput;

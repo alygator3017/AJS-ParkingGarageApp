@@ -12,7 +12,7 @@ public class StartUp {
     public static void main(String[] args) {
         Output console = new Output(new ConsoleOutput());
         Output jOp = new Output(new JOptionPaneOutput());
-        GarageName garageName = new GarageName("Best Value Parking Garage");
+        CustomGarageName garageName = new CustomGarageName("Best Value Parking Garage");
 
         ParkingAccessTicket car1 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
         ParkingAccessTicket car2 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinMaxFeeCalculator(8)));

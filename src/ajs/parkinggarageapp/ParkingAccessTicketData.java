@@ -34,7 +34,7 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
      * @param garageName
      * @param feeCalculator
      */
-    public ParkingAccessTicketData(GarageNameStrategy garageName, FeeCalculator feeCalculator) {
+    public ParkingAccessTicketData(CustomGarageName garageName, FeeCalculator feeCalculator) {
         try {
             setHours(feeCalculator.getHours());
         } catch (IllegalArgumentException e) {
