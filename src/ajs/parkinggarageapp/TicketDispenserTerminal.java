@@ -1,7 +1,4 @@
-
 package ajs.parkinggarageapp;
-
-import ajs.parkinggarageapp.extras.TicketDataOutput;
 
 /**
  *
@@ -23,11 +20,4 @@ public class TicketDispenserTerminal implements ParkingTicketTerminalStrategy {
         TerminalOutputTypeStrategy dataOutput = new TicketDataOutput(garageName, carID, date);
         dataOutput.output(ticketOutput);
     }   
-
-//    public static void main(String[] args) {
-//        ParkingAccessTicket car1 = new ParkingAccessTicket("Herbies", new FeeCalculator(new MinNoMaxFeeCalculator(8)));
-//        ParkingTicketTerminalStrategy ticket1 = new TicketDispenserTerminal(car1, new Output(new ConsoleOutput()));
-//        ParkingAccessTicket car2 = new ParkingAccessTicket("Herbies", new FeeCalculator(new MinNoMaxFeeCalculator(8)));
-//        ParkingTicketTerminalStrategy ticket2 = new TicketDispenserTerminal(car2, new Output(new ConsoleOutput()));
-//    }
 }

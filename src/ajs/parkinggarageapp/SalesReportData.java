@@ -20,6 +20,7 @@ public class SalesReportData{
         NumberFormat h = NumberFormat.getNumberInstance();
         final String newLine = "\n";
         StringBuilder receiptData = new StringBuilder();
+        receiptData.append(DASHED).append(newLine);
         receiptData.append(garageName).append(newLine);
         receiptData.append(DASHED).append(newLine);
         receiptData.append(date.format(currentDateTime)).append(newLine);
@@ -28,6 +29,7 @@ public class SalesReportData{
         receiptData.append("TotalCars: ").append(cars).append(newLine);
         receiptData.append("Total Hours Billed: ").append(h.format(hours)).append(newLine);
         receiptData.append("Collected: ").append(curr.format(fee)).append(newLine);
+        receiptData.append(DASHED).append(newLine);
         String data = receiptData.toString();
         return data;
     }

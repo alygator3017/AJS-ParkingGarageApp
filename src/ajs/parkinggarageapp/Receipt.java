@@ -25,10 +25,12 @@ public class Receipt implements TerminalOutputTypeStrategy {
         final String newLine = "\n";
         StringBuilder receiptData = new StringBuilder();
         receiptData.append(DASHED).append(newLine);
+        receiptData.append("Receipt").append(newLine);
         receiptData.append(garageName).append(newLine);
         receiptData.append("Car ID: ").append(carID).append(newLine);
         receiptData.append("Total Hours Billed: ").append(h.format(hours)).append(newLine);
         receiptData.append("Total Fee: ").append(curr.format(fee)).append(newLine);
+        receiptData.append(DASHED).append(newLine);
         String data = receiptData.toString();
         return data;
     }
