@@ -14,7 +14,7 @@ public class ParkingTerminal {
     private final Output displayOutput;
 
     public ParkingTerminal(Output ticketOutput, Output receiptOutput, Output displayOutput, Output printerOutput, GarageName garageName ) {
-         this.exit = new ExitTerminalTransaction(displayOutput, receiptOutput, printerOutput, garageName.getName());
+         this.exit = new ExitTerminal(displayOutput, receiptOutput, printerOutput, garageName.getName());
          this.enter = new TicketDispenserTerminal(ticketOutput);
          this.printerOutput = printerOutput;
          this.displayOutput = displayOutput;
@@ -23,7 +23,7 @@ public class ParkingTerminal {
     }
     
     public final void startNewDay(){
-        this.exit = new ExitTerminalTransaction(displayOutput, receiptOutput, printerOutput, garageName);
+        this.exit = new ExitTerminal(displayOutput, receiptOutput, printerOutput, garageName);
     }
     public final void newParkingTicket(ParkingAccessTicket ticket){
         if(ticket.getCarID() == 0){

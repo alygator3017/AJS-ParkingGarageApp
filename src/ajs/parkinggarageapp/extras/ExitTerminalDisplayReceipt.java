@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ajs.parkinggarageapp;
+package ajs.parkinggarageapp.extras;
 
+import ajs.parkinggarageapp.Output;
+import ajs.parkinggarageapp.TerminalOutputTypeStrategy;
 import java.text.NumberFormat;
 
 /**

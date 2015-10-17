@@ -1,6 +1,8 @@
 
 package ajs.parkinggarageapp;
 
+import ajs.parkinggarageapp.extras.TicketDataOutput;
+
 /**
  *
  * @author Alyson
