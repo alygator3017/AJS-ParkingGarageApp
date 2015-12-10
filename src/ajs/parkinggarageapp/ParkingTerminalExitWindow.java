@@ -166,6 +166,8 @@ public class ParkingTerminalExitWindow extends javax.swing.JFrame {
         } catch (NullOrEmptyArgumentException ex) {
             error = new ErrorWindow(this, "problem getting back to start window: " + ex);
         }
+        start.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_exitGarageActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed

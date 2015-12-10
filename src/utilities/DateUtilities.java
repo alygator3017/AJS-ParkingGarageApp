@@ -334,7 +334,7 @@ public class DateUtilities {
      * TemporalUnit.
      * @throws IllegalArgumentException
      */
-    public long dateDiff(TemporalUnit temporalUnit, LocalDate firstDate, LocalDate secondDate) throws IllegalArgumentException {
+    public double dateDiff(TemporalUnit temporalUnit, LocalDate firstDate, LocalDate secondDate) throws IllegalArgumentException {
         if (firstDate == null) {
             throw new IllegalArgumentException("First date parameter of type LocalDate is null.");
         } else if (secondDate == null) {
@@ -363,7 +363,7 @@ public class DateUtilities {
      * TemporalUnit.
      * @throws IllegalArgumentException
      */
-    public long dateTimeDiff(TemporalUnit temporalUnit, LocalDateTime firstDate, LocalDateTime secondDate) throws IllegalArgumentException {
+    public double dateTimeDiff(TemporalUnit temporalUnit, LocalDateTime firstDate, LocalDateTime secondDate) throws IllegalArgumentException {
         if (firstDate == null) {
             throw new IllegalArgumentException("First date parameter of type LocalDate is null.");
         } else if (secondDate == null) {
@@ -377,5 +377,16 @@ public class DateUtilities {
         long diff = temporalUnit.between(startDate, endDate);
 
         return diff;
+    }
+    
+    public static void main(String[] args) {
+        LocalDateTime date1 = LocalDateTime.now();
+        LocalDateTime date2 = date1.plusHours(8);
+        
+        System.out.println(date1);
+        System.out.println(date2);
+        DateUtilities dateUtilities = new DateUtilities();
+        Double diff = dateUtilities.dateTimeDiff(ChronoUnit.HOURS, date1, date2);
+        System.out.println(diff);
     }
 }

@@ -43,6 +43,8 @@ public class ExitTerminal implements ParkingTerminalStrategy {
     private final Random randomGenerator = new Random();
     private final FeeCalculator feeCalculator;
 
+    
+    
     /**
      * Constructor set up file reader for the file server in order to read from and
      * add to the file for daily totals.
@@ -69,7 +71,6 @@ public class ExitTerminal implements ParkingTerminalStrategy {
         this.fileService = fs;
 
     }
-
     /**
      * Processes the exiting cars ticket transaction.
      * Processes the ticket, reads the time and determines hours it was there, adding
@@ -111,16 +112,20 @@ public class ExitTerminal implements ParkingTerminalStrategy {
     
     private double getHours(LocalDateTime date){
         //Random generation of numbers just for hour purposes
-        double randomDouble = randomGenerator.nextDouble() * 23.0;
+        LocalDateTime exitTime = LocalDateTime.now();
         
-        double hoursParked = dateUtilities.dateTimeDiff(ChronoUnit.HOURS, date, LocalDateTime.now().plusHours((long)randomDouble));
+        double hoursParked = ((ChronoUnit.SECONDS.between(date, exitTime) * 8)/60);
+        if(hoursParked >= 24){
+            hoursParked = 23.0;
+        }
+        this.hours = hoursParked;
         return hoursParked;
     }
     
     private double getFee(LocalDateTime date){
         
-        double hoursParked = getHours(date);
-        double fee = feeCalculator.getFee(hoursParked);
+        
+        double fee = feeCalculator.getFee(hours);
         return fee;
     }
 
@@ -242,4 +247,5 @@ public class ExitTerminal implements ParkingTerminalStrategy {
         }
         return true;
     }
+    
 }

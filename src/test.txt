@@ -1,0 +1,3 @@
+totalFees,20.5,
+totalHours,13.0,
+totalCars,5,

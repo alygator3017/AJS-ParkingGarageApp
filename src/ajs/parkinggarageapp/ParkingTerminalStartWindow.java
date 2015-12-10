@@ -87,9 +87,11 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
         exitTerminalButton = new javax.swing.JButton();
         carIdComboBox = new javax.swing.JComboBox(carIDs);
         carIDLabel = new javax.swing.JLabel();
+        newDay = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
+        backButton.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         backButton.setText("Back to Garage Owner Page");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +99,7 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
             }
         });
 
+        dispenserTerminalButton.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         dispenserTerminalButton.setText("Check In New Car");
         dispenserTerminalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +107,7 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
             }
         });
 
+        exitTerminalButton.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         exitTerminalButton.setText("Check Out Car");
         exitTerminalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,30 +115,43 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
             }
         });
 
+        carIdComboBox.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        carIDLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         carIDLabel.setText("Car To Check Out: ");
+
+        newDay.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        newDay.setText("Start New Day");
+        newDay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newDayActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(dispenserTerminalButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(newDay)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(dispenserTerminalButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(exitTerminalButton)
                         .addGap(38, 38, 38))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(carIDLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(carIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(carIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(backButton, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(backButton)
-                .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +165,9 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
                     .addComponent(exitTerminalButton)
                     .addComponent(dispenserTerminalButton))
                 .addGap(56, 56, 56)
-                .addComponent(backButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backButton)
+                    .addComponent(newDay))
                 .addContainerGap())
         );
 
@@ -194,6 +213,22 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_dispenserTerminalButtonActionPerformed
 
+    private void newDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newDayActionPerformed
+        try {
+            terminal.startNewDay();
+        } catch (IOException | NullOrEmptyArgumentException ex) {
+            Logger.getLogger(ParkingTerminalStartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        AlertWindow alert = null;
+        try {
+            alert = new AlertWindow(this, "New Day has been set.");
+        } catch (NullOrEmptyArgumentException ex) {
+            Logger.getLogger(ParkingTerminalStartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        alert.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_newDayActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -204,5 +239,6 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox carIdComboBox;
     private javax.swing.JButton dispenserTerminalButton;
     private javax.swing.JButton exitTerminalButton;
+    private javax.swing.JButton newDay;
     // End of variables declaration//GEN-END:variables
 }
