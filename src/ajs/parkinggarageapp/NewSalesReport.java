@@ -2,7 +2,7 @@ package ajs.parkinggarageapp;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class NewSalesReport implements SalesReportStrategy {
 
@@ -21,21 +21,21 @@ public class NewSalesReport implements SalesReportStrategy {
     }
 
     @Override
-    public final void newCar(double hours, double fee) throws IllegalArgumentException {
+    public final void newCar(double hours, double fee) throws NullOrEmptyArgumentException {
         if (hours <= 0 || hours > 24 || fee < 1.50) {
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         this.data = new SalesReportData();
         try {
             addTotalsToSalesReport(hours, fee);
-        } catch (IllegalArgumentException e) {
+        } catch (NullOrEmptyArgumentException e) {
             System.out.println(e);
         }
     }
 
-    private void addTotalsToSalesReport(double hours, double fee) throws IllegalArgumentException {
+    private void addTotalsToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException {
         if (hours <= 0 || hours > 24 || fee < 1.50) {
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         this.totalDailyHours += hours;
         this.totalDailyFee += fee;
@@ -47,7 +47,7 @@ public class NewSalesReport implements SalesReportStrategy {
         String dataString = null;
         try {
             dataString = data.getSalesReportData(garageName, totalDailyHours, totalDailyFee, totalDailyCars);
-        } catch (IllegalArgumentException e) {
+        } catch (NullOrEmptyArgumentException e) {
             System.out.println(e);
         }
         return dataString;

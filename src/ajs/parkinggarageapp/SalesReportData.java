@@ -8,16 +8,16 @@ import java.util.Objects;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class SalesReportData{
     private static final String DASHED = "======================================";
     private Date currentDateTime;
     private final SimpleDateFormat date = new SimpleDateFormat("EEE, MMM d, yyyy");
 
-    private String salesReportData(String garageName, double hours, double fee, int cars) throws IllegalArgumentException{
+    private String salesReportData(String garageName, double hours, double fee, int cars) throws NullOrEmptyArgumentException{
         if(garageName == null || garageName.isEmpty() || hours <= 0 || hours > 24 || fee < 1.50 || cars <= 0){
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         currentDateTime = new Date();
         NumberFormat curr = NumberFormat.getCurrencyInstance();
@@ -36,14 +36,14 @@ public class SalesReportData{
         return data;
     }
     
-    public final String getSalesReportData(String garageName, double hours, double fee, int cars) throws IllegalArgumentException{
+    public final String getSalesReportData(String garageName, double hours, double fee, int cars) throws NullOrEmptyArgumentException{
         if(garageName == null || garageName.isEmpty() || hours <= 0 || hours > 24 || fee < 1.50 || cars <= 0){
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         String salesReportData = null;
         try{
             salesReportData = salesReportData(garageName, hours, fee, cars);
-        }catch (IllegalArgumentException e){
+        }catch (NullOrEmptyArgumentException e){
             System.out.println(e);
         }
         return salesReportData;

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class SalesReport implements SalesReportOutputStrategy {
 
@@ -14,26 +14,27 @@ public class SalesReport implements SalesReportOutputStrategy {
         this.salesReport = new NewSalesReport(garageName);
     }
 
+    //add file service in sales report and call that in exit terminal because this is part of the actual sales report
     @Override
-    public void addToSalesReport(double hours, double fee) throws IllegalArgumentException {
+    public void addToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException {
         if (hours <= 0 || hours > 24 || fee < 1.50) {
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         try {
             salesReport.newCar(hours, fee);
-        } catch (IllegalArgumentException e) {
+        } catch (NullOrEmptyArgumentException e) {
             System.out.println(e);
         }
     }
 
     @Override
-    public void output(Output outputType) throws IllegalArgumentException {
+    public void output(OutputService outputType) throws NullOrEmptyArgumentException {
         if (outputType == null) {
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         try {
             outputType.outputData(salesReport.output());
-        } catch (IllegalArgumentException e) {
+        } catch (NullOrEmptyArgumentException e) {
             System.out.println(e);
         }
 

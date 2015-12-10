@@ -1,14 +1,15 @@
 package ajs.parkinggarageapp;
 
+import java.time.LocalDateTime;
+import java.lang.*;
+
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public interface ParkingAccessTicketDataStrategy{
 
     public abstract int getCarID();
-
-    public abstract FeeCalculator getFeeCalculator();
 
     public abstract String getGarageName();
 
@@ -16,9 +17,11 @@ public interface ParkingAccessTicketDataStrategy{
      * wouldn't need for non-fake data
      * @return
      */
-    public abstract double getHours();
+//    public abstract double getHours();
 
-    public abstract String getTicketDate();
+//    public abstract String getStringTicketDate();
+    
+    public abstract LocalDateTime getTicketDate();
 
     public abstract void newTicket();
     

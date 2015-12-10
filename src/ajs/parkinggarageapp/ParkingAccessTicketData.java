@@ -1,24 +1,26 @@
 package ajs.parkinggarageapp;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 import java.util.Objects;
+import utilities.DateUtilities;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy {
 
-    private Date currentDateTime;
-    private final SimpleDateFormat date = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm aaa");
-    private String ticketDate;
+    private LocalDateTime currentDateTime;
+//    private final SimpleDateFormat date = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm aaa");
+    String dateFormat = "EEE, MMM d, yyyy hh:mm aaa";
     private FeeCalculator fee;
     private static int carIDCounter = 0;
     private int carID;
     //faking hour data for the moment
     private double hours;
     private String garageName;
+    DateUtilities dateUtilities = new DateUtilities();
 
     /**
      * this would be the constructor with non-fake data
@@ -32,23 +34,13 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
      * needed in order to fake data
      *
      * @param garageName
-     * @param feeCalculator
      */
-    public ParkingAccessTicketData(CustomGarageName garageName, FeeCalculator feeCalculator) {
-        try {
-            setHours(feeCalculator.getHours());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
+    public ParkingAccessTicketData(String garageName) {
+
         newTicket();
         try {
-            setGarageName(garageName.getName());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            setFeeCalculator(feeCalculator);
-        } catch (IllegalArgumentException e) {
+            setGarageName(garageName);
+        } catch (NullOrEmptyArgumentException e) {
             System.out.println(e);
         }
     }
@@ -56,47 +48,61 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
     @Override
     public final void newTicket() {
         carIDCounter++;
-        currentDateTime = new Date();
+        currentDateTime = LocalDateTime.now();
         try {
             setTicketDate(currentDateTime);
-        } catch (IllegalArgumentException e) {
+        } catch (NullOrEmptyArgumentException e) {
             System.out.println(e);
         }
         carID = carIDCounter;
     }
 
+//    /**
+//     * wouldn't need for non-fake data
+//     *
+//     * @return
+//     */
+//    @Override
+//    public final double getHours() {
+//        return hours;
+//    }
+//
+//    /**
+//     * wouldn't need for non-fake data
+//     *
+//     * @param hours
+//     */
+//    private void setHours(double hours) throws NullOrEmptyArgumentException {
+//        if (hours <= 0 || hours > 24) {
+//            throw new NullOrEmptyArgumentException();
+//        }
+//        this.hours = hours;
+//    }
+
     /**
-     * wouldn't need for non-fake data
+     *
+     * @return
+     */
+//        @Override
+//    public final String getStringTicketDate() {
+//        String ticketDate = dateUtilities.toString(currentDateTime, dateFormat);
+//        return ticketDate;
+//    }
+
+    /**
      *
      * @return
      */
     @Override
-    public final double getHours() {
-        return hours;
+    public final LocalDateTime getTicketDate() {
+        return currentDateTime;
     }
 
-    /**
-     * wouldn't need for non-fake data
-     *
-     * @param hours
-     */
-    private void setHours(double hours) throws IllegalArgumentException {
-        if (hours <= 0 || hours > 24) {
-            throw new IllegalArgumentException();
-        }
-        this.hours = hours;
-    }
-
-    @Override
-    public final String getTicketDate() {
-        return ticketDate;
-    }
-
-    private void setTicketDate(Date currentDatetime) throws IllegalArgumentException {
+    private void setTicketDate(LocalDateTime currentDateTime) throws NullOrEmptyArgumentException {
         if (currentDateTime == null) {
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
-        this.ticketDate = date.format(currentDateTime);
+        this.currentDateTime = currentDateTime;
     }
 
     @Override
@@ -104,28 +110,21 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
         return carID;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public final String getGarageName() {
         return garageName;
     }
 
-    private void setGarageName(String garageName) throws IllegalArgumentException {
+    private void setGarageName(String garageName) throws NullOrEmptyArgumentException {
         if (garageName == null || garageName.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
+        } else {
         }
         this.garageName = garageName;
-    }
-
-    private void setFeeCalculator(FeeCalculator feeCalculator) throws IllegalArgumentException {
-        if (feeCalculator == null) {
-            throw new IllegalArgumentException();
-        }
-        fee = feeCalculator;
-    }
-
-    @Override
-    public final FeeCalculator getFeeCalculator() {
-        return fee;
     }
 
     @Override

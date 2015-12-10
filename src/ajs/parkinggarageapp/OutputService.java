@@ -4,23 +4,23 @@ import java.util.Objects;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
-public class Output {
+public class OutputService {
 
     private final OutputStrategy outputType;
 
-    public Output(OutputStrategy output) {
+    public OutputService(OutputStrategy output) {
         this.outputType = output;
     }
 
-    public final void outputData(String data) throws IllegalArgumentException {
+    public final void outputData(String data) throws NullOrEmptyArgumentException {
         if (data == null || data.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         try {
             outputType.outputData(data);
-        } catch (IllegalArgumentException e) {
+        } catch (NullOrEmptyArgumentException e) {
             System.out.println(e);
         }
     }
@@ -40,11 +40,15 @@ public class Output {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Output other = (Output) obj;
+        final OutputService other = (OutputService) obj;
         if (!Objects.equals(this.outputType, other.outputType)) {
             return false;
         }
         return true;
+    }
+
+    void outputData(NullOrEmptyArgumentException e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

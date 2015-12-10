@@ -2,10 +2,10 @@ package ajs.parkinggarageapp;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public interface TerminalOutputStrategy {
 
-    public abstract void output(Output output) throws IllegalArgumentException;
+    public abstract void output(OutputService output) throws NullOrEmptyArgumentException;
     
 }

@@ -2,14 +2,14 @@ package ajs.parkinggarageapp;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public interface FeeCalculatorStrategy {
-
-    public abstract void setHours(double hours) throws IllegalArgumentException;
+    
+    public abstract void setHours(double hours) throws NumberOutOfRangeException;
     
     public abstract double getHours();
 
-    public abstract double getTotalFee();
+    public abstract double getTotalFee(double hours);
     
 }

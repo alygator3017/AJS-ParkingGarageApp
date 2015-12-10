@@ -4,22 +4,37 @@ import java.util.Objects;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class FeeCalculator {
 
     private final FeeCalculatorStrategy fee;
 
+    /**
+     * Constructor that takes the strategy object for the fee.
+     * 
+     * @param fee part of the FeeCalculatorStrategy object.
+     */
     public FeeCalculator(FeeCalculatorStrategy fee) {
         this.fee = fee;
     }
 
-    public final double getHours() {
-        return fee.getHours();
-    }
+//    /**
+//     * Returns the number of hours charged.
+//     * @return Hours to be charged.
+//     */
+//    public final double getHours() {
+//        return fee.getHours();
+//    }
 
-    public final double getFee() {
-        return fee.getTotalFee();
+    /**
+     * Returns the total fee being charged per the number of hours.
+     * @return total fee
+     */
+    public final double getFee(double hours) {
+        
+        
+        return fee.getTotalFee(hours);
     }
 
     @Override

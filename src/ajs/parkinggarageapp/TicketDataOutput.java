@@ -2,7 +2,7 @@ package ajs.parkinggarageapp;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class TicketDataOutput implements TerminalOutputStrategy {
 
@@ -13,26 +13,26 @@ public class TicketDataOutput implements TerminalOutputStrategy {
         ticketData = "";
         try {
             ticketData = ticketData(garageName, carID, date);
-        } catch (IllegalArgumentException e) {
+        } catch (NullOrEmptyArgumentException e) {
             System.out.println(e);
         }
     }
 
     @Override
-    public final void output(Output output) throws IllegalArgumentException {
+    public final void output(OutputService output) throws NullOrEmptyArgumentException {
         if (output == null) {
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         try {
             output.outputData(ticketData);
-        } catch (IllegalArgumentException e) {
+        } catch (NullOrEmptyArgumentException e) {
             System.out.println(e);
         }
     }
 
-    public final String ticketData(String garageName, int carID, String date) throws IllegalArgumentException {
+    public final String ticketData(String garageName, int carID, String date) throws NullOrEmptyArgumentException {
         if (garageName == null || garageName.isEmpty() || carID <= 0 || date == null || date.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         final String newLine = "\n";
         StringBuilder sbData = new StringBuilder(DASHED).append(newLine);

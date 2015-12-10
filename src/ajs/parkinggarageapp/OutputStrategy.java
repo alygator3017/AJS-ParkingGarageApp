@@ -3,10 +3,10 @@ package ajs.parkinggarageapp;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public interface OutputStrategy {
 
-    public abstract void outputData(String data) throws IllegalArgumentException;
+    public abstract void outputData(String data) throws NullOrEmptyArgumentException;
     
 }

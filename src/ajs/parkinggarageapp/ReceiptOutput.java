@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class ReceiptOutput implements TerminalOutputStrategy {
     private static final String DASHED = "======================================";    
@@ -13,9 +13,9 @@ public class ReceiptOutput implements TerminalOutputStrategy {
     private final int carID;
     private final String garageName;
 
-    public ReceiptOutput(String garageName, int carID, double hours, double fee) throws IllegalArgumentException {
+    public ReceiptOutput(String garageName, int carID, double hours, double fee) throws NullOrEmptyArgumentException {
         if(garageName == null || garageName.isEmpty() || carID <= 0 || hours <= 0 || hours > 24 || fee < 1.50){
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         this.garageName = garageName;
         this.carID = carID;
@@ -39,13 +39,13 @@ public class ReceiptOutput implements TerminalOutputStrategy {
     }
 
     @Override
-    public void output(Output output) throws IllegalArgumentException {
+    public void output(OutputService output) throws NullOrEmptyArgumentException {
         if(output == null){
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         try{
         output.outputData(getReceiptData());
-        }catch(IllegalArgumentException e){
+        }catch(NullOrEmptyArgumentException e){
             System.out.println(e);
         }
     }

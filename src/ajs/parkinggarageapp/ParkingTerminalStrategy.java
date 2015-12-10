@@ -1,11 +1,13 @@
 package ajs.parkinggarageapp;
 
+import java.time.LocalDateTime;
+
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public interface ParkingTerminalStrategy {
 
-    public abstract void ticketTransaction(String garageName, int carID, double hours, double fee, String date) throws IllegalArgumentException;
+    public abstract void ticketTransaction(String garageName, int carID, String sDate, LocalDateTime date) throws NullOrEmptyArgumentException;
     
 }

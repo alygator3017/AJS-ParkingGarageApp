@@ -2,11 +2,11 @@ package ajs.parkinggarageapp;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public interface SalesReportStrategy {
 
-    public abstract void newCar(double hours, double fee) throws IllegalArgumentException;
+    public abstract void newCar(double hours, double fee) throws NullOrEmptyArgumentException;
 
     public abstract String output();
     

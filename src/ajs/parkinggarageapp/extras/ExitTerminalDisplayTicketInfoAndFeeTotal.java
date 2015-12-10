@@ -1,12 +1,12 @@
 package ajs.parkinggarageapp.extras;
 
-import ajs.parkinggarageapp.Output;
+import ajs.parkinggarageapp.OutputService;
 import ajs.parkinggarageapp.TerminalOutputStrategy;
 import java.text.NumberFormat;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 class ExitTerminalDisplayTicketInfoAndFeeTotal implements TerminalOutputStrategy {
 
@@ -39,7 +39,7 @@ class ExitTerminalDisplayTicketInfoAndFeeTotal implements TerminalOutputStrategy
     }
 
     @Override
-    public void output(Output output) throws ajs.parkinggarageapp.IllegalArgumentException {
+    public void output(OutputService output) throws ajs.parkinggarageapp.NullOrEmptyArgumentException {
         if (output == null) {
             throw new IllegalArgumentException();
         }

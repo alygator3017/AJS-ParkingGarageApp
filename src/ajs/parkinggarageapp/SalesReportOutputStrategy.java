@@ -2,9 +2,9 @@ package ajs.parkinggarageapp;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 interface SalesReportOutputStrategy {
-    public abstract void addToSalesReport(double hours, double fee) throws IllegalArgumentException;
-    public abstract void output(Output outputType) throws IllegalArgumentException;
+    public abstract void addToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException;
+    public abstract void output(OutputService outputType) throws NullOrEmptyArgumentException;
 }

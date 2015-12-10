@@ -4,17 +4,17 @@ import java.util.Objects;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class SalesReportPrinter {
 
     private SalesReportOutputStrategy salesReport;
     private final String garageName;
-    private final Output output;
+    private final OutputService output;
 
-    public SalesReportPrinter(Output output, String garageName) throws IllegalArgumentException {
+    public SalesReportPrinter(OutputService output, String garageName) throws NullOrEmptyArgumentException {
         if(output == null || garageName == null || garageName.isEmpty()){
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         this.garageName = garageName;
         this.output = output;

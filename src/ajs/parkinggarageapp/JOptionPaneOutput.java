@@ -4,14 +4,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class JOptionPaneOutput implements OutputStrategy{
 
     @Override
-    public final void outputData(String data) throws IllegalArgumentException {
+    public final void outputData(String data) throws NullOrEmptyArgumentException {
         if(data == null || data.isEmpty()){
-            throw new IllegalArgumentException();
+            throw new NullOrEmptyArgumentException();
         }
         JOptionPane.showMessageDialog(null, data);
     }

@@ -1,87 +1,59 @@
 package ajs.parkinggarageapp;
 
+import fileserviceapp.FileService;
+import fileserviceapp.GarageTotalsFormatter;
+import fileserviceapp.GarageTotalsPlusCarsFormatter;
+import fileserviceapp.TextFormatStrategy;
+import fileserviceapp.TextReader;
+import fileserviceapp.TextWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
  */
 public class StartUp {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        Output console = new Output(new ConsoleOutput());
-        Output jOp = new Output(new JOptionPaneOutput());
-        CustomGarageName garageName = new CustomGarageName("Best Value Parking Garage");
+  public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ParkingTerminalExitWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ParkingTerminalExitWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ParkingTerminalExitWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ParkingTerminalExitWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
 
-        ParkingAccessTicket car1 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(8)));
-        ParkingAccessTicket car2 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinMaxFeeCalculator(8)));
-        ParkingAccessTicket car3 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinNoMaxFeeCalculator(2)));
-        ParkingAccessTicket car4 = new ParkingAccessTicket(garageName.getName(), new FeeCalculator(new MinMaxFeeCalculator(1)));
-
-        ParkingTerminal pt = new ParkingTerminal(console, console, jOp, console, garageName);
-        try {
-            pt.newParkingTicket(car1);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.newParkingTicket(car2);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.exitParkingGarage(car2);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.newParkingTicket(car3);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.exitParkingGarage(car1);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.newParkingTicket(car4);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.exitParkingGarage(car3);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.exitParkingGarage(car4);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        pt.startNewDay();
-
-        try {
-            pt.newParkingTicket(car1);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.newParkingTicket(car2);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.exitParkingGarage(car1);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-        try {
-            pt.exitParkingGarage(car2);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ParkingTerminalGarageOwnerStartupWindow().setVisible(true);
+            }
+        });
     }
 
 }
