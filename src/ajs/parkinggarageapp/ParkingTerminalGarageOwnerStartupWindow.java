@@ -253,13 +253,15 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
         if (feeComboBox.getSelectedIndex() == 0) {
             try {
                 //minmax
-                feeCalculator = new FeeCalculator(new MinMaxFeeCalculator(receiptOutput));
+                FeeCalculatorStrategy feeCalcStrat = FeeCalculatorFactory.getInstance().getFeeCalculator(FeeCalculatorFactory.FeeCalculators.MINMAX, receiptOutput);
+                feeCalculator = new FeeCalculator(feeCalcStrat);
             } catch (NullOrEmptyArgumentException ex) {
                 System.out.println(ex + " exception in start button in fee creation minmax. garage owner screen.");
             }
         } else {
             try {
-                feeCalculator = new FeeCalculator(new MinNoMaxFeeCalculator(receiptOutput));
+                FeeCalculatorStrategy feeCalcStrat = FeeCalculatorFactory.getInstance().getFeeCalculator(FeeCalculatorFactory.FeeCalculators.MINNOMAX, receiptOutput);
+                feeCalculator = new FeeCalculator(feeCalcStrat);
             } catch (NullOrEmptyArgumentException ex) {
                 System.out.println(ex + " exception in start button in fee creation min no max. garage owner screen.");
             }

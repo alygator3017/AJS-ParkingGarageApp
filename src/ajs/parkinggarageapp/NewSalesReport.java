@@ -40,7 +40,7 @@ public class NewSalesReport implements SalesReportDataStrategy {
 
     /**
      * This method is for adding a new car to the daily sales report.
-     * This takes hours which cannot be less than or equal to 0 or greater than 24.
+     * This takes hours which cannot be less than or equal to 0.
      * Also takes a fee which cannot be less that 1.50.
      * Calls the sales report data class constructor to add the sales to the salesReport data.
      * @param hours Hours the car was parked.
@@ -49,8 +49,8 @@ public class NewSalesReport implements SalesReportDataStrategy {
      */
     @Override
     public final void newCar(double hours, double fee) throws NullOrEmptyArgumentException {
-        if (hours <= 0 || hours > 24 || fee < 1.50) {
-            throw new NullOrEmptyArgumentException();
+        if (hours <= 0 || fee < 1.50) {
+            throw new NullOrEmptyArgumentException("problems in new car");
         }
         this.data = new SalesReportData();
         try {
@@ -72,7 +72,7 @@ public class NewSalesReport implements SalesReportDataStrategy {
     }
     
     private void addTotalsToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException {
-        if (hours <= 0 || hours > 24 || fee < 1.50) {
+        if (hours <= 0 || fee < 1.50) {
             throw new NullOrEmptyArgumentException("totals are either null or out of range in addTotalsToSalesReport.");
         }
         this.totalDailyHours += hours;

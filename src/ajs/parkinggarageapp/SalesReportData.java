@@ -61,8 +61,8 @@ public class SalesReportData{
     public final String getSalesReportData(String garageName, double hours, double fee, int cars) throws NullOrEmptyArgumentException, NumberOutOfRangeException{
         if(garageName == null || garageName.isEmpty()){
             throw new NullOrEmptyArgumentException("garageName cannot be null or empty in getSalesReportData method in SalesReportData");
-        }else if(hours <= 0 || hours > 24){
-            throw new NumberOutOfRangeException("hours cannot be less than or equal to 0 or greater than 24 in getSalesReportData in SalesReportData " + hours);
+        }else if(hours <= 0 ){
+            throw new NumberOutOfRangeException("hours cannot be less than or equal to 0 in getSalesReportData in SalesReportData " + hours);
         }else if (fee < 1.50){
             throw new NumberOutOfRangeException("fees cannot be less than 1.50 in getSalesReportData in SalesReportData " + fee);
         }else if (cars <= 0){

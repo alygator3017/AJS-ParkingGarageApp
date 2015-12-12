@@ -27,8 +27,6 @@ public class ExitTerminal implements ParkingTerminalStrategy {
 
     private final OutputService salesReportOutput;
     private final OutputService receiptOutput;
-////    only to be uncommented if using one of the display classes for a terminal display
-//    private final OutputService displayOutput;
     private final SalesReportStrategy outputSalesReport;
     private final FileService fileService;
     private final File file;
@@ -175,10 +173,6 @@ public class ExitTerminal implements ParkingTerminalStrategy {
         } else {
 
             List<Map> fileContent = fileService.readFile(file);
-            //fiel content contains one map containing each thing in it.
-            System.out.println(fileContent.size());
-            System.out.println(fileContent);
-            System.out.println(fileContent.get(0).keySet());
             Set<String> set = fileContent.get(0).keySet();
             List<String> data = new ArrayList<>();
             for (String s : set) {

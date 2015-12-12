@@ -28,6 +28,7 @@ public class FeeCalculator {
      * Returns the total fee being charged per the number of hours.
      * @param hours Hours to for fee to calculate from. 
      * @return Returns the total fee.
+     * @throws ajs.parkinggarageapp.NumberOutOfRangeException
      */
     public final double getFee(double hours) throws NumberOutOfRangeException { 
         if(hours  <= 0 || hours > 24){
@@ -36,6 +37,8 @@ public class FeeCalculator {
         return fee.getTotalFee(hours);
     }
 
+    
+    
     @Override
     public final int hashCode() {
         int hash = 5;

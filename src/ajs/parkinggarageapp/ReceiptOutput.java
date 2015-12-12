@@ -24,8 +24,12 @@ public class ReceiptOutput implements TerminalOutputStrategy {
      * @param hours Hours the car was parked.
      * @param fee Fee the car has been charged.
      * @throws NullOrEmptyArgumentException Custom exception class.
+     * @throws ajs.parkinggarageapp.NumberOutOfRangeException
      */
     public ReceiptOutput(String garageName, int carID, double hours, double fee) throws NullOrEmptyArgumentException, NumberOutOfRangeException {
+        if(hours > 24){
+            hours = 23;
+        }
         if(garageName == null || garageName.isEmpty()){
             throw new NullOrEmptyArgumentException("garage name is null or empty in ReceiptOutput constructor.");
         }else if ( carID <= 0){
