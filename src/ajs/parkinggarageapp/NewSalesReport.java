@@ -1,5 +1,8 @@
 package ajs.parkinggarageapp;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * This class starts a daily sales report.
  * Daily sales reports include daily hours, daily fee and total daily cars. 
@@ -53,7 +56,7 @@ public class NewSalesReport implements SalesReportDataStrategy {
         try {
             addTotalsToSalesReport(hours, fee);
         } catch (NullOrEmptyArgumentException e) {
-            System.out.println(e);
+            System.out.println(e + " addTotalsToSalesReport exception null.");
         }
     }
 
@@ -70,7 +73,7 @@ public class NewSalesReport implements SalesReportDataStrategy {
     
     private void addTotalsToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException {
         if (hours <= 0 || hours > 24 || fee < 1.50) {
-            throw new NullOrEmptyArgumentException();
+            throw new NullOrEmptyArgumentException("totals are either null or out of range in addTotalsToSalesReport.");
         }
         this.totalDailyHours += hours;
         this.totalDailyFee += fee;
@@ -89,7 +92,9 @@ public class NewSalesReport implements SalesReportDataStrategy {
         try {
             dataString = data.getSalesReportData(garageName, totalDailyHours, totalDailyFee, totalDailyCars);
         } catch (NullOrEmptyArgumentException e) {
-            System.out.println(e);
+            System.out.println(e + " output failed in new sales report assigning to dataString null.");
+        } catch (NumberOutOfRangeException ex) {
+            System.out.println(ex + " output failed in new sales report assigning to dataString number out of range.");
         }
         return dataString;
     }

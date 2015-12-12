@@ -100,7 +100,7 @@ public class ParkingTerminal {
         try {
             enter.ticketTransaction(newTicket.getGarageName(), newTicket.getCarID(), newTicket.getDateOfAccess().toString(), newTicket.getDateOfAccess());
         } catch (NullOrEmptyArgumentException e) {
-            receiptOutput.outputData(e);
+            receiptOutput.outputData(e + " null exception for enter.ticketTransaction in newParkingTicket in parking terminal.");
         }
         return newTicket;
     }

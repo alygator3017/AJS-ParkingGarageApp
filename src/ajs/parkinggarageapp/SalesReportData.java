@@ -17,9 +17,15 @@ public class SalesReportData{
     private Date currentDateTime;
     private final SimpleDateFormat date = new SimpleDateFormat("EEE, MMM d, yyyy");
 
-    private String salesReportData(String garageName, double hours, double fee, int cars) throws NullOrEmptyArgumentException{
-        if(garageName == null || garageName.isEmpty() || hours <= 0 || hours > 24 || fee < 1.50 || cars <= 0){
-            throw new NullOrEmptyArgumentException();
+    private String salesReportData(String garageName, double hours, double fee, int cars) throws NullOrEmptyArgumentException, NumberOutOfRangeException{
+        if(garageName == null || garageName.isEmpty()){
+            throw new NullOrEmptyArgumentException("garagename is empty in salesReportData method in SalesReportData class. ");
+        }else if(hours <=0){
+            throw new NumberOutOfRangeException("hours is out of range in salesReportdata method in SalesReportData class.");
+        }else if(fee < 1.50){
+            throw new NumberOutOfRangeException("fee is out of range in salesReportData method in SalesReportData class.");
+        }else if (cars<=0){
+            throw new NumberOutOfRangeException("cars if less than or equal to 0 in salesReportData method in SalesReportData class");
         }
         currentDateTime = new Date();
         NumberFormat curr = NumberFormat.getCurrencyInstance();

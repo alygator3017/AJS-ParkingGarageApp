@@ -78,9 +78,9 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
                 throw new NumberOutOfRangeException("hours cannot be less or equal to 0 or greater than 24 in getTotalFee in MinMaxFeeCalculator");
             } catch (NumberOutOfRangeException ex) {
                 try {
-                    errorPrinter.outputData(ex.toString());
+                    errorPrinter.outputData(ex.toString() + " number out of range, hours our of range in getTotalFee in MinMaxFeeCalculator.");
                 } catch (NullOrEmptyArgumentException ex1) {
-                    System.out.println(ex1);
+                    System.out.println(ex1 + " did not send to printer minMaxFeeCalculator getTotalFee");
                 }
             }
         }
@@ -88,9 +88,9 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
             setHours(hours);
         } catch (NumberOutOfRangeException ex) {
             try {
-                errorPrinter.outputData(ex.toString());
+                errorPrinter.outputData(ex.toString() + " number out of range exception for setHours() in getTotalFee in MinMaxFeeCalculator.");
             } catch (NullOrEmptyArgumentException ex1) {
-                System.out.println(ex1);
+                System.out.println(ex1 + " problem printing for setting hours.");
             }
         }
         totalFee();

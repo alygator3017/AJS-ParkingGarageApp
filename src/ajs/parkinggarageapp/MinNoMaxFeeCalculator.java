@@ -56,9 +56,9 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
                 throw new NumberOutOfRangeException("Hours cannot be above 24 or below/equal to zero. addFee method MinNoMaxFeeCalculator.");
             } catch (NumberOutOfRangeException ex) {
                 try {
-                    errorPrinter.outputData(ex.toString());
+                    errorPrinter.outputData(ex.toString() + " number out of range exception.... don't know why but in setHours in MinNoMaxFeeCalculator.");
                 } catch (NullOrEmptyArgumentException ex1) {
-                    System.out.println(ex1);
+                    System.out.println(ex1 + " could not pass to output because of null. setHours in MinNoMaxFeeCalculator.");
                 }
             }
         }
@@ -86,6 +86,7 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
     /**
      * Sets the hour to be charged.
      * @param hours Hours to be charged.
+     * @return returns total fee due.
      */
     @Override
     public final double getTotalFee(double hours) {
@@ -93,7 +94,7 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
             setHours(hours);
         } catch (NumberOutOfRangeException ex) {
             try {
-                errorPrinter.outputData(ex.toString());
+                errorPrinter.outputData(ex.toString() + " number out of range exception for setHours in getTotalFee.");
             } catch (NullOrEmptyArgumentException ex1) {
                 System.err.println(ex1);
             }
@@ -103,9 +104,9 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
             totalFee();
         }  catch (NumberOutOfRangeException ex) {
             try {
-                errorPrinter.outputData(ex.toString());
+                errorPrinter.outputData(ex.toString() + " problem with totalFee() in getTotalFee method in MinNoMaxFeeCalulator.");
             } catch (NullOrEmptyArgumentException ex1) {
-                System.out.println(ex1);
+                System.out.println(ex1 + " problem printing to error printer in getTotalFee in MinNoMax");
             }
         }
         

@@ -39,7 +39,7 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
         try {
             setGarageName(garageName);
         } catch (NullOrEmptyArgumentException e) {
-            System.out.println(e);
+            System.out.println(e + " failed to set garage name in ParkingAccessTicketData constructor.");
         }
     }
 
@@ -55,7 +55,7 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
         try {
             setTicketDate(currentDateTime);
         } catch (NullOrEmptyArgumentException e) {
-            System.out.println(e);
+            System.out.println(e + " failed to setTicketDate in newTicket in ParkingAccessTicketData. Null.");
         }
         carID = carIDCounter;
     }
@@ -73,7 +73,7 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
     
     private void setTicketDate(LocalDateTime currentDateTime) throws NullOrEmptyArgumentException {
         if (currentDateTime == null) {
-            throw new NullOrEmptyArgumentException();
+            throw new NullOrEmptyArgumentException("currentDateTime is null in setTIcketDate in ParkingAccessTicketData.");
         }
         this.currentDateTime = currentDateTime;
     }
@@ -99,7 +99,7 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
 
     private void setGarageName(String garageName) throws NullOrEmptyArgumentException {
         if (garageName == null || garageName.isEmpty()) {
-            throw new NullOrEmptyArgumentException();
+            throw new NullOrEmptyArgumentException("Garage name is null or empty in setGarageName in ParkingAccessTicketData.");
         } else {
         }
         this.garageName = garageName;

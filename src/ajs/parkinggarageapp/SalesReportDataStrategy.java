@@ -1,7 +1,7 @@
 package ajs.parkinggarageapp;
 
 /**
- * Sales report data strategy interferace file. 
+ * Sales report data strategy interface file. 
  * @author ajSchmidt-Zimmel
  * @version 1.2
  */

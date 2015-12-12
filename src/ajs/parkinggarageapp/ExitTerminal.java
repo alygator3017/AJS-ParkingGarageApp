@@ -215,7 +215,7 @@ public class ExitTerminal implements ParkingTerminalStrategy {
         try {
             outputReceipt.output(receiptOutput);
         } catch (NullOrEmptyArgumentException e) {
-            receiptOutput.outputData(e);
+            receiptOutput.outputData(e + " output receipt null error when trying to output in Exit terminal.");
         }
     }
 
@@ -241,12 +241,12 @@ public class ExitTerminal implements ParkingTerminalStrategy {
         try {
             sr.addToSalesReport(hours, fee);
         } catch (NullOrEmptyArgumentException e) {
-            receiptOutput.outputData(e);
+            receiptOutput.outputData(e + " null when trying to add to sales report in output sales report method in exit terminal.");
         }
         try {
             sr.output(salesReportOutput);
         } catch (NullOrEmptyArgumentException e) {
-            receiptOutput.outputData(e);
+            receiptOutput.outputData(e + " null when trying to output sales report in out sales report method in exit terminal.");
         }
     }
 

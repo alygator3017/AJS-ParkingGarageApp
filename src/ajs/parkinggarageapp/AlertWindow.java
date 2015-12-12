@@ -43,7 +43,6 @@ public class AlertWindow extends javax.swing.JFrame {
         textLabel = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Alert!");
 
         textLabel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N

@@ -59,7 +59,7 @@ public class SalesReport implements SalesReportStrategy {
         try {
             outputType.outputData(salesReport.output());
         } catch (NullOrEmptyArgumentException e) {
-            System.out.println(e);
+            System.out.println(e + " could not output in output in SalesReport.");
         }
 
     }

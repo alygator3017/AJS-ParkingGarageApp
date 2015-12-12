@@ -72,7 +72,7 @@ public class ReceiptOutput implements TerminalOutputStrategy {
         output.outputData(getReceiptData());
         }catch(NullOrEmptyArgumentException e){
             //never ending try catch
-            System.out.println(e);
+            System.out.println(e + " could not output ddata in output in ReceiptOutput.");
         }
     }
 

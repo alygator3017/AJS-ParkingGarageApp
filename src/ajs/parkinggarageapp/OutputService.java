@@ -40,7 +40,7 @@ public class OutputService {
         try {
             outputType.outputData(data);
         } catch (NullOrEmptyArgumentException e) {
-            outputType.outputData(e.toString());
+            outputType.outputData(e.toString() + " failed to output data in outputData method in OutputService.");
         }
     }
 
