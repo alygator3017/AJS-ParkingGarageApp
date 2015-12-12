@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Set;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -199,8 +197,11 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_dispenserTerminalButtonActionPerformed
 
-    //DONT KNOW IF THIS METHOD WILL WORK BUT TRYING IT ANYWAYS
-    public void resetCarCatalogComboBox(){
+
+    /**
+     * Resets the car catalog box to update every time the window is loaded.
+     */
+        public final void resetCarCatalogComboBox(){
         Set<Integer> keys = carCatalog.getCarList().keySet();
         if (keys.size() <= 0) {
             carIDs.add(0);

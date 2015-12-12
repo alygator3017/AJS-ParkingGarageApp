@@ -118,7 +118,7 @@ public class ParkingTerminal {
      * Returns the car catalog
      * @return car catalog
      */
-    public Map<Integer, ParkingAccessTicket> getCarCatalog(){
+    public final Map<Integer, ParkingAccessTicket> getCarCatalog(){
         return carCatalog.getCarList();
     }
 

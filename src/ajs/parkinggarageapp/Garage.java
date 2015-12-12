@@ -41,7 +41,7 @@ public class Garage {
      * Retrieves the phone number of the garage.
      * @return Returns the phone number of the garage.
      */
-    public String getPhone() {
+    public final String getPhone() {
         return phone;
     }
 
@@ -49,7 +49,7 @@ public class Garage {
      * Retrieves the address of the garage.
      * @return Returns the address of the garage.
      */
-    public String getAddress() {
+    public final String getAddress() {
         return address;
     }
     

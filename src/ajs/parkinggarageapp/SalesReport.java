@@ -33,7 +33,7 @@ public class SalesReport implements SalesReportStrategy {
      * @throws NullOrEmptyArgumentException
      */
         @Override
-    public void addToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException {
+    public final void addToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException {
         if (hours <= 0 || hours > 24 || fee < 1.50) {
             throw new NullOrEmptyArgumentException(" hours or fee is out of range: Sales Report addToSalesReport method");
         }
@@ -52,7 +52,7 @@ public class SalesReport implements SalesReportStrategy {
      * @throws NullOrEmptyArgumentException Custom exception class.
      */
     @Override
-    public void output(OutputService outputType) throws NullOrEmptyArgumentException {
+    public final void output(OutputService outputType) throws NullOrEmptyArgumentException {
         if (outputType == null) {
             throw new NullOrEmptyArgumentException("outputType is null in output in SalesReport");
         }
@@ -92,7 +92,7 @@ public class SalesReport implements SalesReportStrategy {
      * @return totalDailyFee- the total fee for the garage for the day.
      */
     @Override
-    public double getTotalDailySales() {
+    public final double getTotalDailySales() {
         return salesReport.getTotalDailySales();
     }
 
@@ -102,7 +102,7 @@ public class SalesReport implements SalesReportStrategy {
      * @return totalDailyHours- the total hours for the garage for the day.
      */
     @Override
-    public double getTotalDailyHours() {
+    public final double getTotalDailyHours() {
         return salesReport.getTotalDailyHours();
     }
 
@@ -113,7 +113,7 @@ public class SalesReport implements SalesReportStrategy {
      * @return totalDailyCars- the total cars for the garage for the day.
      */
     @Override
-    public int getTotalDailyCars() {
+    public final int getTotalDailyCars() {
         return salesReport.getTotalDailyCars();
     }
 

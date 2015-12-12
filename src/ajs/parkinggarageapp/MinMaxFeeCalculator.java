@@ -69,7 +69,6 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
      * Returns the total fee to be charged. 
      * @param hours Hours car was parked.
      * @return The fee to be charged.
-     * @throws ajs.parkinggarageapp.NumberOutOfRangeException
      */ 
     @Override
     public final double getTotalFee(double hours) {

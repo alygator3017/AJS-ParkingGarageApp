@@ -99,7 +99,7 @@ public class NewSalesReport implements SalesReportDataStrategy {
      * @return totalDailyFee- the total fee for the garage for the day.
      */
     @Override
-    public double getTotalDailySales() {
+    public final double getTotalDailySales() {
         return totalDailyFee;
     }
 
@@ -109,7 +109,7 @@ public class NewSalesReport implements SalesReportDataStrategy {
      * @return totalDailyHours- the total hours for the garage for the day.
      */
     @Override
-    public double getTotalDailyHours() {
+    public final double getTotalDailyHours() {
         return totalDailyHours;
     }
 
@@ -119,7 +119,7 @@ public class NewSalesReport implements SalesReportDataStrategy {
      * @return totalDailyCars- the total cars for the garage for the day.
      */
     @Override
-    public int getTotalDailyCars() {
+    public final int getTotalDailyCars() {
         return totalDailyCars;
     }
 }

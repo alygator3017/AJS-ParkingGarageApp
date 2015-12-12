@@ -64,7 +64,7 @@ public class CarCatalog {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int hash = 7;
         hash = 19 * hash + this.cID;
         hash = 19 * hash + Objects.hashCode(this.newTicket);
@@ -72,7 +72,7 @@ public class CarCatalog {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (obj == null) {
             return false;
         }

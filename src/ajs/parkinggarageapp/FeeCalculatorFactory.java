@@ -38,7 +38,7 @@ public class FeeCalculatorFactory {
      * @return the feeCalculatorStrategy.
      * @throws NullOrEmptyArgumentException Custom Exception Class.
      */
-    public FeeCalculatorStrategy getFeeCalculator(FeeCalculators calculatorType, OutputService output) throws NullOrEmptyArgumentException{
+    public final FeeCalculatorStrategy getFeeCalculator(FeeCalculators calculatorType, OutputService output) throws NullOrEmptyArgumentException{
         if(calculatorType == null || output == null){
             throw new NullOrEmptyArgumentException("calculatorType and output cannot be null.");
         }

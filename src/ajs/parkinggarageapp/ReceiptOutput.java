@@ -68,7 +68,7 @@ public class ReceiptOutput implements TerminalOutputStrategy {
      * @throws NullOrEmptyArgumentException Custom exception class.
      */
     @Override
-    public void output(OutputService output) throws NullOrEmptyArgumentException {
+    public final void output(OutputService output) throws NullOrEmptyArgumentException {
         if(output == null){
             throw new NullOrEmptyArgumentException("output is null in output method in ReceiptOutput");
         }

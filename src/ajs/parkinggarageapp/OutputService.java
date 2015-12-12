@@ -71,7 +71,7 @@ public class OutputService {
      * @param e Exception.
      * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException Custom exception class.
      */
-    public void outputData(NullOrEmptyArgumentException e) throws NullOrEmptyArgumentException{
+    public final void outputData(NullOrEmptyArgumentException e) throws NullOrEmptyArgumentException{
         outputType.outputData(e.toString());
     }
     
@@ -80,7 +80,7 @@ public class OutputService {
      * @param e exception.
      * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException Custom exception class.
      */
-    public void outputData(NumberOutOfRangeException e) throws NullOrEmptyArgumentException{
+    public final void outputData(NumberOutOfRangeException e) throws NullOrEmptyArgumentException{
         outputType.outputData(e.toString());
     }
 
