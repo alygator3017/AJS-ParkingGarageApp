@@ -6,7 +6,7 @@ import java.util.Objects;
 import utilities.DateUtilities;
 
 /**
- *
+ * Data to be printed for the parking access ticket.
  * @author ajSchmidt-Zimmel
  */
 public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy {
@@ -22,21 +22,19 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
     private String garageName;
     DateUtilities dateUtilities = new DateUtilities();
 
+    
     /**
-     * this would be the constructor with non-fake data
+     * Parking access ticket data constructor.
+     * Takes in the garage name and creates a new ticket.
+     * Garage name cannot be null or empty. Also sets the garage name.
      *
-     * @param output
+     * @param garageName Name of the garage.
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException Custom exception class.
      */
-//    public ParkingAccessTicketData(OutputStrategy output){ 
-//       newTicket();
-//    }
-    /**
-     * needed in order to fake data
-     *
-     * @param garageName
-     */
-    public ParkingAccessTicketData(String garageName) {
-
+    public ParkingAccessTicketData(String garageName) throws NullOrEmptyArgumentException {
+        if(garageName == null || garageName.isEmpty()){
+            throw new NullOrEmptyArgumentException("garageName is Null or Empty in the ParkingAccessTicketData constructor.");
+        }
         newTicket();
         try {
             setGarageName(garageName);
@@ -45,9 +43,14 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
         }
     }
 
+    /**
+     * Creates a new ticket.
+     * Increases the car count for the car id's. Sets the current date for the
+     * parking access ticket.
+     */
     @Override
     public final void newTicket() {
-        carIDCounter++;
+        ++carIDCounter;
         currentDateTime = LocalDateTime.now();
         try {
             setTicketDate(currentDateTime);
@@ -57,47 +60,17 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
         carID = carIDCounter;
     }
 
-//    /**
-//     * wouldn't need for non-fake data
-//     *
-//     * @return
-//     */
-//    @Override
-//    public final double getHours() {
-//        return hours;
-//    }
-//
-//    /**
-//     * wouldn't need for non-fake data
-//     *
-//     * @param hours
-//     */
-//    private void setHours(double hours) throws NullOrEmptyArgumentException {
-//        if (hours <= 0 || hours > 24) {
-//            throw new NullOrEmptyArgumentException();
-//        }
-//        this.hours = hours;
-//    }
-
     /**
-     *
-     * @return
-     */
-//        @Override
-//    public final String getStringTicketDate() {
-//        String ticketDate = dateUtilities.toString(currentDateTime, dateFormat);
-//        return ticketDate;
-//    }
-
-    /**
-     *
-     * @return
+     * Retrieves the ticket date for the parking access ticket.
+     * This is in LocalDateTime
+     * @return returns the ticket creation date.
      */
     @Override
     public final LocalDateTime getTicketDate() {
         return currentDateTime;
     }
 
+    
     private void setTicketDate(LocalDateTime currentDateTime) throws NullOrEmptyArgumentException {
         if (currentDateTime == null) {
             throw new NullOrEmptyArgumentException();
@@ -105,14 +78,19 @@ public class ParkingAccessTicketData implements ParkingAccessTicketDataStrategy 
         this.currentDateTime = currentDateTime;
     }
 
+    /**
+     * Returns the car Id for the ticket.
+     * 
+     * @return Car's ID number.
+     */
     @Override
     public final int getCarID() {
         return carID;
     }
 
     /**
-     *
-     * @return
+     * Returns the name of the parking garage.
+     * @return Name of the garage.
      */
     @Override
     public final String getGarageName() {

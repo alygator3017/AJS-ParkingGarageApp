@@ -1,22 +1,12 @@
 package ajs.parkinggarageapp;
 
-import fileserviceapp.FileService;
-import fileserviceapp.GarageTotalsFormatter;
-import fileserviceapp.GarageTotalsPlusCarsFormatter;
-import fileserviceapp.TextFormatStrategy;
-import fileserviceapp.TextReader;
-import fileserviceapp.TextWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
- *
+ * Start up class.
+ * This class starts the first GUI window which is ParkingTerminalGarageOwnerStartupWindow.
+ * This brings the user to a number of choices to start their parking garage.
  * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public class StartUp {
 
@@ -50,6 +40,7 @@ public class StartUp {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ParkingTerminalGarageOwnerStartupWindow().setVisible(true);
             }

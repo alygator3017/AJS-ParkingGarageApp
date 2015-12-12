@@ -12,6 +12,8 @@
             </test-roots>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>Fee's</word>
+            <word>liskov's</word>
             <word>netbeans</word>
         </spellchecker-wordlist>
     </configuration>

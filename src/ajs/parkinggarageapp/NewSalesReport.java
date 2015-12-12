@@ -1,10 +1,12 @@
 package ajs.parkinggarageapp;
 
 /**
- *
+ * This class starts a daily sales report.
+ * Daily sales reports include daily hours, daily fee and total daily cars. 
  * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
-public class NewSalesReport implements SalesReportStrategy {
+public class NewSalesReport implements SalesReportDataStrategy {
 
     private static final int START_OF_DAY_CARS = 0;
     private final String garageName;
@@ -13,13 +15,35 @@ public class NewSalesReport implements SalesReportStrategy {
     private SalesReportData data;
     private int totalDailyCars = 0;
 
-    public NewSalesReport(String garageName) {
+    
+    //goes here every time you go back to the start screen
+    
+    /**
+     * Constructor for NewSalesReport.
+     * This constructor takes a garageName, which cannot be null or empty.
+     * @param garageName The name of the garage.
+     * @throws NullOrEmptyArgumentException Custom exception class.
+     */
+        
+    public NewSalesReport(String garageName) throws NullOrEmptyArgumentException {
+        if(garageName == null || garageName.isEmpty()){
+            throw new NullOrEmptyArgumentException("garageName is null or empty in NewSalesReport constructor.");
+        }
         this.totalDailyCars = START_OF_DAY_CARS;
         this.totalDailyFee = 0;
         this.totalDailyHours = 0;
         this.garageName = garageName;
     }
 
+    /**
+     * This method is for adding a new car to the daily sales report.
+     * This takes hours which cannot be less than or equal to 0 or greater than 24.
+     * Also takes a fee which cannot be less that 1.50.
+     * Calls the sales report data class constructor to add the sales to the salesReport data.
+     * @param hours Hours the car was parked.
+     * @param fee The total fee for the hours parked.
+     * @throws NullOrEmptyArgumentException Custom exception class.
+     */
     @Override
     public final void newCar(double hours, double fee) throws NullOrEmptyArgumentException {
         if (hours <= 0 || hours > 24 || fee < 1.50) {
@@ -33,6 +57,17 @@ public class NewSalesReport implements SalesReportStrategy {
         }
     }
 
+    
+    //MOVED THIS hERE AND ENDED HERE, CHECK SALES REPORT AND CHECK NEW DAY TO CLEAR TOTALS?
+
+    /**
+     * Clear totals method.... does nothing yet, might delete?
+     */
+        @Override
+    public void clearTotals(){
+        
+    }
+    
     private void addTotalsToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException {
         if (hours <= 0 || hours > 24 || fee < 1.50) {
             throw new NullOrEmptyArgumentException();
@@ -40,8 +75,14 @@ public class NewSalesReport implements SalesReportStrategy {
         this.totalDailyHours += hours;
         this.totalDailyFee += fee;
         totalDailyCars++;
-    }
+     }
 
+    /**
+     * Sends the output data to the proper output class.
+     * This method gets the sales report data for the sales report data class and
+     * assigns it to a String to be returned.
+     * @return The data string to be output.
+     */
     @Override
     public final String output() {
         String dataString = null;

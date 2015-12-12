@@ -11,7 +11,12 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- *
+ *  Parking terminal class designed to working with the parking terminal strategy. 
+ * Creates new parking terminals, assigns output strategies, generates a file service, 
+ * Creates a parking access ticket connection as well as a garage connection and a 
+ * car catalog connection in order to access car id's and ticket information for
+ * AI GUI interaction.
+ * 
  * @author ajSchmidt-Zimmel
  */
 public class ParkingTerminal {
@@ -26,7 +31,7 @@ public class ParkingTerminal {
     private final FeeCalculator feeCalc;
     private ParkingAccessTicket ticket;
     private final Garage garage;
-    private CarCatalog carCatalog;
+    private final CarCatalog carCatalog;
 
     /**
      * Sets all of the output's, fee strategy, file service, file and garage
@@ -34,9 +39,9 @@ public class ParkingTerminal {
      *
      * @param ticketOutput How the ticket will print.
      * @param receiptOutput How the receipt will print.
-     * @param garage
+     * @param garage Garage information including name, address and phone.
      * @param printerOutput Where to print the Sales Report data.
-     * @param feeCalc Fee Calculator
+     * @param feeCalc Fee Calculator.
      * @param fileService The file service being used.
      * @param file Which file to put daily totals into.
      * @param carCatalog
@@ -100,7 +105,7 @@ public class ParkingTerminal {
         return newTicket;
     }
 
-    private ParkingAccessTicket createTicket() {
+    private ParkingAccessTicket createTicket() throws NullOrEmptyArgumentException {
        ParkingAccessTicket newTicket = new ParkingAccessTicket(garageName);
        return newTicket;
     }

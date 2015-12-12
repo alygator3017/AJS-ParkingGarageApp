@@ -1,15 +1,16 @@
 package ajs.parkinggarageapp;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
- *
- * @author Alyson
+ * The parking terminal ticket dispenser enter GUI screen.
+ * Allows the user to press the button in order to create a new ticket.
+ * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public class ParkingTerminalEnterWindow extends javax.swing.JFrame {
 
@@ -114,15 +115,30 @@ public class ParkingTerminalEnterWindow extends javax.swing.JFrame {
         try {
             ticket = terminal.newParkingTicket();
         } catch (NullOrEmptyArgumentException ex) {
-            errorOutput.outputData(ex);
+            
+            //endless try catch problems here.
+            System.out.println(ex);
         }
-        ParkingTerminalEnterDisplayWindow display = new ParkingTerminalEnterDisplayWindow(garageWindow , garageInfo, ticket.getCarID(), ticket.getDateOfAccess().toString(), errorOutput, salesROutput, feeCalculator, file, carCatalog);
+        ParkingTerminalEnterDisplayWindow display = new ParkingTerminalEnterDisplayWindow(garageWindow , terminal,  garageInfo, ticket.getCarID(), ticket.getDateOfAccess().toString(), errorOutput, salesROutput, feeCalculator, file, carCatalog);
         display.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_newTicketActionPerformed
-///FIX THIS METHOD NEED TO GO BACK TO START WINDOW NOT GARAGE BUT TOO LAZY TO FIX RIGHT NOW
+
+    /**
+     * DONT KNOW IF THIS IS GOING TO WORK RIGHT NOW< TRYING TO GET SALES REPORT TO PRINT CORRECTLY BY GOING BACK TO START WITHOUT RESETING IT.
+     * @param evt 
+     */
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        garageWindow.setVisible(true);
+        ParkingTerminalStartWindow start = null;
+        try {
+            start = new ParkingTerminalStartWindow(garageWindow, garageInfo, errorOutput, terminal, salesROutput,
+                    feeCalculator, file, carCatalog);
+        } catch (IOException | NullOrEmptyArgumentException ex) {
+            System.out.println(ex.getMessage() + "problem in backActionPerformed in PT enter window.");
+        }
+        //THIS IS A PART I"M NOT SURE WILL ACTUALLY WORK UNTIL TESTED
+        start.resetCarCatalogComboBox();
+        start.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backActionPerformed
 

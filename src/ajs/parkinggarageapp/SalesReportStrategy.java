@@ -1,13 +1,11 @@
 package ajs.parkinggarageapp;
 
 /**
- *
+ * Sales report strategy interface class.
  * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
-public interface SalesReportStrategy {
-
-    public abstract void newCar(double hours, double fee) throws NullOrEmptyArgumentException;
-
-    public abstract String output();
-    
+interface SalesReportStrategy {
+    public abstract void addToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException;
+    public abstract void output(OutputService outputType) throws NullOrEmptyArgumentException;
 }

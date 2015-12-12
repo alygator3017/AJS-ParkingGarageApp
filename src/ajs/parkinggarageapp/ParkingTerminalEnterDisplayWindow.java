@@ -7,8 +7,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
- *
- * @author Alyson
+ * Display window for Entering the parking garage.
+ * Displays the ticket information such as the carID and date of access.
+ * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
     private final OutputService receiptOutput;
@@ -18,14 +20,15 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
     private final File file;
     private final CarCatalog carCat;
     private final JFrame garageWindow;
+    private final ParkingTerminal terminal;
     private final Garage garageInfo;
 
     /**
      * Creates new form EnterDisplayWindow.
      * adjusts the text area to reflect the ticket
      * @param garageWindow
+     * @param terminal
      * @param garageInfo
-     * @param start back to start window
      * @param carID id of the new car
      * @param receiptOutput
      * @param salesOutput
@@ -34,7 +37,7 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
      * @param carCat
      * @param file
      */
-    public ParkingTerminalEnterDisplayWindow(JFrame garageWindow, Garage garageInfo, int carID, String date, OutputService receiptOutput, OutputService salesOutput, FeeCalculator fee, File file, CarCatalog carCat) {
+    public ParkingTerminalEnterDisplayWindow(JFrame garageWindow, ParkingTerminal terminal, Garage garageInfo, int carID, String date, OutputService receiptOutput, OutputService salesOutput, FeeCalculator fee, File file, CarCatalog carCat) {
 //        this.prevWindow = start;    
         this.receiptOutput = receiptOutput;
         this.salesOutput = salesOutput;
@@ -45,6 +48,7 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
         textArea.append("Car ID: " + carID + "\n");
         textArea.append("Date: " + date);
         this.garageWindow = garageWindow;
+        this.terminal = terminal;
         this.garageInfo = garageInfo;
     }
 
@@ -110,7 +114,7 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         ParkingTerminalStartWindow prevWindow = null;
         try {
-            prevWindow = new ParkingTerminalStartWindow(garageWindow, garageInfo, receiptOutput, salesOutput, feeCalc, file, carCat);
+            prevWindow = new ParkingTerminalStartWindow(garageWindow, garageInfo, receiptOutput, terminal, salesOutput, feeCalc, file, carCat);
         } catch (IOException | NullOrEmptyArgumentException ex) {
             Logger.getLogger(ParkingTerminalEnterDisplayWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -118,9 +122,7 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+  
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

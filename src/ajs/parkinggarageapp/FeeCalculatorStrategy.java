@@ -1,8 +1,9 @@
 package ajs.parkinggarageapp;
 
 /**
- *
+ * Strategy pattern for fee calculator
  * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public interface FeeCalculatorStrategy {
     

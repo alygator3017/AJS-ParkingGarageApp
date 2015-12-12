@@ -17,7 +17,7 @@ public class ConsoleOutput implements OutputStrategy {
     @Override
     public final void outputData(String data) throws NullOrEmptyArgumentException{
         if(data == null || data.isEmpty()){
-            throw new NullOrEmptyArgumentException();
+            throw new NullOrEmptyArgumentException("String cannot be null or empty, from outputData in ConsoleOutput.");
         }
         System.out.println(data);
     }

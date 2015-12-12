@@ -1,11 +1,12 @@
 package ajs.parkinggarageapp;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
- *
+ * This class calculates the Min no max fee strategy.
+ * Calculates the fee based on the Min No Max calculations. The Min No Max calculations
+ * are as follows: Minimum fee is 1.50 for less than 2 hours. .75 cents is added for 
+ * every hour after up to 24 hours.
  * @author ajSchmidt-Zimmel
  */
 public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
@@ -14,26 +15,18 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
     private double hours;
     private final OutputService errorPrinter;
 
-//    public MinNoMaxFeeCalculator(double hours) {
-//        try {
-//            setHours(hours);
-//        } catch (NullOrEmptyArgumentException e) {
-//            System.out.println(e);
-//        }
-//        //wouldn't allow anything without a try catch
-//        try{
-//        totalFee();
-//        }catch (NullOrEmptyArgumentException e ){
-//            System.out.println(e);
-//        }
-//    }
 
     /**
-     *
-     * @param errorPrinter
+     * Constructor for MinNoMaxFeeCalculator.
+     * takes and errorPrinter which cannot be null.
+     * @param errorPrinter This is where to print an error.
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException
      */
     
-    public MinNoMaxFeeCalculator(OutputService errorPrinter) {
+    public MinNoMaxFeeCalculator(OutputService errorPrinter) throws NullOrEmptyArgumentException {
+        if(errorPrinter == null){
+            throw new NullOrEmptyArgumentException("errorPrinter cannot be null in MinNoMaxFeeCalculator constructor");
+        }
         this.errorPrinter = errorPrinter;
     }
 
@@ -65,7 +58,7 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
                 try {
                     errorPrinter.outputData(ex.toString());
                 } catch (NullOrEmptyArgumentException ex1) {
-                    errorPrinter.outputData(ex1);
+                    System.out.println(ex1);
                 }
             }
         }
@@ -102,7 +95,7 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
             try {
                 errorPrinter.outputData(ex.toString());
             } catch (NullOrEmptyArgumentException ex1) {
-                errorPrinter.outputData(ex1);
+                System.err.println(ex1);
             }
         }
         //wouldn't allow anything without a try catch
@@ -112,7 +105,7 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
             try {
                 errorPrinter.outputData(ex.toString());
             } catch (NullOrEmptyArgumentException ex1) {
-                errorPrinter.outputData(ex1);
+                System.out.println(ex1);
             }
         }
         

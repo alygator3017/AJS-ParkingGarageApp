@@ -3,7 +3,9 @@ package ajs.parkinggarageapp;
 import javax.swing.JFrame;
 
 /**
- *
+ * Error alert window for GUI.
+ * When provided with the previous frame and a message, this window
+ * will give an Error alert window and then take user back to previous frame.
  * @author Alyson
  */
 public class ErrorWindow extends javax.swing.JFrame {
@@ -12,10 +14,16 @@ public class ErrorWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form ErrorWindow
-     * @param prevWindow
-     * @param msg
+     * @param prevWindow The previous frame to go back to.
+     * @param msg Message for the error.
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException
      */
-    public ErrorWindow(JFrame prevWindow, String msg) {
+    public ErrorWindow(JFrame prevWindow, String msg) throws NullOrEmptyArgumentException {
+        if(prevWindow == null){
+            throw new NullOrEmptyArgumentException("prevWindow is null in ErrorWindow constructor");
+        }else if(msg == null){
+            throw new NullOrEmptyArgumentException("msg is null in ErrorWindow constructor");
+        }
         this.previousWindow = prevWindow;
         initComponents();
         message.setText(msg);
@@ -98,40 +106,7 @@ public class ErrorWindow extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_okButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ErrorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ErrorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ErrorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ErrorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ErrorWindow().setVisible(true);
-//            }
-//        });
-//    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel label;

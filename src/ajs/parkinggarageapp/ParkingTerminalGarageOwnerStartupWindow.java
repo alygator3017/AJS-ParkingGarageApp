@@ -1,10 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ajs.parkinggarageapp;
 
+import fileserviceapp.FileService;
+import fileserviceapp.GarageTotalsFormatter;
+import fileserviceapp.TextFormatStrategy;
+import fileserviceapp.TextReader;
+import fileserviceapp.TextWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
@@ -13,8 +13,11 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
+ * Garage start up window. Assigns output options, fee option, file to print to
+ * and garage information. Also starts the terminals.
  *
- * @author Alyson
+ * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame {
 
@@ -29,6 +32,8 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
     private FeeCalculator feeCalculator;
     private File data;
     private ParkingTerminalStartWindow start;
+    private ParkingTerminal terminal;
+    private CarCatalog carCatalog;
 
     /**
      * Creates new form ParkingTerminalGarageOwnerWindow
@@ -41,6 +46,7 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
         feeList.add(minMax);
         feeList.add(minNoMax);
         initComponents();
+
     }
 
     /**
@@ -218,39 +224,106 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         if (receiptOutputComboBox.getSelectedIndex() == 0) {
-            receiptOutput = new OutputService(new ConsoleOutput());
+            try {
+                receiptOutput = new OutputService(new ConsoleOutput());
+            } catch (NullOrEmptyArgumentException ex) {
+                System.out.println(ex + " exception in start button in receipt output creation console. garage owner screen.");
+            }
         } else {
-            receiptOutput = new OutputService(new JOptionPaneOutput());
+            try {
+                receiptOutput = new OutputService(new JOptionPaneOutput());
+            } catch (NullOrEmptyArgumentException ex) {
+                System.out.println(ex + " exception in start button in receipt output creation joption pane. garage owner screen.");
+            }
         }
         if (salesReportOutputComboBox.getSelectedIndex() == 0) {
-            salesReportOutput = new OutputService(new ConsoleOutput());
+            try {
+                salesReportOutput = new OutputService(new ConsoleOutput());
+            } catch (NullOrEmptyArgumentException ex) {
+                System.out.println(ex + " exception in start button in salesReport creation console. garage owner screen.");
+            }
         } else {
-            salesReportOutput = new OutputService(new JOptionPaneOutput());
+            try {
+                salesReportOutput = new OutputService(new JOptionPaneOutput());
+            } catch (NullOrEmptyArgumentException ex) {
+                System.out.println(ex + " exception in start button in salesReport creation joption pane. garage owner screen.");
+            }
         }
 
         if (feeComboBox.getSelectedIndex() == 0) {
-            //minmax
-            feeCalculator = new FeeCalculator(new MinMaxFeeCalculator(receiptOutput));
+            try {
+                //minmax
+                feeCalculator = new FeeCalculator(new MinMaxFeeCalculator(receiptOutput));
+            } catch (NullOrEmptyArgumentException ex) {
+                System.out.println(ex + " exception in start button in fee creation minmax. garage owner screen.");
+            }
         } else {
-            feeCalculator = new FeeCalculator(new MinNoMaxFeeCalculator(receiptOutput));
+            try {
+                feeCalculator = new FeeCalculator(new MinNoMaxFeeCalculator(receiptOutput));
+            } catch (NullOrEmptyArgumentException ex) {
+                System.out.println(ex + " exception in start button in fee creation min no max. garage owner screen.");
+            }
         }
         if (garageNameText.getText().isEmpty() || garageNameText.getText() == null || garageAddressText.getText().isEmpty() || garageAddressText.getText() == null || garagePhoneText.getText().isEmpty() || garagePhoneText.getText() == null || data == null) {
-            ErrorWindow er = new ErrorWindow(this, "Fields Not Filled Out Completely");
+            ErrorWindow er = null;
+            try {
+                er = new ErrorWindow(this, "Fields Not Filled Out Completely");
+            } catch (NullOrEmptyArgumentException ex) {
+                System.out.println(ex + " error in start in error window for null argument exception. garage owner screen.");
+            }
             er.setVisible(true);
             this.setVisible(false);
         } else {
-            Garage garage = new Garage(garageNameText.getText(), garageAddressText.getText(), garagePhoneText.getText());
+            Garage garage = null;
             try {
-                start = new ParkingTerminalStartWindow(this, garage, receiptOutput, salesReportOutput, feeCalculator, data, new CarCatalog());
+                garage = new Garage(garageNameText.getText(), garageAddressText.getText(), garagePhoneText.getText());
+            } catch (NullOrEmptyArgumentException ex) {
+                System.out.println(ex + " error in initializing garage information for the garage class in start button in garage owner");
+            }
+            TextFormatStrategy format = new GarageTotalsFormatter();
+            FileService fs = new FileService(new TextReader(format), new TextWriter(format));
+            this.carCatalog = new CarCatalog();
+            try {
+                this.terminal = new ParkingTerminal(receiptOutput, receiptOutput, salesReportOutput, garage, feeCalculator, fs, data, carCatalog);
             } catch (IOException ex) {
                 try {
                     receiptOutput.outputData(ex.toString());
                 } catch (NullOrEmptyArgumentException ex1) {
-                    receiptOutput.outputData(ex1);
+                    //endless try catch problem
+                    System.out.println(ex1);
                 }
             } catch (NullOrEmptyArgumentException ex) {
-                receiptOutput.outputData(ex);
+                //endless try catch problem
+                System.out.println(ex);
             }
+            try {
+                start = new ParkingTerminalStartWindow(this, garage, receiptOutput, terminal, salesReportOutput, feeCalculator, data, new CarCatalog());
+            } catch (IOException ex) {
+                try {
+                    receiptOutput.outputData(ex.toString());
+                } catch (NullOrEmptyArgumentException ex1) {
+                    //endless try catch problem
+                    System.out.println(ex1);
+                }
+            } catch (NullOrEmptyArgumentException ex) {
+                //endless try catch problem
+                System.out.println(ex);
+            }
+            try {
+                terminal.startNewDay();
+            } catch (IOException ex) {
+                System.out.println(ex + " failure to start new day.");
+            } catch (NullOrEmptyArgumentException ex) {
+                System.out.println(ex + " failure to start new day.");
+            }
+            AlertWindow alert = null;
+            try {
+                alert = new AlertWindow(this, "New Day has been set.");
+            } catch (NullOrEmptyArgumentException ex) {
+                Logger.getLogger(ParkingTerminalStartWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            alert.setVisible(true);
+            this.setVisible(false);
             start.setVisible(true);
             this.setVisible(false);
         }
@@ -265,46 +338,13 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
     private void fileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         int filePath = fileChooser.showSaveDialog(null);
-        if (!(filePath == JFileChooser.APPROVE_OPTION)){
+        if (!(filePath == JFileChooser.APPROVE_OPTION)) {
             System.exit(0);
         }
         data = fileChooser.getSelectedFile();
         filePathLabel.setText(data.toString());
     }//GEN-LAST:event_fileButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(Garage args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ParkingTerminalGarageOwnerStartupWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ParkingTerminalGarageOwnerStartupWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ParkingTerminalGarageOwnerStartupWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ParkingTerminalGarageOwnerStartupWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new ParkingTerminalGarageOwnerStartupWindow().setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitButton;

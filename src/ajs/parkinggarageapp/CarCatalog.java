@@ -39,7 +39,7 @@ public class CarCatalog {
      */
     public final void addCar(int carID, ParkingAccessTicket newTicket) throws NullOrEmptyArgumentException {
         if (carID <= 0 || newTicket == null) {
-            throw new NullOrEmptyArgumentException("CarID or enter date is null or empty");
+            throw new NullOrEmptyArgumentException("CarID or enter date is null or empty, from addCar method in CarCatalog.");
         }
         this.cID = carID;
         this.newTicket = newTicket;
@@ -55,9 +55,9 @@ public class CarCatalog {
      * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException custom
      * exception class
      */
-    public final void removeCare(int carID) throws NullOrEmptyArgumentException {
+    public final void removeCar(int carID) throws NullOrEmptyArgumentException {
         if (carID <= 0) {
-            throw new NullOrEmptyArgumentException("CarID is less or equal to zero.");
+            throw new NullOrEmptyArgumentException("CarID is less or equal to zero. from removeCar method in CarCatalog");
         }
         this.cID = carID;
         carList.remove(cID);
@@ -107,7 +107,7 @@ public class CarCatalog {
      * @return The enter date of the car needed to be found.
      */
     public final LocalDateTime getDateOfCar(int carID){
-        this.newTicket = carList.get(cID);
+        this.newTicket = carList.get(carID);
         return newTicket.getDateOfAccess();
     }
     

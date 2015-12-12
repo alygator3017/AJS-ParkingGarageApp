@@ -1,16 +1,9 @@
 package ajs.parkinggarageapp;
 
-import fileserviceapp.FileService;
-import fileserviceapp.GarageTotalsFormatter;
-import fileserviceapp.TextFormatStrategy;
-import fileserviceapp.TextReader;
-import fileserviceapp.TextWriter;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -18,8 +11,13 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
- *
- * @author Alyson
+ * Start Window that acts as an AI, allowing us to "pretend" being a person parking
+ * a car. 
+ * Allows user to choose whether to enter or exit parking garage. Also allows user 
+ * to choose which car they are. 
+ * Hopefully the list reset works >.> 
+ * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public class ParkingTerminalStartWindow extends javax.swing.JFrame {
 
@@ -39,6 +37,7 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
      * @param garageWindow
      * @param garageInfo
      * @param receiptOutput
+     * @param terminal
      * @param salesReportOutput
      * @param feeCalc
      * @param file
@@ -48,7 +47,7 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
      * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException
      */
     public ParkingTerminalStartWindow(JFrame garageWindow,
-            Garage garageInfo, OutputService receiptOutput, OutputService salesReportOutput, FeeCalculator feeCalc, File file, CarCatalog carCatalog) throws IOException, FileNotFoundException, NullOrEmptyArgumentException {
+            Garage garageInfo, OutputService receiptOutput, ParkingTerminal terminal, OutputService salesReportOutput, FeeCalculator feeCalc, File file, CarCatalog carCatalog) throws IOException, FileNotFoundException, NullOrEmptyArgumentException {
         this.garageWindow = garageWindow;
         this.carCatalog = carCatalog;
         Set<Integer> keys = carCatalog.getCarList().keySet();
@@ -66,10 +65,9 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
         this.receiptOutput = receiptOutput;
         this.salesReportOutput = salesReportOutput;
         this.feeCalculator = feeCalc;
-        TextFormatStrategy format = new GarageTotalsFormatter();
-        FileService fs = new FileService(new TextReader(format), new TextWriter(format));
+        
 
-        this.terminal = new ParkingTerminal(receiptOutput, receiptOutput, salesReportOutput, garageInfo, feeCalculator, fs, file, carCatalog);
+        this.terminal = terminal;
 
     }
 
@@ -87,7 +85,6 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
         exitTerminalButton = new javax.swing.JButton();
         carIdComboBox = new javax.swing.JComboBox(carIDs);
         carIDLabel = new javax.swing.JLabel();
-        newDay = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -120,28 +117,14 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
         carIDLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         carIDLabel.setText("Car To Check Out: ");
 
-        newDay.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        newDay.setText("Start New Day");
-        newDay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newDayActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(dispenserTerminalButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(newDay)
-                        .addGap(18, 18, 18)))
+                .addContainerGap()
+                .addComponent(dispenserTerminalButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(exitTerminalButton)
@@ -165,9 +148,7 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
                     .addComponent(exitTerminalButton)
                     .addComponent(dispenserTerminalButton))
                 .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backButton)
-                    .addComponent(newDay))
+                .addComponent(backButton)
                 .addContainerGap())
         );
 
@@ -185,7 +166,12 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
         ErrorWindow error = null;
         if (selected == 0) {
 
-            error = new ErrorWindow(this, "No Cars Are In The Garage entered");
+            try {
+                error = new ErrorWindow(this, "No Cars Are In The Garage entered");
+            } catch (NullOrEmptyArgumentException ex) {
+                //endless try catch problem again here.
+                System.out.println(ex);
+            }
             error.setVisible(true);
             this.setVisible(false);
 
@@ -213,22 +199,19 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_dispenserTerminalButtonActionPerformed
 
-    private void newDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newDayActionPerformed
-        try {
-            terminal.startNewDay();
-        } catch (IOException | NullOrEmptyArgumentException ex) {
-            Logger.getLogger(ParkingTerminalStartWindow.class.getName()).log(Level.SEVERE, null, ex);
+    //DONT KNOW IF THIS METHOD WILL WORK BUT TRYING IT ANYWAYS
+    public void resetCarCatalogComboBox(){
+        Set<Integer> keys = carCatalog.getCarList().keySet();
+        if (keys.size() <= 0) {
+            carIDs.add(0);
+        } else {
+            carIDs.clear();
+            for (Integer k : keys) {
+                carIDs.add(k);
+            }
         }
-        AlertWindow alert = null;
-        try {
-            alert = new AlertWindow(this, "New Day has been set.");
-        } catch (NullOrEmptyArgumentException ex) {
-            Logger.getLogger(ParkingTerminalStartWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        alert.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_newDayActionPerformed
-
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -239,6 +222,5 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox carIdComboBox;
     private javax.swing.JButton dispenserTerminalButton;
     private javax.swing.JButton exitTerminalButton;
-    private javax.swing.JButton newDay;
     // End of variables declaration//GEN-END:variables
 }

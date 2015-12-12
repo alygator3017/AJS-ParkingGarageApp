@@ -4,8 +4,10 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- *
+ * Parking access ticket class for getting information in the parking access ticket data strategy classes.
+ * Able to collect the ticket's date and time as well as the car ID and garage name.
  * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public class ParkingAccessTicket {
 
@@ -17,8 +19,12 @@ public class ParkingAccessTicket {
      * Constructor to create a new ticket.
      * Creates a new ticket using liskov's substitution principle.
      * @param garageName data on the parking garage.
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException Custom exception class.
      */
-    public ParkingAccessTicket(String garageName) { 
+    public ParkingAccessTicket(String garageName) throws NullOrEmptyArgumentException {
+        if(garageName == null || garageName.isEmpty()){
+            throw new NullOrEmptyArgumentException("garageName is null or empty in the ParkingAccessTicket constructor");
+        }
         this.garage = garageName;
         this.newTicket = new ParkingAccessTicketData(garageName);
     }
@@ -32,9 +38,6 @@ public class ParkingAccessTicket {
         return garage;
     }
 
-//    public final double getHours() {
-//        return newTicket.getHours();
-//    }
 
     /**
      * Returns the cars ID.
@@ -46,14 +49,6 @@ public class ParkingAccessTicket {
         return newTicket.getCarID();
     }
 
-    /**
-     * Gets the original date that the car printed the ticket. 
-     * This version returns a string
-     * @return the date the ticket was issued.
-     */
-//    public final String getStringDateOfAccess() {
-//        return newTicket.getStringTicketDate();
-//    }
 
      /**
      * Gets the original date that the car printed the ticket. 
@@ -85,13 +80,4 @@ public class ParkingAccessTicket {
         }
         return true;
     }
-//    public static void main(Garage[] args) {
-//        ParkingAccessTicket ps = new ParkingAccessTicket(new Garage("pv", "2222 sdflasdf asf", "222-222-2222"), new FeeCalculator(new MinNoMaxFeeCalculator(9))); 
-//        LocalDateTime ld = ps.getDateOfAccess();
-//        System.out.println(ld);
-//        System.out.println(ps.getStringDateOfAccess());
-//        System.out.println(ps.getGarageName());
-//        System.out.println(ps.getFee());
-////        System.out.println(ps.getHours()); 
-//    }
 }

@@ -18,18 +18,14 @@ public class DispenserTerminal implements ParkingTerminalStrategy {
     /**
      * Constructor for subclasses to call. 
      * @param ticketOutput Output in which the ticket will print to
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException Custom exception class.
      */
-    public DispenserTerminal(OutputService ticketOutput) {
+    public DispenserTerminal(OutputService ticketOutput) throws NullOrEmptyArgumentException {
+        if(ticketOutput == null){
+            throw new NullOrEmptyArgumentException("ticketOutput is null in DispenserTerminal constructor");
+        }
         this.ticketOutput = ticketOutput;
     }
-//DON'T THINK I NEED THIS, IF I DON'T THEN DELETE IT BEFORE TURN IN
-//    public final void newTicket(String garageName, int carID, double hours, double fee, String date) throws NullOrEmptyArgumentException {
-//        if (garageName == null || garageName.isEmpty() || carID <= 0 || hours <= 0 || hours > 24 || fee < 1.50 || date == null || date.isEmpty()) {
-//            throw new NullOrEmptyArgumentException();
-//        }
-//        ticketTransaction(garageName, carID, hours, fee, date);
-//
-//    }
 
     /**
      * Creates a new ticket.
@@ -46,14 +42,19 @@ public class DispenserTerminal implements ParkingTerminalStrategy {
     @Override
     public final void ticketTransaction(String garageName, int carID, String sDate, LocalDateTime date) throws NullOrEmptyArgumentException {
         if (garageName == null || garageName.isEmpty() || carID <= 0 || sDate == null || sDate.isEmpty() || date == null) {
-            throw new NullOrEmptyArgumentException();
+            throw new NullOrEmptyArgumentException("garageName, carID, sDate, or date is null or empty in ticketTransaction in DispenserTerminal");
         }
-        TerminalOutputStrategy dataOutput = new TicketDataOutput(garageName, carID, sDate);
+        TerminalOutputStrategy dataOutput = null;
+        try {
+            dataOutput = new TicketDataOutput(garageName, carID, sDate);
+        } catch (NumberOutOfRangeException ex) {
+            System.out.println(ex + " number out of range exception in ticketTransaction in DispenserTerminal when assigninging a new ticket data output to dataOuput variable.");
+        }
         
         try {
             dataOutput.output(ticketOutput);
         } catch (NullOrEmptyArgumentException e) {
-            ticketOutput.outputData(e);
+            ticketOutput.outputData(e + " null or empty when trying to send ticket output to output service in ticket transaction in dispenser terminal. ");
         }
     }
    

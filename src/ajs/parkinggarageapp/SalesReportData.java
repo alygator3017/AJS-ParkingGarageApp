@@ -7,8 +7,10 @@ import java.util.Objects;
 
 
 /**
- *
+ * Sales report compiled data to be passed to output service. 
+ * Combines all information into a readable sales report and then is passed for output.
  * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public class SalesReportData{
     private static final String DASHED = "======================================";
@@ -36,9 +38,29 @@ public class SalesReportData{
         return data;
     }
     
-    public final String getSalesReportData(String garageName, double hours, double fee, int cars) throws NullOrEmptyArgumentException{
-        if(garageName == null || garageName.isEmpty() || hours <= 0 || hours > 24 || fee < 1.50 || cars <= 0){
-            throw new NullOrEmptyArgumentException();
+    /**
+     * 
+     * Takes the data to be turned into a sales report, creates the report
+     * and returns the sales report data in a String to be printed. 
+     * garageName cannot be empty or null, hours cannot be out of the range of 1 and
+     * 24, fee cannot be less than 1.50 and cars cannot be less than or equal to 0.
+     * @param garageName Name of the garage.
+     * @param hours Total hours cars were parked.
+     * @param fee Total fees cars were parked.
+     * @param cars Total number of cars parked that day.
+     * @return The sales report data.
+     * @throws NullOrEmptyArgumentException Custom exception class
+     * @throws ajs.parkinggarageapp.NumberOutOfRangeException Custom exception class.
+     */
+    public final String getSalesReportData(String garageName, double hours, double fee, int cars) throws NullOrEmptyArgumentException, NumberOutOfRangeException{
+        if(garageName == null || garageName.isEmpty()){
+            throw new NullOrEmptyArgumentException("garageName cannot be null or empty in getSalesReportData method in SalesReportData");
+        }else if(hours <= 0 || hours > 24){
+            throw new NumberOutOfRangeException("hours cannot be less than or equal to 0 or greater than 24 in getSalesReportData in SalesReportData " + hours);
+        }else if (fee < 1.50){
+            throw new NumberOutOfRangeException("fees cannot be less than 1.50 in getSalesReportData in SalesReportData " + fee);
+        }else if (cars <= 0){
+            throw new NumberOutOfRangeException("cars cannot be less than or equal to 0 in getSalesReportData in SalesReportData " + cars);
         }
         String salesReportData = null;
         try{

@@ -1,4 +1,4 @@
-package ajs.parkinggarageapp.extras;
+package ajs.parkinggarageapp.extras.NOT.IN.USE;
 
 import ajs.parkinggarageapp.OutputService;
 import ajs.parkinggarageapp.TerminalOutputStrategy;

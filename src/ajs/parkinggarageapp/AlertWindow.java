@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ajs.parkinggarageapp;
 
 import javax.swing.JFrame;
 
 /**
- *
+ * Used to Alerts from the GUI windows.
+ * can be used for alert messages from the GUI frames. This will take
+ * a message and the previous frame in order to accomplish.
  * @author Alyson
+ * @version 1.2
  */
 public class AlertWindow extends javax.swing.JFrame {
     private final JFrame prevWindow;
@@ -18,13 +16,13 @@ public class AlertWindow extends javax.swing.JFrame {
     /**
      * Creates new form AlertWindow
      * 
-     * @param prevWindow previous window
-     * @param msg message to be displayed
-     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException
+     * @param prevWindow Previous window to go back to.
+     * @param msg Message to be displayed.
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException Custom exception class.
      */
     public AlertWindow(JFrame prevWindow, String msg) throws NullOrEmptyArgumentException {
         if(prevWindow == null || msg == null || msg.isEmpty()){
-            throw new NullOrEmptyArgumentException("Argument cannot be null");
+            throw new NullOrEmptyArgumentException("Argument cannot be null, from AlertWindow constructor.");
         }
         this.prevWindow = prevWindow;
         this.msg = msg;

@@ -3,8 +3,14 @@ package ajs.parkinggarageapp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
 /**
- *
+ * Min Max Fee Calculator for the Fee Calculator Strategy. 
+ * Calculates the fee based on the Min Max calculations. The Min Max calculations
+ * are as follows: min fee is 2.00, max fee is 10.00, ever hour charges .50 cents.
+ * If the hours are less than 3 hours then minimum fee will be charged. Only charges for 
+ * up to 24 hours.
  * @author ajSchmidt-Zimmel
  */
 public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
@@ -13,21 +19,17 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
     private double hours;
     private final OutputService errorPrinter;
 
-//    public MinMaxFeeCalculator(double hours) {
-//        try {
-//            setHours(hours);
-//        } catch (NullOrEmptyArgumentException e) {
-//            System.out.println(e);
-//        }
-//        totalFee();
-//    }
 
     /**
-     *
-     * @param errorPrinter
+     * Constructor for MinMaxFeeCalculator.
+     * errorPrinter cannot be null.
+     * @param errorPrinter output service for error
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException custom exception class
      */
-    
-    public MinMaxFeeCalculator(OutputService errorPrinter) {
+    public MinMaxFeeCalculator(OutputService errorPrinter) throws NullOrEmptyArgumentException {
+        if(errorPrinter == null){
+            throw new NullOrEmptyArgumentException("errorPrinter in MinMaxFeeCalculator constructor is null");
+        }
         this.errorPrinter = errorPrinter;
     }
     
@@ -67,16 +69,28 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
      * Returns the total fee to be charged. 
      * @param hours Hours car was parked.
      * @return The fee to be charged.
-     */
+     * @throws ajs.parkinggarageapp.NumberOutOfRangeException
+     */ 
     @Override
     public final double getTotalFee(double hours) {
+        if(hours <= 0 || hours > 24){
+            try {
+                throw new NumberOutOfRangeException("hours cannot be less or equal to 0 or greater than 24 in getTotalFee in MinMaxFeeCalculator");
+            } catch (NumberOutOfRangeException ex) {
+                try {
+                    errorPrinter.outputData(ex.toString());
+                } catch (NullOrEmptyArgumentException ex1) {
+                    System.out.println(ex1);
+                }
+            }
+        }
         try {
             setHours(hours);
         } catch (NumberOutOfRangeException ex) {
             try {
                 errorPrinter.outputData(ex.toString());
             } catch (NullOrEmptyArgumentException ex1) {
-                errorPrinter.outputData(ex1);
+                System.out.println(ex1);
             }
         }
         totalFee();

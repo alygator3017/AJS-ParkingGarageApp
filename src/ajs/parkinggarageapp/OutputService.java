@@ -3,25 +3,44 @@ package ajs.parkinggarageapp;
 import java.util.Objects;
 
 /**
- *
+ * Output service used in conjunction with the Output strategy. 
+ * This method takes an output strategy and creates a new output service, along
+ * with sending the data to be output to that specified output strategy.
  * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public class OutputService {
 
     private final OutputStrategy outputType;
 
-    public OutputService(OutputStrategy output) {
+    /**
+     * Constructor for Output service.
+     * This constructor takes and assigns the specified output strategy.
+     * the output cannot be null. 
+     * @param output Output strategy to be used.
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException Custom exception class.
+     */
+    public OutputService(OutputStrategy output) throws NullOrEmptyArgumentException {
+        if(output == null){
+            throw new NullOrEmptyArgumentException("output cannot be null in the OutputService constructor.");
+        }
         this.outputType = output;
     }
 
+    /**
+     * Sends the data to the output strategy to be output.
+     * Data cannot be null. 
+     * @param data The data string to be sent to the output strategy.
+     * @throws NullOrEmptyArgumentException Custom exception class.
+     */
     public final void outputData(String data) throws NullOrEmptyArgumentException {
         if (data == null || data.isEmpty()) {
-            throw new NullOrEmptyArgumentException();
+            throw new NullOrEmptyArgumentException("data string is null or empty in the outputData method of OutputService.");
         }
         try {
             outputType.outputData(data);
         } catch (NullOrEmptyArgumentException e) {
-            System.out.println(e);
+            outputType.outputData(e.toString());
         }
     }
 
@@ -47,8 +66,22 @@ public class OutputService {
         return true;
     }
 
-    void outputData(NullOrEmptyArgumentException e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Output for null or empty argument exception.
+     * @param e Exception.
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException Custom exception class.
+     */
+    public void outputData(NullOrEmptyArgumentException e) throws NullOrEmptyArgumentException{
+        outputType.outputData(e.toString());
+    }
+    
+    /**
+     * Output for number out of range exception.
+     * @param e exception.
+     * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException Custom exception class.
+     */
+    public void outputData(NumberOutOfRangeException e) throws NullOrEmptyArgumentException{
+        outputType.outputData(e.toString());
     }
 
 }
