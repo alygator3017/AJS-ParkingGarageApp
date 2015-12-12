@@ -86,16 +86,32 @@ public class SalesReport implements SalesReportStrategy {
         return true;
     }
 
+    /**
+     * Returns the total daily sales.
+     * This is useful for the file service.
+     * @return totalDailyFee- the total fee for the garage for the day.
+     */
     @Override
     public double getTotalDailySales() {
         return salesReport.getTotalDailySales();
     }
 
+    /**
+     * Returns the total daily hours for the garage.
+     * This is useful for the file service.
+     * @return totalDailyHours- the total hours for the garage for the day.
+     */
     @Override
     public double getTotalDailyHours() {
         return salesReport.getTotalDailyHours();
     }
 
+    
+     /**
+     * Returns the total daily cars for the garage.
+     * This is useful for the file service.
+     * @return totalDailyCars- the total cars for the garage for the day.
+     */
     @Override
     public int getTotalDailyCars() {
         return salesReport.getTotalDailyCars();
