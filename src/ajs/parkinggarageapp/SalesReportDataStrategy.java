@@ -9,7 +9,11 @@ public interface SalesReportDataStrategy {
 
     public abstract void newCar(double hours, double fee) throws NullOrEmptyArgumentException;
     
-    public abstract void clearTotals();
+    public abstract double getTotalDailySales();
+    
+    public abstract double getTotalDailyHours();
+    
+    public abstract int getTotalDailyCars();
 
     public abstract String output();
     

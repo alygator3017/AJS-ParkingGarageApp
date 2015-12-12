@@ -103,11 +103,7 @@ public class ExitTerminal implements ParkingTerminalStrategy {
                 receiptOutput.outputData(ex.toString());
         }     
         ParkingTerminalExitDisplayWindow exDisplay = new ParkingTerminalExitDisplayWindow(carID, sDate, fees, hours);
-        try {
-            addTotalsToFileService(hours, fees);
-        } catch (IOException ex) {
-            receiptOutput.outputData(ex.toString());
-        }
+        
         
         TerminalOutputStrategy outputReceipt = null;
         try {
@@ -124,6 +120,11 @@ public class ExitTerminal implements ParkingTerminalStrategy {
         try {
             outputSalesReport(outputSalesReport,hours, fees);
         } catch (NumberOutOfRangeException ex) {
+            receiptOutput.outputData(ex.toString());
+        }
+        try {
+            addTotalsToFileService(outputSalesReport.getTotalDailyHours(),outputSalesReport.getTotalDailySales(), outputSalesReport.getTotalDailyCars());
+        } catch (IOException ex) {
             receiptOutput.outputData(ex.toString());
         }
     }
@@ -152,15 +153,15 @@ public class ExitTerminal implements ParkingTerminalStrategy {
         return fee;
     }
 
-    private void addTotalsToFileService(double h, double f) throws IOException, NullOrEmptyArgumentException {
-        if(h == 0 || f == 0){
+    private void addTotalsToFileService(double h, double f, int c) throws IOException, NullOrEmptyArgumentException {
+        if(h == 0 || f == 0 || c == 0){
             throw new NullOrEmptyArgumentException("hours or fees is 0 in addTotalsToFileService in ExitTerminal");
         }
         if (fileHasData == false) {
 
             fees = f;
             hours = h;
-            cars = 1;
+            cars = c;
 
             Map<String, String> map = new LinkedHashMap<>();
             map.put("totalFees", "" + fees + "");
@@ -172,20 +173,17 @@ public class ExitTerminal implements ParkingTerminalStrategy {
             fileService.writeToFile(newData, file, false);
         } else {
 
-            List<Map> fileContent = fileService.readFile(file);
-            Set<String> set = fileContent.get(0).keySet();
-            List<String> data = new ArrayList<>();
-            for (String s : set) {
-                data.add(fileContent.get(0).get(s).toString());
-            }
-            fees = Double.parseDouble(data.get(0)) + f;
-            hours = Double.parseDouble(data.get(1)) + h;
-            cars = Integer.parseInt(data.get(2)) + 1;
+//            List<Map> fileContent = fileService.readFile(file);
+//            Set<String> set = fileContent.get(0).keySet();
+//            List<String> data = new ArrayList<>();
+//            for (String s : set) {
+//                data.add(fileContent.get(0).get(s).toString());
+//            }
 
             Map<String, String> map = new LinkedHashMap<>();
-            map.put("totalFees", "" + fees + "");
-            map.put("totalHours", "" + hours + "");
-            map.put("totalCars", "" + cars + "");
+            map.put("totalFees", "" + f + "");
+            map.put("totalHours", "" + h + "");
+            map.put("totalCars", "" + c + "");
             
             List<Map> newData = new ArrayList();
             newData.add(map);

@@ -86,4 +86,19 @@ public class SalesReport implements SalesReportStrategy {
         return true;
     }
 
+    @Override
+    public double getTotalDailySales() {
+        return salesReport.getTotalDailySales();
+    }
+
+    @Override
+    public double getTotalDailyHours() {
+        return salesReport.getTotalDailyHours();
+    }
+
+    @Override
+    public int getTotalDailyCars() {
+        return salesReport.getTotalDailyCars();
+    }
+
 }

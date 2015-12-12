@@ -76,7 +76,7 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
         fileButton = new javax.swing.JButton();
         filePathLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Garage Owner Information Panel");
 
         garageNameLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N

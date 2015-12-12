@@ -63,13 +63,7 @@ public class NewSalesReport implements SalesReportDataStrategy {
     
     //MOVED THIS hERE AND ENDED HERE, CHECK SALES REPORT AND CHECK NEW DAY TO CLEAR TOTALS?
 
-    /**
-     * Clear totals method.... does nothing yet, might delete?
-     */
-        @Override
-    public void clearTotals(){
-        
-    }
+
     
     private void addTotalsToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException {
         if (hours <= 0 || fee < 1.50) {
@@ -97,5 +91,35 @@ public class NewSalesReport implements SalesReportDataStrategy {
             System.out.println(ex + " output failed in new sales report assigning to dataString number out of range.");
         }
         return dataString;
+    }
+
+    /**
+     * Returns the total daily sales.
+     * This is useful for the file service.
+     * @return totalDailyFee- the total fee for the garage for the day.
+     */
+    @Override
+    public double getTotalDailySales() {
+        return totalDailyFee;
+    }
+
+    /**
+     * Returns the total daily hours for the garage.
+     * This is useful for the file service.
+     * @return totalDailyHours- the total hours for the garage for the day.
+     */
+    @Override
+    public double getTotalDailyHours() {
+        return totalDailyHours;
+    }
+
+    /**
+     * Returns the total daily cars for the garage.
+     * This is useful for the file service.
+     * @return totalDailyCars- the total cars for the garage for the day.
+     */
+    @Override
+    public int getTotalDailyCars() {
+        return totalDailyCars;
     }
 }
