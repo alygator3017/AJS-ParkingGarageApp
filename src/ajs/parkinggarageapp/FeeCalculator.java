@@ -31,7 +31,7 @@ public class FeeCalculator {
      * @throws ajs.parkinggarageapp.NumberOutOfRangeException
      */
     public final double getFee(double hours) throws NumberOutOfRangeException { 
-        if(hours  <= 0 || hours > 24){
+        if(hours  <= 0){
             throw new NumberOutOfRangeException("hours is out of range in getFee method of FeeCalculator");
         }
         return fee.getTotalFee(hours);

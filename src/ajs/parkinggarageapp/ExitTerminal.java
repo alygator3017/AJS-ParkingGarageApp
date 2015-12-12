@@ -137,9 +137,6 @@ public class ExitTerminal implements ParkingTerminalStrategy {
         LocalDateTime exitTime = LocalDateTime.now();
         
         double hoursParked = ((ChronoUnit.SECONDS.between(date, exitTime) * 8)/60);
-        if(hoursParked >= 24){
-            hoursParked = 23.0;
-        }
         this.hours = hoursParked;
         return hoursParked;
     }
@@ -225,8 +222,8 @@ public class ExitTerminal implements ParkingTerminalStrategy {
     private void outputSalesReport(SalesReportStrategy sr, double hours, double fee) throws NullOrEmptyArgumentException, NumberOutOfRangeException {
         if (sr == null) {
             throw new NullOrEmptyArgumentException("SalesReportOutputStrategy is null");
-        }else if(hours <= 0 || hours > 24){
-            throw new NumberOutOfRangeException("hours is less than or equal to 0 or greater than 24 in outputSalesReport in ExitTerminal");
+        }else if(hours <= 0){
+            throw new NumberOutOfRangeException("hours is less than or equal to 0 in outputSalesReport in ExitTerminal");
         }else if(fee < 1.50){
             throw new NumberOutOfRangeException("fee is less that 1.50 in outputSalesReport in ExitTerminal");
         }

@@ -27,14 +27,14 @@ public class SalesReport implements SalesReportStrategy {
 
     /**
      * Adding data to cumulative daily sales report.
-     * hours cannot be less than 0 or greater than 24 and fee cannot be less than 1.50
+     * hours cannot be less than 0 and fee cannot be less than 1.50
      * @param hours hours car was parked.
      * @param fee Fee's incurred during that time.
      * @throws NullOrEmptyArgumentException
      */
         @Override
     public final void addToSalesReport(double hours, double fee) throws NullOrEmptyArgumentException {
-        if (hours <= 0 || hours > 24 || fee < 1.50) {
+        if (hours <= 0 || fee < 1.50) {
             throw new NullOrEmptyArgumentException(" hours or fee is out of range: Sales Report addToSalesReport method");
         }
         try {

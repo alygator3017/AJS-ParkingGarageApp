@@ -19,7 +19,7 @@ public class ParkingTerminalExitWindow extends javax.swing.JFrame {
     private final OutputService receiptOutput;
     private final OutputService salesReportOutput;
     private final JFrame garageWindow;
-    private final Garage garageInfo;
+    private final String garageName;
     private final ParkingTerminal terminal;
     private final FeeCalculator feeCalculator;
     private final File file;
@@ -31,30 +31,30 @@ public class ParkingTerminalExitWindow extends javax.swing.JFrame {
     /**
      * Creates new form ExitParkingTerminalWindow
      *
-     * @param garageWindow
-     * @param garageInfo
-     * @param feeCalculator
-     * @param file
-     * @param receiptOutput
-     * @param terminal
-     * @param salesReportOutput
-     * @param selectedID
-     * @param carCat
+     * @param garageWindow the previous window.
+     * @param garageName The name of the garage.
+     * @param feeCalculator The fee strategy chosen.
+     * @param file The file we are outputing totals to.
+     * @param receiptOutput Where the receipt will print to.
+     * @param terminal The parking terminal in order to exit.
+     * @param salesReportOutput Where the sales report will print to.
+     * @param selectedID The ID of the car selected from the combo box.
+     * @param carCat the car category class in order to find the specified car.
      */
-    public ParkingTerminalExitWindow(JFrame garageWindow, Garage garageInfo, ParkingTerminal terminal,
+    public ParkingTerminalExitWindow(JFrame garageWindow, String garageName, ParkingTerminal terminal,
             OutputService receiptOutput, OutputService salesReportOutput, FeeCalculator feeCalculator,
             File file, int selectedID, CarCatalog carCat) {
         initComponents();
         this.receiptOutput = receiptOutput;
         this.salesReportOutput = salesReportOutput;
         this.garageWindow = garageWindow;
-        this.garageInfo = garageInfo;
+        this.garageName = garageName;
         this.terminal = terminal;
         this.feeCalculator = feeCalculator;
         this.file = file;
         this.selectedID = selectedID;
         this.carCat = carCat;
-        garageNameDisplay.setText(garageInfo.getName());
+        garageNameDisplay.setText(garageName);
         ticketIDDisplay.setText("Car ID: " + selectedID);
         DateUtilities dateUtilities = new DateUtilities();
         ticketDateDisplay.setText(dateUtilities.toString(carCat.getDateOfCar(selectedID), DateTimeFormatter.ofPattern("MM-dd-YYYY hh:mm a")));
@@ -153,10 +153,7 @@ public class ParkingTerminalExitWindow extends javax.swing.JFrame {
      * Button expressing will to exit the garage and pay fee. Calls the terminal
      * to exit the garage passing in the car ID. The car catalog then calls the
      * car list to remove the selected car id. a new start window is made in
-     * order to return to that window. And hopefully nothing will horribly
-     * break. I'm not holding my breath anymore though.... I'm horribly
-     * distraught by my inability to make these windows do my bidding in the
-     * manner I wish them to. I needed like 2 more weeks on GUI.
+     * order to return to that window. 
      *
      * @param evt
      */
@@ -171,7 +168,7 @@ public class ParkingTerminalExitWindow extends javax.swing.JFrame {
             }
         }
         try {
-            start = new ParkingTerminalStartWindow(garageWindow, garageInfo, receiptOutput, terminal,
+            start = new ParkingTerminalStartWindow(garageWindow, garageName, receiptOutput, terminal,
                     salesReportOutput, feeCalculator, file, carCat);
         } catch (IOException ex) {
             try {
@@ -198,7 +195,7 @@ public class ParkingTerminalExitWindow extends javax.swing.JFrame {
      */
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         try {
-            start = new ParkingTerminalStartWindow(garageWindow, garageInfo,
+            start = new ParkingTerminalStartWindow(garageWindow, garageName,
                     receiptOutput, terminal, salesReportOutput, feeCalculator, file, carCat);
         } catch (IOException ex) {
             try {

@@ -1,3 +1,3 @@
-TotalFees,0,
-TotalCars,0,
-TotalHours,0,
+totalFees,4.0,
+totalHours,2.0,
+totalCars,2,

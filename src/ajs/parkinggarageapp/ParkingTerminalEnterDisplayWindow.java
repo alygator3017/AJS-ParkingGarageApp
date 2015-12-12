@@ -21,14 +21,14 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
     private final CarCatalog carCat;
     private final JFrame garageWindow;
     private final ParkingTerminal terminal;
-    private final Garage garageInfo;
+    private final String garageName;
 
     /**
      * Creates new form EnterDisplayWindow.
      * adjusts the text area to reflect the ticket
      * @param garageWindow
      * @param terminal
-     * @param garageInfo
+     * @param garageName
      * @param carID id of the new car
      * @param receiptOutput
      * @param salesOutput
@@ -37,7 +37,7 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
      * @param carCat
      * @param file
      */
-    public ParkingTerminalEnterDisplayWindow(JFrame garageWindow, ParkingTerminal terminal, Garage garageInfo, int carID, String date, OutputService receiptOutput, OutputService salesOutput, FeeCalculator fee, File file, CarCatalog carCat) {
+    public ParkingTerminalEnterDisplayWindow(JFrame garageWindow, ParkingTerminal terminal, String garageName, int carID, String date, OutputService receiptOutput, OutputService salesOutput, FeeCalculator fee, File file, CarCatalog carCat) {
 //        this.prevWindow = start;    
         this.receiptOutput = receiptOutput;
         this.salesOutput = salesOutput;
@@ -49,7 +49,7 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
         textArea.append("Date: " + date);
         this.garageWindow = garageWindow;
         this.terminal = terminal;
-        this.garageInfo = garageInfo;
+        this.garageName = garageName;
     }
 
     /**
@@ -114,7 +114,7 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         ParkingTerminalStartWindow prevWindow = null;
         try {
-            prevWindow = new ParkingTerminalStartWindow(garageWindow, garageInfo, receiptOutput, terminal, salesOutput, feeCalc, file, carCat);
+            prevWindow = new ParkingTerminalStartWindow(garageWindow, garageName, receiptOutput, terminal, salesOutput, feeCalc, file, carCat);
         } catch (IOException | NullOrEmptyArgumentException ex) {
             Logger.getLogger(ParkingTerminalEnterDisplayWindow.class.getName()).log(Level.SEVERE, null, ex);
         }

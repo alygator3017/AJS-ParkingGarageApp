@@ -1,8 +1,5 @@
 package ajs.parkinggarageapp;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 
 /**
@@ -72,9 +69,10 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
      */ 
     @Override
     public final double getTotalFee(double hours) {
-        if(hours <= 0 || hours > 24){
+        fee = 0;
+        if(hours <= 0){
             try {
-                throw new NumberOutOfRangeException("hours cannot be less or equal to 0 or greater than 24 in getTotalFee in MinMaxFeeCalculator");
+                throw new NumberOutOfRangeException("hours cannot be less or equal to 0 in getTotalFee in MinMaxFeeCalculator");
             } catch (NumberOutOfRangeException ex) {
                 try {
                     errorPrinter.outputData(ex.toString() + " number out of range, hours our of range in getTotalFee in MinMaxFeeCalculator.");
@@ -103,7 +101,7 @@ public class MinMaxFeeCalculator implements FeeCalculatorStrategy {
      */
     @Override
     public final void setHours(double hours) throws NumberOutOfRangeException {
-        if (hours <= 0 || hours > 24) {
+        if (hours <= 0) {
             throw new NumberOutOfRangeException("Hours cannot be above 24 or below/equal to zero. addFee method MinNoMaxFeeCalculator.");
         }
         this.hours = hours;

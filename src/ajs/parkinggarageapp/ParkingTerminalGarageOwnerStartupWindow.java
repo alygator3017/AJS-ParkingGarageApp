@@ -225,26 +225,30 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         if (receiptOutputComboBox.getSelectedIndex() == 0) {
             try {
-                receiptOutput = new OutputService(new ConsoleOutput());
+                OutputStrategy output = OutputFactory.getInstance().getOutput(OutputFactory.outputTypes.CONSOLE);
+                receiptOutput = new OutputService(output);
             } catch (NullOrEmptyArgumentException ex) {
                 System.out.println(ex + " exception in start button in receipt output creation console. garage owner screen.");
             }
         } else {
             try {
-                receiptOutput = new OutputService(new JOptionPaneOutput());
+                OutputStrategy output = OutputFactory.getInstance().getOutput(OutputFactory.outputTypes.JOPTIONPANE);
+                receiptOutput = new OutputService(output);
             } catch (NullOrEmptyArgumentException ex) {
                 System.out.println(ex + " exception in start button in receipt output creation joption pane. garage owner screen.");
             }
         }
         if (salesReportOutputComboBox.getSelectedIndex() == 0) {
             try {
-                salesReportOutput = new OutputService(new ConsoleOutput());
+                OutputStrategy output = OutputFactory.getInstance().getOutput(OutputFactory.outputTypes.CONSOLE);
+                salesReportOutput = new OutputService(output);
             } catch (NullOrEmptyArgumentException ex) {
                 System.out.println(ex + " exception in start button in salesReport creation console. garage owner screen.");
             }
         } else {
             try {
-                salesReportOutput = new OutputService(new JOptionPaneOutput());
+                OutputStrategy output = OutputFactory.getInstance().getOutput(OutputFactory.outputTypes.JOPTIONPANE);
+                salesReportOutput = new OutputService(output);
             } catch (NullOrEmptyArgumentException ex) {
                 System.out.println(ex + " exception in start button in salesReport creation joption pane. garage owner screen.");
             }
@@ -286,7 +290,7 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
             FileService fs = new FileService(new TextReader(format), new TextWriter(format));
             this.carCatalog = new CarCatalog();
             try {
-                this.terminal = new ParkingTerminal(receiptOutput, receiptOutput, salesReportOutput, garage, feeCalculator, fs, data, carCatalog);
+                this.terminal = new ParkingTerminal(receiptOutput, receiptOutput, salesReportOutput, garage.getName(), feeCalculator, fs, data, carCatalog);
             } catch (IOException ex) {
                 try {
                     receiptOutput.outputData(ex.toString());
@@ -299,7 +303,7 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
                 System.out.println(ex);
             }
             try {
-                start = new ParkingTerminalStartWindow(this, garage, receiptOutput, terminal, salesReportOutput, feeCalculator, data, new CarCatalog());
+                start = new ParkingTerminalStartWindow(this, garage.getName(), receiptOutput, terminal, salesReportOutput, feeCalculator, data, new CarCatalog());
             } catch (IOException ex) {
                 try {
                     receiptOutput.outputData(ex.toString());
@@ -311,6 +315,7 @@ public class ParkingTerminalGarageOwnerStartupWindow extends javax.swing.JFrame 
                 //endless try catch problem
                 System.out.println(ex);
             }
+//            start.resetCarCatalogComboBox();
             try {
                 terminal.startNewDay();
             } catch (IOException ex) {

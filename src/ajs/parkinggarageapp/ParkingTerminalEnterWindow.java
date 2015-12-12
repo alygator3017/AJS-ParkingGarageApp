@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 public class ParkingTerminalEnterWindow extends javax.swing.JFrame {
 
     private final JFrame garageWindow;
-    private final Garage garageInfo;
+    private final String garageName;
     private final ParkingTerminal terminal;
     private final OutputService errorOutput;
     private final CarCatalog carCatalog;
@@ -25,7 +25,7 @@ public class ParkingTerminalEnterWindow extends javax.swing.JFrame {
      * Creates new form EnterParkingTerminalForm
      *
      * @param garage
-     * @param garageInfo
+     * @param garageName
      * @param terminal
      * @param receiptOutput
      * @param salesOutput
@@ -33,10 +33,10 @@ public class ParkingTerminalEnterWindow extends javax.swing.JFrame {
      * @param file
      * @param carCatalog
      */
-    public ParkingTerminalEnterWindow(JFrame garage, Garage garageInfo, ParkingTerminal terminal, OutputService receiptOutput, OutputService salesOutput, FeeCalculator fee, File file, CarCatalog carCatalog) {
+    public ParkingTerminalEnterWindow(JFrame garage, String garageName, ParkingTerminal terminal, OutputService receiptOutput, OutputService salesOutput, FeeCalculator fee, File file, CarCatalog carCatalog) {
         this.garageWindow = garage;
         initComponents();
-        this.garageInfo = garageInfo;
+        this.garageName = garageName;
         this.terminal = terminal;
         this.errorOutput = receiptOutput;
         this.salesROutput = salesOutput;
@@ -117,7 +117,7 @@ public class ParkingTerminalEnterWindow extends javax.swing.JFrame {
             //endless try catch problems here.
             System.out.println(ex);
         }
-        ParkingTerminalEnterDisplayWindow display = new ParkingTerminalEnterDisplayWindow(garageWindow , terminal,  garageInfo, ticket.getCarID(), ticket.getDateOfAccess().toString(), errorOutput, salesROutput, feeCalculator, file, carCatalog);
+        ParkingTerminalEnterDisplayWindow display = new ParkingTerminalEnterDisplayWindow(garageWindow , terminal,  garageName, ticket.getCarID(), ticket.getDateOfAccess().toString(), errorOutput, salesROutput, feeCalculator, file, carCatalog);
         display.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_newTicketActionPerformed
@@ -129,12 +129,12 @@ public class ParkingTerminalEnterWindow extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         ParkingTerminalStartWindow start = null;
         try {
-            start = new ParkingTerminalStartWindow(garageWindow, garageInfo, errorOutput, terminal, salesROutput,
+            start = new ParkingTerminalStartWindow(garageWindow, garageName, errorOutput, terminal, salesROutput,
                     feeCalculator, file, carCatalog);
         } catch (IOException | NullOrEmptyArgumentException ex) {
             System.out.println(ex.getMessage() + "problem in backActionPerformed in PT enter window.");
         }
-        //THIS IS A PART I"M NOT SURE WILL ACTUALLY WORK UNTIL TESTED
+        
         start.resetCarCatalogComboBox();
         start.setVisible(true);
         this.setVisible(false);

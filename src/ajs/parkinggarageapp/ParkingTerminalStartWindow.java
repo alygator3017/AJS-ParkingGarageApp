@@ -1,6 +1,5 @@
 package ajs.parkinggarageapp;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,19 +8,19 @@ import java.util.Vector;
 import javax.swing.JFrame;
 
 /**
- * Start Window that acts as an AI, allowing us to "pretend" being a person parking
- * a car. 
- * Allows user to choose whether to enter or exit parking garage. Also allows user 
- * to choose which car they are. 
- * Hopefully the list reset works >.> 
+ * Start Window that acts as an AI, allowing us to "pretend" being a person
+ * parking a car. Allows user to choose whether to enter or exit parking garage.
+ * Also allows user to choose which car they are. Hopefully the list reset works
+ * >.>
+ *
  * @author ajSchmidt-Zimmel
  * @version 1.2
  */
 public class ParkingTerminalStartWindow extends javax.swing.JFrame {
 
     private final JFrame garageWindow;
-    private final Garage garageInfo;
     private final File file;
+    private final String garageName;
     private final OutputService receiptOutput;
     private final OutputService salesReportOutput;
     private final FeeCalculator feeCalculator;
@@ -33,7 +32,7 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
      * Creates new form ParkingTerminalStartForm
      *
      * @param garageWindow
-     * @param garageInfo
+     * @param garageName
      * @param receiptOutput
      * @param terminal
      * @param salesReportOutput
@@ -45,7 +44,7 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
      * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException
      */
     public ParkingTerminalStartWindow(JFrame garageWindow,
-            Garage garageInfo, OutputService receiptOutput, ParkingTerminal terminal, OutputService salesReportOutput, FeeCalculator feeCalc, File file, CarCatalog carCatalog) throws IOException, FileNotFoundException, NullOrEmptyArgumentException {
+            String garageName, OutputService receiptOutput, ParkingTerminal terminal, OutputService salesReportOutput, FeeCalculator feeCalc, File file, CarCatalog carCatalog) throws IOException, FileNotFoundException, NullOrEmptyArgumentException {
         this.garageWindow = garageWindow;
         this.carCatalog = carCatalog;
         Set<Integer> keys = carCatalog.getCarList().keySet();
@@ -58,12 +57,11 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
             }
         }
         initComponents();
-        this.garageInfo = garageInfo;
         this.file = file;
+        this.garageName = garageName;
         this.receiptOutput = receiptOutput;
         this.salesReportOutput = salesReportOutput;
         this.feeCalculator = feeCalc;
-        
 
         this.terminal = terminal;
 
@@ -159,7 +157,12 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
      * @param evt
      */
     private void exitTerminalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitTerminalButtonActionPerformed
-        int selected = Integer.parseInt(carIdComboBox.getSelectedItem().toString());
+        int selected = 0;
+        if (carIdComboBox.getSelectedItem() == null) {
+            selected = 0;
+        } else {
+            selected = Integer.parseInt(carIdComboBox.getSelectedItem().toString());
+        }
 //        System.out.println(selected);
         ErrorWindow error = null;
         if (selected == 0) {
@@ -175,10 +178,10 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
 
         } else {
             int id = selected;
-            
-            ParkingTerminalExitWindow exit = new ParkingTerminalExitWindow(garageWindow, garageInfo, 
+
+            ParkingTerminalExitWindow exit = new ParkingTerminalExitWindow(garageWindow, garageName,
                     terminal, receiptOutput, salesReportOutput, feeCalculator, file, selected, carCatalog);
-            
+
             exit.setVisible(true);
             this.setVisible(false);
         }
@@ -191,7 +194,7 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void dispenserTerminalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dispenserTerminalButtonActionPerformed
-        ParkingTerminalEnterWindow enter = new ParkingTerminalEnterWindow(garageWindow, garageInfo, 
+        ParkingTerminalEnterWindow enter = new ParkingTerminalEnterWindow(garageWindow, garageName,
                 terminal, receiptOutput, salesReportOutput, feeCalculator, file, carCatalog);
         enter.setVisible(true);
         this.setVisible(false);
@@ -201,7 +204,10 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
     /**
      * Resets the car catalog box to update every time the window is loaded.
      */
-        public final void resetCarCatalogComboBox(){
+    public final void resetCarCatalogComboBox() {
+        carIdComboBox.removeAllItems();
+        carIDs.clear();
+        carCatalog.getCarList().clear();
         Set<Integer> keys = carCatalog.getCarList().keySet();
         if (keys.size() <= 0) {
             carIDs.add(0);
@@ -211,8 +217,9 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
                 carIDs.add(k);
             }
         }
+
     }
-    
+
     /**
      * @param args the command line arguments
      */

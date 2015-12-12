@@ -27,15 +27,13 @@ public class ReceiptOutput implements TerminalOutputStrategy {
      * @throws ajs.parkinggarageapp.NumberOutOfRangeException
      */
     public ReceiptOutput(String garageName, int carID, double hours, double fee) throws NullOrEmptyArgumentException, NumberOutOfRangeException {
-        if(hours > 24){
-            hours = 23;
-        }
+        
         if(garageName == null || garageName.isEmpty()){
             throw new NullOrEmptyArgumentException("garage name is null or empty in ReceiptOutput constructor.");
         }else if ( carID <= 0){
             throw new NumberOutOfRangeException("carID is less than or equal to 0 in ReceiptOutput constructor.");
-        }else if(hours <= 0 || hours > 24){
-            throw new NumberOutOfRangeException("hours is less than or equal to 0 or hours are greater than 24 in ReceiptOutput constructor");
+        }else if(hours <= 0){
+            throw new NumberOutOfRangeException("hours is less than or equal to 0 in ReceiptOutput constructor");
         }else if (fee < 1.50){
             throw new NumberOutOfRangeException("fee is less than 1.50 in ReceiptOutput constructor.");
         }

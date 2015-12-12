@@ -36,8 +36,8 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
     }
 
     private void addFee(double hours) throws NumberOutOfRangeException {
-        if (hours <= 0 || hours > 24) {
-            throw new NumberOutOfRangeException("Hours cannot be above 24 or below/equal to zero. addFee method MinNoMaxFeeCalculator.");
+        if (hours <= 0) {
+            throw new NumberOutOfRangeException("Hours cannot be below/equal to zero. addFee method MinNoMaxFeeCalculator.");
         }
         for (int i = 2; i < hours; i++) {
             fee += 0.75;
@@ -51,9 +51,9 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
      */
     @Override
     public final void setHours(double hours) throws NumberOutOfRangeException {
-        if (hours > 24 || hours <= 0.0) {
+        if (hours <= 0.0) {
             try {
-                throw new NumberOutOfRangeException("Hours cannot be above 24 or below/equal to zero. addFee method MinNoMaxFeeCalculator.");
+                throw new NumberOutOfRangeException("Hours cannot be below/equal to zero. addFee method MinNoMaxFeeCalculator.");
             } catch (NumberOutOfRangeException ex) {
                 try {
                     errorPrinter.outputData(ex.toString() + " number out of range exception.... don't know why but in setHours in MinNoMaxFeeCalculator.");

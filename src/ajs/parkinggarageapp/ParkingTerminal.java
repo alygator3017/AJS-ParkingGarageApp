@@ -30,7 +30,6 @@ public class ParkingTerminal {
     private final FileService fs;
     private final FeeCalculator feeCalc;
     private ParkingAccessTicket ticket;
-    private final Garage garage;
     private final CarCatalog carCatalog;
 
     /**
@@ -39,8 +38,8 @@ public class ParkingTerminal {
      *
      * @param ticketOutput How the ticket will print.
      * @param receiptOutput How the receipt will print.
-     * @param garage Garage information including name, address and phone.
      * @param printerOutput Where to print the Sales Report data.
+     * @param garageName The name of the garage.
      * @param feeCalc Fee Calculator.
      * @param fileService The file service being used.
      * @param file Which file to put daily totals into.
@@ -49,11 +48,10 @@ public class ParkingTerminal {
      * @throws FileNotFoundException
      * @throws NullOrEmptyArgumentException custom exception class
      */
-    public ParkingTerminal(OutputService ticketOutput, OutputService receiptOutput, OutputService printerOutput, Garage garage, FeeCalculator feeCalc, FileService fileService, File file, CarCatalog carCatalog) throws IOException, FileNotFoundException, NullOrEmptyArgumentException {
-        this.exit = new ExitTerminal(receiptOutput, printerOutput, garage.getName(), feeCalc, fileService, file);
+    public ParkingTerminal(OutputService ticketOutput, OutputService receiptOutput, OutputService printerOutput, String garageName, FeeCalculator feeCalc, FileService fileService, File file, CarCatalog carCatalog) throws IOException, FileNotFoundException, NullOrEmptyArgumentException {
+        this.exit = new ExitTerminal(receiptOutput, printerOutput, garageName, feeCalc, fileService, file);
         this.enter = new DispenserTerminal(ticketOutput);
-        this.garage = garage;
-        this.garageName = garage.getName();
+        this.garageName = garageName;
         this.feeCalc = feeCalc;
         this.fs = fileService;
         this.file = file;
