@@ -70,6 +70,9 @@ public class ParkingTerminal {
      */
     public final void startNewDay() throws IOException, FileNotFoundException, NullOrEmptyArgumentException {
         this.exit = new ExitTerminal(receiptOutput, printerOutput, garageName, feeCalc, fs, file);
+        
+        List<Map> fileContent = fs.readFile(file);
+        
         Map<String, String> map = new HashMap<>();
         map.put("TotalFees", "0");
         map.put("TotalHours", "0");
