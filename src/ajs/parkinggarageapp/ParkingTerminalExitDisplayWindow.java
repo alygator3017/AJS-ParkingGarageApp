@@ -11,10 +11,10 @@ public class ParkingTerminalExitDisplayWindow extends javax.swing.JFrame {
  
     /**
      * Creates new form ParkingTerminalExitDisplayWindow
-     * @param carID
-     * @param sDate
-     * @param fees
-     * @param hours
+     * @param carID Id of the car.
+     * @param sDate The enter date as a string.
+     * @param fees The fees due.
+     * @param hours The hours parked.
      */
     public ParkingTerminalExitDisplayWindow(int carID, String sDate, Double fees, Double hours) {
         initComponents();

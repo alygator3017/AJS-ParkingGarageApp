@@ -13,18 +13,35 @@ package ajs.parkinggarageapp;
 public class NumberOutOfRangeException extends Exception{
     
     private final static String MSG = "Number out of range.";
+
+    /**
+     * Prints a message.
+     */
     public NumberOutOfRangeException() {
         super(MSG);
     }
 
+    /**
+     * Prints the string being passed to the method as the message.
+     * @param string Message to be printed
+     */
     public NumberOutOfRangeException(String string) {
-        super(MSG);
+        super(string);
     }
 
+    /**
+     * Prints the string and throwable.
+     * @param string String to be printed.
+     * @param thrwbl Throwable being passed.
+     */
     public NumberOutOfRangeException(String string, Throwable thrwbl) {
-        super(MSG, thrwbl);
+        super(string, thrwbl);
     }
 
+    /**
+     * Sends the throwable to the super to print out the error.
+     * @param thrwbl Throwable to be passed.
+     */
     public NumberOutOfRangeException(Throwable thrwbl) {
         super(MSG, thrwbl);
     }

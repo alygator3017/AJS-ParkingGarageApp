@@ -8,6 +8,7 @@ package ajs.parkinggarageapp;
  * are as follows: Minimum fee is 1.50 for less than 2 hours. .75 cents is added for 
  * every hour after up to 24 hours.
  * @author ajSchmidt-Zimmel
+ * @version 1.2
  */
 public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
 

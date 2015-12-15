@@ -31,14 +31,14 @@ public class ParkingTerminalStartWindow extends javax.swing.JFrame {
     /**
      * Creates new form ParkingTerminalStartForm
      *
-     * @param garageWindow
-     * @param garageName
+     * @param garageWindow The garage window.
+     * @param garageName The name of the garage.
      * @param receiptOutput
-     * @param terminal
+     * @param terminal Parking terminal.
      * @param salesReportOutput
-     * @param feeCalc
-     * @param file
-     * @param carCatalog
+     * @param feeCalc The fee calculator strategy.
+     * @param file The file. 
+     * @param carCatalog The car catalog.
      * @throws java.io.IOException
      * @throws java.io.FileNotFoundException
      * @throws ajs.parkinggarageapp.NullOrEmptyArgumentException

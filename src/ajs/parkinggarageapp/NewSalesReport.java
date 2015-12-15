@@ -1,7 +1,5 @@
 package ajs.parkinggarageapp;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class starts a daily sales report.
@@ -61,7 +59,6 @@ public class NewSalesReport implements SalesReportDataStrategy {
     }
 
     
-    //MOVED THIS hERE AND ENDED HERE, CHECK SALES REPORT AND CHECK NEW DAY TO CLEAR TOTALS?
 
 
     

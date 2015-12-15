@@ -85,10 +85,10 @@ public class ExitTerminal implements ParkingTerminalStrategy {
      * to the file that was specified in the constructor. Car id must be greater
      * than 0, date and sDate cannot be null or empty.
      *
-     * @param garageName
-     * @param carID
-     * @param sDate
-     * @param date
+     * @param garageName The name of the garage.
+     * @param carID Id of the car.
+     * @param sDate The date entered as a String.
+     * @param date The date entered.
      * @throws NullOrEmptyArgumentException
      */
     @Override

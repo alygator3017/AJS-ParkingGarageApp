@@ -26,16 +26,16 @@ public class ParkingTerminalEnterDisplayWindow extends javax.swing.JFrame {
     /**
      * Creates new form EnterDisplayWindow.
      * adjusts the text area to reflect the ticket
-     * @param garageWindow
+     * @param garageWindow 
      * @param terminal
-     * @param garageName
-     * @param carID id of the new car
+     * @param garageName Name of the garage.
+     * @param carID id of the new car.
      * @param receiptOutput
      * @param salesOutput
-     * @param fee
-     * @param date date the car entered       //////////JFrame start,
-     * @param carCat
-     * @param file
+     * @param fee FeeStrategy.
+     * @param date date the car entered      
+     * @param carCat CarCatalog.
+     * @param file File being passed.
      */
     public ParkingTerminalEnterDisplayWindow(JFrame garageWindow, ParkingTerminal terminal, String garageName, int carID, String date, OutputService receiptOutput, OutputService salesOutput, FeeCalculator fee, File file, CarCatalog carCat) {
 //        this.prevWindow = start;    

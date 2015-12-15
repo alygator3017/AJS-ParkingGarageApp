@@ -28,6 +28,12 @@ public class OutputFactory {
         return instance;
     }
     
+    /**
+     * Creates the output based on the enums being passed in.
+     * @param outputType ex: OutputFactory.outputTypes.CONSOLE
+     * @return the outputStrategy.
+     * @throws NullOrEmptyArgumentException Custom exception class.
+     */
     public final OutputStrategy getOutput(outputTypes outputType) throws NullOrEmptyArgumentException{
         if(outputType == null){
             throw new NullOrEmptyArgumentException("outputType cannot be null.");

@@ -10,6 +10,12 @@ import javax.swing.JOptionPane;
  */
 public class JOptionPaneOutput implements OutputStrategy{
 
+    /**
+     * Outputs the data brought in to a JOptionPane.
+     * 
+     * @param data The data needing to be printed.
+     * @throws NullOrEmptyArgumentException Custom Exception Class.
+     */
     @Override
     public final void outputData(String data) throws NullOrEmptyArgumentException {
         if(data == null || data.isEmpty()){

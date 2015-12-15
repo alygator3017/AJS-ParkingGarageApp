@@ -11,18 +11,35 @@ package ajs.parkinggarageapp;
  */
 public class NullOrEmptyArgumentException extends Exception {
     private final static String MSG = "Illegal Argument";
+
+    /**
+     * Prints the message.
+     */
     public NullOrEmptyArgumentException() {
         super(MSG);
     }
 
+    /**
+     * Prints the message brought in.
+     * @param string The message to be printed.
+     */
     public NullOrEmptyArgumentException(String string) {
-        super(MSG);
+        super(string);
     }
 
+    /**
+     * Prints the string and throwable.
+     * @param string String to be printed.
+     * @param thrwbl Throwable being passed.
+     */
     public NullOrEmptyArgumentException(String string, Throwable thrwbl) {
-        super(MSG, thrwbl);
+        super(string, thrwbl);
     }
 
+    /**
+     * Sends the throwable to the super to print out the error.
+     * @param thrwbl Throwable to be passed.
+     */
     public NullOrEmptyArgumentException(Throwable thrwbl) {
         super(MSG, thrwbl);
     }

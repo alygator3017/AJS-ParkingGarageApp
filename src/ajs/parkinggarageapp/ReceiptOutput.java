@@ -3,7 +3,7 @@ package ajs.parkinggarageapp;
 import java.text.NumberFormat;
 
 /**
- * Class puts together the data to be output. 
+ * Class puts together the data to be output for the cars receipt. 
  * 
  * @author ajSchmidt-Zimmel
  * @version 1.2

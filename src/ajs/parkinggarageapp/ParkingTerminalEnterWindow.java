@@ -24,14 +24,14 @@ public class ParkingTerminalEnterWindow extends javax.swing.JFrame {
     /**
      * Creates new form EnterParkingTerminalForm
      *
-     * @param garage
-     * @param garageName
-     * @param terminal
+     * @param garage The garageFrame.
+     * @param garageName Name of the garage.
+     * @param terminal 
      * @param receiptOutput
      * @param salesOutput
-     * @param fee
-     * @param file
-     * @param carCatalog
+     * @param fee The feeCalculatorStrategy.
+     * @param file File being used.
+     * @param carCatalog CarCatalog class.
      */
     public ParkingTerminalEnterWindow(JFrame garage, String garageName, ParkingTerminal terminal, OutputService receiptOutput, OutputService salesOutput, FeeCalculator fee, File file, CarCatalog carCatalog) {
         this.garageWindow = garage;
